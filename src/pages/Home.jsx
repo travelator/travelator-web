@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import CitySearchBar from "../components/CitySearchBar"
 
 function Home() {
 
@@ -8,8 +9,9 @@ function Home() {
           <h1>Welcome to Travelator</h1>
           <div className="main">
             <p>
-              Search for a location
+              Where do you want to go?
             </p>
+            <CitySearchBar />
           </div>
           <Link to="rate">Start</Link>
         </div>
