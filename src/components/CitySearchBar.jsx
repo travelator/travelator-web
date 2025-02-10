@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import cities from "../assets/cities"
+import cities from "../assets/cities";
 
-export default function CitySearchBar() {
+export default function CitySearchBar({ selectedCity, setSelectedCity }) {
   return (
     <Autocomplete
       id="city-search-bar"
@@ -11,10 +12,13 @@ export default function CitySearchBar() {
       options={cities}
       autoHighlight
       getOptionLabel={(option) => `${option.city} (${option.country})`}
+      value={selectedCity}
+      onChange={(event, newValue) => {
+        setSelectedCity(newValue);
+      }}
       renderOption={(props, option) => {
         const { key, ...optionProps } = props;
         return (
-          //drop down box features
           <Box
             key={key}
             component="li"
@@ -32,7 +36,6 @@ export default function CitySearchBar() {
           </Box>
         );
       }}
-      //input box features
       renderInput={(params) => (
         <TextField
           {...params}
@@ -48,3 +51,8 @@ export default function CitySearchBar() {
     />
   );
 }
+
+CitySearchBar.propTypes = {
+  selectedCity: PropTypes.object,
+  setSelectedCity: PropTypes.func.isRequired,
+};

@@ -1,0 +1,60 @@
+.rate-card {
+    position: relative;
+    width: 300px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-width: 300px;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.rate-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.rate-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.rate-card-content {
+    padding: 16px;
+    text-align: center;
+}
+
+.rate-card-title {
+    font-size: 24px;
+    margin: 8px 0;
+    color: #333;
+}
+
+.rate-card-description {
+    font-size: 16px;
+    color: #666;
+    flex-grow: 2;
+}
+
+.rate-card-icons {
+    display: flex;
+    justify-content: space-around;
+    padding: 16px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #eee;
+}
+
+.rate-card-icons * {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+    .rate-card-icons {
+        justify-content: space-between;
+    }    
+}

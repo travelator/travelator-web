@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
+
+.navbar {
+    padding: 24px 20px;
+  }
+
+.navbar .content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+  .navbar-title {
+    font-size: 18px;
+  }
+  
+  .navbar-signup {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .navbar-signup:hover {
+    text-decoration: underline;
+  }

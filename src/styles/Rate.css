@@ -1,0 +1,12 @@
+.activity-cards {
+    display: flex;
+    gap: 24px;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.bottom-buttons {
+    margin-top: 32px;
+    display: flex;
+    justify-content: flex-end;
+}
