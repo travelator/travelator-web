@@ -23,8 +23,8 @@ const router = createBrowserRouter([
         element: <Itinerary />,
       },
       {
-        path: "test",
-        element: <FetchRateInfoTest />,
+        path: "test", //delete
+        element: <FetchRateInfoTest />, //delete
       }
     ],
   },

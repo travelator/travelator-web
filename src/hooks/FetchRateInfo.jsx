@@ -17,7 +17,7 @@ useEffect(() => {
         }
         return response.json();
         })
-        .then((response) => setActivities(response[0]))
+        .then((response) => setActivities(response))
         .catch((error) => setError(error))
         .finally(() => setLoading(false));
     }, []);
