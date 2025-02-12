@@ -1,4 +1,4 @@
-const activities = [
+const localActivities = [
     {
       "title": "Visit the British Museum",
       "description": "Explore a vast collection of art and antiquities from around the world at the British Museum, one of London's most iconic cultural institutions.",
@@ -31,4 +31,4 @@ const activities = [
     }
   ]
 
-export default activities
+export default localActivities
