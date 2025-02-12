@@ -1,41 +1,41 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  --theme-white: #f1f3f9;
-  --theme-lightblue: #3d90e3;
-  --theme-darkblue: #174e87;
+    --theme-white: #f1f3f9;
+    --theme-lightblue: #3d90e3;
+    --theme-darkblue: #174e87;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: content-box;
 }
 
 .content-wrapper {
-  max-width: 1500px;
-  margin-inline: auto;
-  padding-inline: 24px;
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 24px;
 }
 
 @media screen and (max-width: 900px) {
-  .content-wrapper {
-    padding-inline: 12px;
-  }
+    .content-wrapper {
+        padding-inline: 12px;
+    }
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }

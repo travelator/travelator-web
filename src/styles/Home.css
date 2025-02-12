@@ -1,38 +1,38 @@
 .company-header {
-font-size: 48px;
-color: #333;
-font-family: 'Montserrat', sans-serif;
-margin-bottom: 10px;
+    font-size: 48px;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 10px;
 }
 
 .subheader {
-font-size: 24px;
-color: #666;
-margin-bottom: 30px;
+    font-size: 24px;
+    color: #666;
+    margin-bottom: 30px;
 }
 
 .main {
-font-size: 18px;
-color: #333;
-margin-bottom: 20px;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 .main p {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .home-content a {
-display: inline-block;
-padding: 10px 20px;
-background-color: #f0a500;
-color: #1a1a1a;
-text-decoration: none;
-border-radius: 4px;
-transition: background-color 0.3s ease;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f0a500;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 .home-content a:hover {
-background-color: #d18b00;
+    background-color: #d18b00;
 }
 
 .home-content form {
@@ -45,15 +45,15 @@ background-color: #d18b00;
 }
 
 .home-content {
-padding: 96px 16px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+    padding: 96px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 900px) {
-.home-content {
-    padding-top: 36px;
-}
+    .home-content {
+        padding-top: 36px;
+    }
 }
