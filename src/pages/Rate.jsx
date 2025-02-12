@@ -4,11 +4,12 @@ import RateCard from "../components/RateCard/RateCard"
 import "../styles/Rate.css"
 import { useRef, useState, useEffect } from "react"
 import { Button } from "@mui/material"
+import localActivities from "../assets/activities" //local data
 
 function Rate() {
 
   const { city } = useParams();
-
+  const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === "true";
 
   const { activities, error, loading } = useUserRateInfo();
   const containerRef = useRef(null);
@@ -16,11 +17,17 @@ function Rate() {
   const [visibleActivities, setVisibleActivities] = useState([]);  
   
   useEffect(() => { // Updates the state after data is fetched
-    if (activities) {
-      setRemainingActivities(activities);
-      setVisibleActivities(activities); 
+    if(useLocalData){
+      setRemainingActivities(localActivities);
+      setVisibleActivities(localActivities);
+    } else {
+      if (activities) {
+        setRemainingActivities(activities);
+        setVisibleActivities(activities); 
+      }
     }
-  }, [activities]);
+  }, [activities, useLocalData]); // Re-run whenever `useLocalData` or `activities` change
+
 
 
   useEffect(() => {
@@ -48,16 +55,19 @@ function Rate() {
     return () => window.removeEventListener("resize", hideOverflowingCards);
   }, [remainingActivities])  
   
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>A network error was encountered</p>;
-  }
-
-  if (!activities) {
-    return <p>No data available</p>;
+  if (!useLocalData) {
+    // Handling loading, error, and data checks if using API.
+    if (loading) {
+      return <p>Loading...</p>;
+    }
+  
+    if (error) {
+      return <p>A network error was encountered</p>;
+    }
+  
+    if (!activities) {
+      return <p>No data available</p>;
+    }
   }
 
     return (
