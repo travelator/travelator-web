@@ -9,7 +9,7 @@ const useUserRateInfo = () => {
 useEffect(() => {
     console.log("Fetching data...")
 
-    fetch("http://127.0.0.1:5000/api/rate-info"
+    fetch(import.meta.env.VITE_APP_FETCH_API_URL
         , { mode: "cors" }) //update the api address
         .then((response) => {
         if (response.status >= 400) {
