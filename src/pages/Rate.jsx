@@ -9,9 +9,7 @@ import localActivities from "../assets/activities" //local data
 function Rate() {
 
   const { city } = useParams();
-
-  const [useLocalData, setUseLocalData] = useState(import.meta.env.VITE_USE_LOCAL_DATA === "true");
-
+  const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === "true";
 
   const { activities, error, loading } = useUserRateInfo();
   const containerRef = useRef(null);
@@ -28,7 +26,7 @@ function Rate() {
         setVisibleActivities(activities); 
       }
     }
-  }, [activities, localActivities]); // Re-run whenever `useLocalData` or `activities` change
+  }, [activities, useLocalData]); // Re-run whenever `useLocalData` or `activities` change
 
 
 
