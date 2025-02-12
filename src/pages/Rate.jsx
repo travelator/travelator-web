@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom"
-import activities from "../assets/activities"
+import useUserRateInfo from "../hooks/FetchRateInfo";
 import RateCard from "../components/RateCard/RateCard"
 import "../styles/Rate.css"
 import { useRef, useState, useEffect } from "react"
@@ -9,9 +9,19 @@ function Rate() {
 
   const { city } = useParams();
 
+
+  const { activities, error, loading } = useUserRateInfo();
   const containerRef = useRef(null);
-  const [remainingActivities, setRemainingActivities] = useState(activities);
-  const [visibleActivities, setVisibleActivities] = useState(activities);
+  const [remainingActivities, setRemainingActivities] = useState([]);
+  const [visibleActivities, setVisibleActivities] = useState([]);  
+  
+  useEffect(() => { // Updates the state after data is fetched
+    if (activities) {
+      setRemainingActivities(activities);
+      setVisibleActivities(activities); 
+    }
+  }, [activities]);
+
 
   useEffect(() => {
     const hideOverflowingCards = () => {
@@ -36,7 +46,19 @@ function Rate() {
     window.addEventListener("resize", hideOverflowingCards);
 
     return () => window.removeEventListener("resize", hideOverflowingCards);
-  }, [remainingActivities])
+  }, [remainingActivities])  
+  
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>A network error was encountered</p>;
+  }
+
+  if (!activities) {
+    return <p>No data available</p>;
+  }
 
     return (
       <>
@@ -47,14 +69,18 @@ function Rate() {
               Rate the activities while you wait to update your preferences
             </p>
             <div className="activity-cards" ref={containerRef}>
-              {visibleActivities.map(a => (
+              {Array.isArray(visibleActivities) && visibleActivities.length > 0 ? ( //if the data can't be transformed into an array
+                visibleActivities.map(a => (
                   <RateCard
                     title={a.title}
                     description={a.description}
                     url={a.image_link}
                     key={a.id}
                   />
-                ))}
+                ))
+              ) : (
+                <p>No data available</p>
+              )}
             </div>
           </div>
           <div className="bottom-buttons">
