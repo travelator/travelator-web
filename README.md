@@ -5,5 +5,4 @@ Voya is a web application that provides an "AI travel agent" able to provide cus
 To run Voya locally, start the development container:
 `docker compose up`
 
-This will run a local container with hot reloading with all npm packages
-
+This will run a local container with hot reloading with all npm packages installed.

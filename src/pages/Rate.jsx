@@ -18,6 +18,7 @@ function Rate() {
     useEffect(() => {
         // Updates the state after data is fetched
         if (useLocalData) {
+            console.log("HERE!!!");
             setRemainingActivities(localActivities);
             setVisibleActivities(localActivities);
         } else {
