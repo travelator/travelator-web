@@ -1,6 +1,8 @@
 services:
-  main:
-    build: .
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     network_mode: host
     volumes:
       - .:/app  # Mount the current directory into the container
