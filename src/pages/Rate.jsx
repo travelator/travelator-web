@@ -8,6 +8,8 @@ import localActivities from '../assets/activities'; //local data
 
 function Rate() {
     const { city } = useParams();
+    const useL = import.meta.env.VITE_USE_LOCAL_DATA;
+    console.log(useL);
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
     const { activities, error, loading } = useUserRateInfo();
