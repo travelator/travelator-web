@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { RouterProvider } from 'react-router-dom';  
+import { RouterProvider, createMemoryRouter } from 'react-router-dom';  
 import router from '../routes'; 
 import Home from '../pages/Home';
 import Rate from '../pages/Rate';
@@ -49,13 +49,15 @@ describe('Routes Tests', () => {
   });
   
   it('should handle 404 for unknown routes', () => {
+    const testRouter = createMemoryRouter(router.routes, {
+      initialEntries: ['/this-route-does-not-exist'],
+    });
+
     render(
-      <MemoryRouter initialEntries={['/some-random-route']}>
-        <RouterProvider router={router} /> 
-      </MemoryRouter>
+      <RouterProvider router={testRouter} />
     );
-    // Check for your 404 page content
-    expect(screen.getByText(/page not found/i)).toBeInTheDocument();
+    
+    expect(screen.getByText(/Page Not Found/i)).toBeInTheDocument();
   });
   
 });
