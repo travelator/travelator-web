@@ -7,6 +7,7 @@ import Home from '../pages/Home';
 import Rate from '../pages/Rate';
 import Itinerary from '../pages/Itinerary';
 
+
 describe('Routes Tests', () => {
   it('should render home page at /', () => {
     render(
@@ -46,7 +47,7 @@ describe('Routes Tests', () => {
     expect(screen.getByText(/See your itinerary/i)).toBeInTheDocument();
     expect(screen.getByText(/See itinerary results here./i)).toBeInTheDocument();
   });
-  /*
+  
   it('should handle 404 for unknown routes', () => {
     render(
       <MemoryRouter initialEntries={['/some-random-route']}>
@@ -56,5 +57,5 @@ describe('Routes Tests', () => {
     // Check for your 404 page content
     expect(screen.getByText(/page not found/i)).toBeInTheDocument();
   });
-  */
+  
 });
