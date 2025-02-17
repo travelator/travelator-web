@@ -23,7 +23,7 @@ function Home() {
                     <p className="subheader">Your personal itinerary planner</p>
                     <form onSubmit={handleSubmit}>
                         <div className="main">
-                            <p>Where do you want to go? This is a test.</p>
+                            <p>Where do you want to go?</p>
                             <CitySearchBar
                                 selectedCity={selectedOption}
                                 setSelectedCity={setSelectedOption}
