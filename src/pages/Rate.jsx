@@ -77,7 +77,7 @@ function Rate() {
                         Rate the activities while you wait to update your
                         preferences
                     </p>
-                    <div className="activity-cards" ref={containerRef}>
+                    <div className="activity-cards" ref={containerRef} data-testid="activity-cards-container">
                         {Array.isArray(visibleActivities) &&
                         visibleActivities.length > 0 ? ( //if the data can't be transformed into an array
                             visibleActivities.map((a) => (

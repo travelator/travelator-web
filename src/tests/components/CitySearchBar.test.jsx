@@ -12,11 +12,7 @@ describe('CitySearchBar', () => {
 
   it('should call setSelectedCity when a city is selected', () => {
     const mockSetSelectedCity = vi.fn();
-    const cities = [
-      { city: 'London', country: 'United Kingdom', code: 'GB' },
-      { city: 'Paris', country: 'France', code: 'fr' },
-    ];
-
+    
     render(
       <CitySearchBar
         selectedCity={null}

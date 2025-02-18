@@ -20,12 +20,12 @@ describe('useUserRateInfo Hook', () => {
 
   beforeEach(() => {
     // Mock the fetch before each test
-    global.fetch = vi.fn(() =>
+    vi.stubGlobal('fetch', vi.fn(() =>
       Promise.resolve({
         status: 200,
         json: () => Promise.resolve(mockActivities)
       })
-    );
+    ));
   });
 
   afterEach(() => {
@@ -44,21 +44,20 @@ describe('useUserRateInfo Hook', () => {
   });
 
   it('should handle server errors', async () => {
-    global.fetch = vi.fn(() =>
+    vi.stubGlobal('fetch', vi.fn(() =>
       Promise.resolve({
         status: 500,
         json: () => Promise.resolve({ error: 'Server error' })
       })
-    );
+    ));
 
     const { result } = renderHook(() => useUserRateInfo());
     
     await waitFor(() => {
       expect(result.current.error).toBeDefined();
+      expect(result.current.loading).toBe(false);
+      expect(result.current.activities).toBeNull();
     });
-    
-    expect(result.current.activities).toBeNull();
-    expect(result.current.loading).toBe(false);
   });
 
   it('should show loading state initially', () => {
@@ -70,10 +69,10 @@ describe('useUserRateInfo Hook', () => {
   });
 
   it('should use the correct API URL', async () => {
-    const { result } = renderHook(() => useUserRateInfo());
+    renderHook(() => useUserRateInfo());
     
     await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
+      expect(fetch).toHaveBeenCalledWith(
         import.meta.env.VITE_APP_FETCH_API_URL,
         expect.objectContaining({
           mode: 'cors'
