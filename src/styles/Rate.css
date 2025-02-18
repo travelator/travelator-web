@@ -1,3 +1,7 @@
+.activity-main {
+    margin-top: 32px;
+}
+
 .activity-cards {
     display: flex;
     gap: 24px;

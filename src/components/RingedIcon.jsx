@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const RingedIcon = ({ Icon, color }) => {
+const RingedIcon = ({ Icon, color, onClick }) => {
     return (
         <Box
             data-testid="ringed-icon"
@@ -15,6 +15,7 @@ const RingedIcon = ({ Icon, color }) => {
                 border: `2px solid ${color}`, // Ring color
                 color: color, // Icon color
             }}
+            onClick={onClick}
         >
             <Icon fontSize="large" />
         </Box>
@@ -24,6 +25,7 @@ const RingedIcon = ({ Icon, color }) => {
 RingedIcon.propTypes = {
     Icon: PropTypes.elementType.isRequired,
     color: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
 };
 
 export default RingedIcon;
