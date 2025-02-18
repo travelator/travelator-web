@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const RingedIcon = ({ Icon, color, onClick }) => {
     return (
         <Box
+            data-testid="ringed-icon"
             sx={{
                 display: 'flex',
                 alignItems: 'center',

@@ -95,7 +95,9 @@ function Rate() {
             <div className="content-wrapper">
                 <h1>{`Rate activities in ${city}`}</h1>
                 <div className="activity-main">
-                    <div className="activity-cards" ref={containerRef}>
+                    <div className="activity-cards" 
+                         ref={containerRef} 
+                         data-testid="activity-cards-container">
                         {Array.isArray(visibleActivities) &&
                         visibleActivities.length > 0 ? ( //if the data can't be transformed into an array
                             visibleActivities.map((a) => (
