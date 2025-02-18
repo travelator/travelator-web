@@ -46,7 +46,7 @@ const localActivities = [
         image_link:
             'https://images.ctfassets.net/6pezt69ih962/5emZ299oIHRkgEgovv4sqd/74b5f91b5ceaa2893a582a005a5bbe72/004-Andy-Paradise-min.jpg',
         id: 5,
-        theme: "Entertainment",
+        theme: 'Entertainment',
         price: 80,
     },
 ];

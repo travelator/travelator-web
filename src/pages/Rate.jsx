@@ -19,8 +19,8 @@ function Rate() {
     // handle going to next action if all swipes are complete
     const onNext = () => {
         // TODO: send preferences to server
-        navigate('/itinerary') 
-    }
+        navigate('/itinerary');
+    };
 
     if (visibleActivities.length > 0 && remainingActivities.length == 0) {
         onNext();
@@ -84,9 +84,11 @@ function Rate() {
 
     // create like and dislike handlers for rate card
     const onCardClick = (title, isLike) => {
-        setPreferences([...preferences, {title: title, liked: isLike}]);
-        setRemainingActivities(remainingActivities.filter(a => a.title != title));
-    }
+        setPreferences([...preferences, { title: title, liked: isLike }]);
+        setRemainingActivities(
+            remainingActivities.filter((a) => a.title != title)
+        );
+    };
 
     return (
         <>

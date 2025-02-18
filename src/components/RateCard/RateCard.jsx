@@ -4,11 +4,10 @@ import RingedIcon from '../RingedIcon';
 import './RateCard.css';
 
 function RateCard({ title, description, price, theme, url, onCardClick }) {
-
     const onLike = () => onCardClick(title, true);
     const onDislike = () => onCardClick(title, false);
 
-    const priceTag = price > 0 ? `£${price}` : "FREE";
+    const priceTag = price > 0 ? `£${price}` : 'FREE';
 
     return (
         <div className="rate-card">
@@ -23,7 +22,7 @@ function RateCard({ title, description, price, theme, url, onCardClick }) {
             </div>
             <div className="rate-card-icons">
                 <RingedIcon Icon={Close} color="red" onClick={onDislike} />
-                <RingedIcon Icon={Favorite} color="green" onClick={onLike}/>
+                <RingedIcon Icon={Favorite} color="green" onClick={onLike} />
             </div>
         </div>
     );
