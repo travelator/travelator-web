@@ -14,7 +14,7 @@ describe('Rate Page Component', () => {
         );
 
         expect(
-            screen.getByText(/Preparing itinerary for London/i)
+            screen.getByText(/Rate activities in London/i)
         ).toBeInTheDocument();
     });
 

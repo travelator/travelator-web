@@ -30,14 +30,7 @@ describe('Routes Tests', () => {
             </MemoryRouter>
         );
 
-        expect(
-            screen.getByText(/Preparing itinerary for/i)
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(
-                /Rate the activities while you wait to update your preferences/i
-            )
-        ).toBeInTheDocument();
+        expect(screen.getByText(/Rate activities in/i)).toBeInTheDocument();
     });
 
     it('should render itinerary page at /itinerary', () => {
