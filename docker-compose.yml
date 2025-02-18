@@ -1,12 +1,12 @@
 services:
-  web:
-    build: .
-    network_mode: host
-    volumes:
-      - .:/app  # Mount the current directory into the container
-    ports:
-      - "8080:8080"  # Expose port
-    environment:
-      - CHOKIDAR_USEPOLLING=true  # Enable polling for file system changes inside Docker
-      - VITE_USE_LOCAL_DATA=true
-      - VITE_APP_FETCH_API_URL=http://127.0.0.1:5000/api/rate-info
+    web:
+        build: .
+        network_mode: host
+        volumes:
+            - .:/app # Mount the current directory into the container
+        ports:
+            - '8080:8080' # Expose port
+        environment:
+            - CHOKIDAR_USEPOLLING=true # Enable polling for file system changes inside Docker
+            - VITE_USE_LOCAL_DATA=true
+            - VITE_APP_FETCH_API_URL=http://127.0.0.1:5000/api/rate-info

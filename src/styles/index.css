@@ -22,7 +22,7 @@
 .content-wrapper {
     max-width: 1500px;
     margin-inline: auto;
-    padding-inline: 24px;
+    padding-inline: 36px;
 }
 
 @media screen and (max-width: 900px) {

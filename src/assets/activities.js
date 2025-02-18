@@ -5,6 +5,8 @@ const localActivities = [
             "Explore a vast collection of art and antiquities from around the world at the British Museum, one of London's most iconic cultural institutions.",
         image_link:
             'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/London-Eye-2009.JPG/800px-London-Eye-2009.JPG',
+        price: 0,
+        theme: 'Culture',
         id: 1,
     },
     {
@@ -13,6 +15,8 @@ const localActivities = [
             "Experience panoramic views of London's skyline from the London Eye, a giant Ferris wheel situated on the South Bank of the River Thames.",
         image_link:
             'https://www.visitlondon.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/british-museum/british-museum-2023-images/british-museum-in-london.jpg?h=360&w=640&rev=9705af40409148acb39ad44319df9111&hash=33A9991BE2DE2CAF1B052471CD5ACEBE',
+        price: 60,
+        theme: 'Culture',
         id: 2,
     },
     {
@@ -21,6 +25,8 @@ const localActivities = [
             "Enjoy a leisurely stroll, picnic, or boating in Hyde Park, one of London's largest and most famous green spaces.",
         image_link:
             'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Hyde_Park_London_from_the_air.jpg/640px-Hyde_Park_London_from_the_air.jpg',
+        price: 0,
+        theme: 'Relaxation',
         id: 3,
     },
     {
@@ -30,6 +36,8 @@ const localActivities = [
         image_link:
             'https://www.cuddlynest.com/blog/wp-content/uploads/2022/12/visiting-the-tower-of-london-scaled.jpg',
         id: 4,
+        theme: 'Culture',
+        price: 30,
     },
     {
         title: 'See a West End Theatre Show',
@@ -38,6 +46,8 @@ const localActivities = [
         image_link:
             'https://images.ctfassets.net/6pezt69ih962/5emZ299oIHRkgEgovv4sqd/74b5f91b5ceaa2893a582a005a5bbe72/004-Andy-Paradise-min.jpg',
         id: 5,
+        theme: 'Entertainment',
+        price: 80,
     },
 ];
 
