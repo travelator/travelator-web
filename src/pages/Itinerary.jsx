@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 
 function App() {
+    //const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
+
+    //const { activities, error, loading } = useUserRateInfo('/itinerary');
     return (
         <>
             <div className="content-wrapper">

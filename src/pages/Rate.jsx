@@ -10,7 +10,7 @@ function Rate() {
     const navigate = useNavigate();
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
-    const { activities, error, loading } = useUserRateInfo();
+    const { activities, error, loading } = useUserRateInfo('rate-info');
     const containerRef = useRef(null);
     const [remainingActivities, setRemainingActivities] = useState([]);
     const [visibleActivities, setVisibleActivities] = useState([]);
