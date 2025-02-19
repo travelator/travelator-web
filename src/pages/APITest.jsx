@@ -1,7 +1,7 @@
-import useGetRequest from '../hooks/FetchApi'; // Path to your custom hook
+import useApi from '../hooks/FetchApi'; // Path to your custom hook
 
 const FetchRateInfoTest = () => {
-    const { activities, error, loading } = useGetRequest();
+    const { activities, error, loading } = useApi();
 
     if (loading) {
         return <p>Loading...</p>;

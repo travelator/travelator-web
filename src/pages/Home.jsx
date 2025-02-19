@@ -3,16 +3,31 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import CitySearchBar from '../components/CitySearchBar';
 import '../styles/Home.css';
+import useApi from '../hooks/FetchApi';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
     const navigate = useNavigate();
 
+    const { error, loading, postData } = useApi('home-data', false);
+
     const selectedCity = selectedOption ? selectedOption.city : null;
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate(`/rate/${selectedCity}`);
+
+        const homePageData = {
+            city: selectedCity,
+            timeOfDay: 'morning',
+            group: 'family',
+        };
+        try {
+            const response = await postData(homePageData);
+            console.log('POST success:', response);
+            navigate(`/rate/${selectedCity}`);
+        } catch (error) {
+            console.error('POST failed:', error);
+        }
     };
 
     return (
@@ -21,6 +36,12 @@ function Home() {
                 <div className="home-content">
                     <h1 className="company-header">Voya</h1>
                     <p className="subheader">Your personal itinerary planner</p>
+
+                    {loading && <p>Loading...</p>}
+                    {error && (
+                        <p style={{ color: 'red' }}>Error: {error.message}</p>
+                    )}
+
                     <form onSubmit={handleSubmit}>
                         <div className="main">
                             <p>Where do you want to go?</p>

@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import useGetRequest from '../hooks/FetchApi';
+import useApi from '../hooks/FetchApi';
 
 function App() {
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
-    const { activities, error, loading } = useGetRequest('itinerary');
+    const { activities, error, loading } = useApi('itinerary', true);
 
     if (!useLocalData) {
         // Handling loading, error, and data checks if using API.
