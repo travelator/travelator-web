@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import useUserRateInfo from '../hooks/FetchRateInfo';
+import useGetRequest from '../hooks/FetchApi';
 import RateCard from '../components/RateCard/RateCard';
 import '../styles/Rate.css';
 import { useRef, useState, useEffect } from 'react';
@@ -10,7 +10,7 @@ function Rate() {
     const navigate = useNavigate();
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
-    const { activities, error, loading } = useUserRateInfo('rate-info');
+    const { activities, error, loading } = useGetRequest('rate-info');
     const containerRef = useRef(null);
     const [remainingActivities, setRemainingActivities] = useState([]);
     const [visibleActivities, setVisibleActivities] = useState([]);

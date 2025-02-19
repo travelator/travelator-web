@@ -1,7 +1,7 @@
 // receiving all information in one api call
 import { useState, useEffect } from 'react';
 
-const useUserRateInfo = (apiRoute) => {
+const useGetRequest = (apiRoute) => {
     const [activities, setActivities] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -31,4 +31,4 @@ const useUserRateInfo = (apiRoute) => {
     return { activities, error, loading };
 };
 
-export default useUserRateInfo;
+export default useGetRequest;
