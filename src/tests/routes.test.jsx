@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import router from '../routes';
@@ -21,7 +21,7 @@ describe('Routes Tests', () => {
         expect(screen.getByText(/Voya/i)).toBeInTheDocument();
     });
 
-    it('should render rate page at /rate', () => {
+    it('should render rate page at /rate', async () => {
         render(
             <MemoryRouter initialEntries={['/rate']}>
                 <Routes>
@@ -30,10 +30,12 @@ describe('Routes Tests', () => {
             </MemoryRouter>
         );
 
+        await waitFor(() => screen.getByText(/Rate activities in/i));
+
         expect(screen.getByText(/Rate activities in/i)).toBeInTheDocument();
     });
 
-    it('should render itinerary page at /itinerary', () => {
+    it('should render itinerary page at /itinerary', async () => {
         render(
             <MemoryRouter initialEntries={['/itinerary']}>
                 <Routes>
@@ -41,6 +43,8 @@ describe('Routes Tests', () => {
                 </Routes>
             </MemoryRouter>
         );
+
+        await waitFor(() => screen.getByText(/See your itinerary/i));
 
         expect(screen.getByText(/See your itinerary/i)).toBeInTheDocument();
         expect(
