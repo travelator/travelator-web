@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import useApi from '../hooks/FetchApi';
 import RateCard from '../components/RateCard/RateCard';
 import '../styles/Rate.css';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import localActivities from '../assets/activities'; //local data
 
 function Rate() {
@@ -10,21 +10,36 @@ function Rate() {
     const navigate = useNavigate();
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
+    //GET request
     const { activities, error, loading } = useApi('rate-info', true);
+    //POST request //TODO: implement error and post loading into HTML.
+    const {
+        postData,
+        error: postError,
+        loading: postLoading,
+    } = useApi('rate-info/preferences', false);
+
     const containerRef = useRef(null);
     const [remainingActivities, setRemainingActivities] = useState([]);
     const [visibleActivities, setVisibleActivities] = useState([]);
     const [preferences, setPreferences] = useState([]);
 
     // handle going to next action if all swipes are complete
-    const onNext = () => {
-        // TODO: send preferences to server
+    const onNext = useCallback(async () => {
+        try {
+            const response = await postData(preferences);
+            console.log('POST success:', response);
+        } catch (error) {
+            console.error('POST failed:', postError || error);
+        }
         navigate(`/itinerary/${city}`);
-    };
+    }, [postData, preferences, navigate, postError]);
 
-    if (visibleActivities.length > 0 && remainingActivities.length == 0) {
-        onNext();
-    }
+    useEffect(() => {
+        if (visibleActivities.length > 0 && remainingActivities.length === 0) {
+            onNext();
+        }
+    }, [visibleActivities, remainingActivities, onNext]);
 
     // fetch activity data
     useEffect(() => {
@@ -66,9 +81,8 @@ function Rate() {
         return () => window.removeEventListener('resize', hideOverflowingCards);
     }, [remainingActivities]);
 
-    // handle loading screen
+    // handle loading screen for GET request
     if (!useLocalData) {
-        // Handling loading, error, and data checks if using API.
         if (loading) {
             return <p>Loading...</p>;
         }
@@ -80,6 +94,15 @@ function Rate() {
         if (!activities) {
             return <p>No data available</p>;
         }
+    }
+
+    // handle loading state for POST request
+    if (postLoading) {
+        return <p>Saving preferences...</p>;
+    }
+
+    if (postError) {
+        return <p style={{ color: 'red' }}>Error: {postError.message}</p>;
     }
 
     // create like and dislike handlers for rate card
@@ -95,6 +118,10 @@ function Rate() {
             <div className="content-wrapper">
                 <h1>{`Rate activities in ${city}`}</h1>
                 <div className="activity-main">
+                    {loading && <p>Loading...</p>}
+                    {error && (
+                        <p style={{ color: 'red' }}>Error: {error.message}</p>
+                    )}
                     <div
                         className="activity-cards"
                         ref={containerRef}

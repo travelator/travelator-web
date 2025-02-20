@@ -6,13 +6,11 @@ describe('placeholder', () => {
     });
 });
 
-/*
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+/*import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import useUserRateInfo from '../../hooks/FetchApi'
+import useApi from '../../hooks/FetchApi';
 
-
-describe('useUserRateInfo Hook', () => {
+describe('useApi Hook', () => {
     const mockActivities = [
         {
             title: 'Visit the British Museum',
@@ -46,7 +44,7 @@ describe('useUserRateInfo Hook', () => {
     });
 
     it('should fetch activities successfully', async () => {
-        const { result } = renderHook(() => useUserRateInfo());
+        const { result } = renderHook(() => useApi('activities'));
 
         await waitFor(() => {
             expect(result.current.activities).toEqual(mockActivities);
@@ -67,7 +65,7 @@ describe('useUserRateInfo Hook', () => {
             )
         );
 
-        const { result } = renderHook(() => useUserRateInfo());
+        const { result } = renderHook(() => useApi('activities'));
 
         await waitFor(() => {
             expect(result.current.error).toBeDefined();
@@ -77,7 +75,7 @@ describe('useUserRateInfo Hook', () => {
     });
 
     it('should show loading state initially', () => {
-        const { result } = renderHook(() => useUserRateInfo());
+        const { result } = renderHook(() => useApi('activities'));
 
         expect(result.current.loading).toBe(true);
         expect(result.current.activities).toBeNull();
@@ -85,15 +83,60 @@ describe('useUserRateInfo Hook', () => {
     });
 
     it('should use the correct API URL', async () => {
-        renderHook(() => useUserRateInfo());
+        renderHook(() => useApi('activities'));
 
         await waitFor(() => {
             expect(fetch).toHaveBeenCalledWith(
-                import.meta.env.VITE_APP_FETCH_API_URL,
+`${import.meta.env.VITE_APP_FETCH_GENERAL_API_URL}activities`,
                 expect.objectContaining({
                     mode: 'cors',
                 })
             );
         });
     });
-});*/
+
+    it('should post data successfully', async () => {
+        const mockPostData = { success: true };
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(() =>
+                Promise.resolve({
+                    status: 200,
+                    json: () => Promise.resolve(mockPostData),
+                })
+            )
+        );
+
+        const { result } = renderHook(() => useApi('activities', false));
+
+        const postData = result.current.postData;
+        const response = await postData({ city: 'London' });
+
+        expect(response).toEqual(mockPostData);
+        expect(result.current.activities).toEqual(mockPostData);
+        expect(result.current.error).toBeNull();
+        expect(result.current.loading).toBe(false);
+    });
+
+    it('should handle errors when posting data', async () => {
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(() =>
+                Promise.resolve({
+                    status: 500,
+                    json: () => Promise.resolve({ error: 'Server error' }),
+                })
+            )
+        );
+
+        const { result } = renderHook(() => useApi('activities', false));
+
+        const postData = result.current.postData;
+        await expect(postData({ city: 'London' })).rejects.toThrow('HTTP error! Status: 500');
+
+        expect(result.current.error).toBeDefined();
+        expect(result.current.loading).toBe(false);
+        expect(result.current.activities).toBeNull();
+    });
+});
+*/
