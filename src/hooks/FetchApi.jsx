@@ -46,11 +46,11 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const responseData = await response.json();
-            console.log("Response Data:", responseData);
+            console.log('Response Data:', responseData);
             setActivities(responseData);
             return responseData;
         } catch (error) {
-            console.error("POST request error:", error);
+            console.error('POST request error:', error);
             setError(error);
             throw error;
         } finally {
