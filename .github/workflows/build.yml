@@ -30,8 +30,8 @@ jobs:
         name: Run vitest
         runs-on: ubuntu-latest
         env:
-          VITE_USE_LOCAL_DATA: "true"
-          VITE_APP_FETCH_API_URL: "http://127.0.0.1:5000/api/rate-info"
+            VITE_USE_LOCAL_DATA: 'true'
+            VITE_APP_FETCH_API_URL: 'http://127.0.0.1:5000/api/rate-info'
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -41,10 +41,6 @@ jobs:
                   node-version: 22
             - name: Install dependencies
               run: npm install
-            - name: Debug file structure
-              run: |
-                ls -R src/
-                cat src/hooks/FetchRateInfo.jsx
             - name: Run vitest
               run: npm run test
 

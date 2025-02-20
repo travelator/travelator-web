@@ -19,7 +19,10 @@ describe('RateCard Component Tests', () => {
         expect(screen.getByText(mockProps.description)).toBeInTheDocument();
         expect(screen.getByText(`£${mockProps.price}`)).toBeInTheDocument();
         expect(screen.getByText(mockProps.theme)).toBeInTheDocument();
-        expect(screen.getByAltText(mockProps.title)).toHaveAttribute('src', mockProps.url);
+        expect(screen.getByAltText(mockProps.title)).toHaveAttribute(
+            'src',
+            mockProps.url
+        );
     });
 
     it('should render like and dislike icons', () => {
@@ -38,7 +41,10 @@ describe('RateCard Component Tests', () => {
         const likeIcon = screen.getByTestId('FavoriteIcon');
         fireEvent.click(likeIcon);
 
-        expect(mockProps.onCardClick).toHaveBeenCalledWith(mockProps.title, true);
+        expect(mockProps.onCardClick).toHaveBeenCalledWith(
+            mockProps.title,
+            true
+        );
     });
 
     it('should call onCardClick with false when dislike icon is clicked', () => {
@@ -47,6 +53,9 @@ describe('RateCard Component Tests', () => {
         const dislikeIcon = screen.getByTestId('CloseIcon');
         fireEvent.click(dislikeIcon);
 
-        expect(mockProps.onCardClick).toHaveBeenCalledWith(mockProps.title, false);
+        expect(mockProps.onCardClick).toHaveBeenCalledWith(
+            mockProps.title,
+            false
+        );
     });
 });
