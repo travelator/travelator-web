@@ -10,21 +10,32 @@ function Rate() {
     const navigate = useNavigate();
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
-    const { activities, error, loading } = useApi('rate-info', true);
+    //GET request
+    const { activities, error, loading, } = useApi('rate-info', true);
+    //POST request //TODO: implement error and post loading into HTML.
+    const { postData, error: postError, loading: postLoading } = useApi('rate-info/preferences', false);
+
     const containerRef = useRef(null);
     const [remainingActivities, setRemainingActivities] = useState([]);
     const [visibleActivities, setVisibleActivities] = useState([]);
     const [preferences, setPreferences] = useState([]);
 
     // handle going to next action if all swipes are complete
-    const onNext = () => {
-        // TODO: send preferences to server
-        navigate('/itinerary');
+    const onNext = async () => {
+        try {
+            await postData(preferences);
+            console.log('POST success:', response);
+            navigate('/itinerary');
+        } catch (error) {
+            console.error('POST failed:', postError);
+        }
     };
 
-    if (visibleActivities.length > 0 && remainingActivities.length == 0) {
-        onNext();
-    }
+    useEffect(() => {
+        if (visibleActivities.length > 0 && remainingActivities.length === 0) {
+            onNext();
+        }
+    }, [visibleActivities, remainingActivities]);
 
     // fetch activity data
     useEffect(() => {

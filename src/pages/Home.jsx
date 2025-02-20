@@ -16,7 +16,7 @@ function Home() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const homePageData = {
+        const homePageData = { //update with proper data
             city: selectedCity,
             timeOfDay: 'morning',
             group: 'family',
