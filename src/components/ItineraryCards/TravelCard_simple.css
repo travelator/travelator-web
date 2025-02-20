@@ -1,0 +1,58 @@
+.travel-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 8px 0;
+    background-color: #fafafa;
+    padding: 8px;
+}
+
+.travel-card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.travel-card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.travel-subheader {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-block: 8px;
+    color: #555;
+}
+
+.travel-card-time {
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.travel-card-price {
+    margin-left: auto;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+.travel-card-description {
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #555;
+}
+
+.travel-card-theme {
+    font-size: 13px;
+    color: #999;
+}

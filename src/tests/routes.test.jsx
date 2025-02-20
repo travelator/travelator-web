@@ -42,10 +42,7 @@ describe('Routes Tests', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/See your itinerary/i)).toBeInTheDocument();
-        expect(
-            screen.getByText(/See itinerary results here./i)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/Get ready/i)).toBeInTheDocument();
     });
 
     it('should handle 404 for unknown routes', () => {

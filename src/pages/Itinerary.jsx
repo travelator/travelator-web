@@ -1,10 +1,18 @@
-import { Link } from 'react-router-dom';
 import useApi from '../hooks/FetchApi';
+import { useParams } from 'react-router-dom';
+import { preset_itinerary } from '../assets/itinerary';
+import { useState } from 'react';
+import ActivityCard from '../components/ItineraryCards/ActivityCard';
+import TravelCard from '../components/ItineraryCards/TravelCard';
+import CustomCarousel from '../components/Carousel';
+import '../styles/Itinerary.css';
 
 function App() {
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
-
     const { activities, error, loading } = useApi('itinerary', true);
+    const { city } = useParams();
+
+    const [itinerary, setItinerary] = useState(preset_itinerary);
 
     if (!useLocalData) {
         // Handling loading, error, and data checks if using API.
@@ -18,24 +26,48 @@ function App() {
 
         if (!activities) {
             return <p>No data available</p>;
+        } else {
+            setItinerary(activities);
         }
     }
 
-    const apiStatus =
-        activities && activities.length > 0
-            ? activities[0]['api status']
-            : 'No status available';
+    const capitalize = (str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    };
 
     return (
         <>
             <div className="content-wrapper">
-                <h1>See your itinerary</h1>
-                <h1>{apiStatus}</h1>
-                <div className="main">
-                    <p>See itinerary results here.</p>
+                <h1>Get ready to explore {city && capitalize(city)}</h1>
+                <div className="itinerary-main">
+                    <CustomCarousel deviceType={'desktop'}>
+                        {itinerary.map((i) =>
+                            i.transport ? (
+                                <TravelCard
+                                    start={i.start}
+                                    end={i.end}
+                                    title={i.title}
+                                    description={i.description}
+                                    price={i.price}
+                                    theme={i.theme}
+                                    image={i.image}
+                                    key={i.id}
+                                />
+                            ) : (
+                                <ActivityCard
+                                    start={i.start}
+                                    end={i.end}
+                                    title={i.title}
+                                    description={i.description}
+                                    price={i.price}
+                                    theme={i.theme}
+                                    image={i.image}
+                                    key={i.id}
+                                />
+                            )
+                        )}
+                    </CustomCarousel>
                 </div>
-                <Link to="/">Home</Link>
-                <Link to="/rate">Back</Link>
             </div>
         </>
     );

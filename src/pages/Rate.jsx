@@ -19,7 +19,7 @@ function Rate() {
     // handle going to next action if all swipes are complete
     const onNext = () => {
         // TODO: send preferences to server
-        navigate('/itinerary');
+        navigate(`/itinerary/${city}`);
     };
 
     if (visibleActivities.length > 0 && remainingActivities.length == 0) {
