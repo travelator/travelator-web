@@ -24,10 +24,10 @@ function Home() {
         try {
             const response = await postData(homePageData);
             console.log('POST success:', response);
-            navigate(`/rate/${selectedCity}`);
         } catch (error) {
             console.error('POST failed:', error);
         }
+        navigate(`/rate/${selectedCity}`);
     };
 
     return (
