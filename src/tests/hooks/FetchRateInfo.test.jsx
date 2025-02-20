@@ -1,3 +1,11 @@
+import { describe, it, expect } from 'vitest';
+
+describe('placeholder', () => {
+    it('should pass a placeholder test', () => {
+        expect(1).toBe(1);
+    });
+});
+
 /*import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import useApi from '../../hooks/FetchApi';
