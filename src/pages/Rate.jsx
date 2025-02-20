@@ -29,10 +29,10 @@ function Rate() {
         try {
             const response = await postData(preferences);
             console.log('POST success:', response);
-            navigate('/itinerary');
         } catch (error) {
             console.error('POST failed:', postError || error);
         }
+        navigate(`/itinerary/${city}`);
     }, [postData, preferences, navigate, postError]);
 
     useEffect(() => {
