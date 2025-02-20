@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
-import useUserRateInfo from '../../hooks/FetchRateInfo';
+import useUserRateInfo from '../../hooks/FetchRateInfo.jsx';
 
 describe('useUserRateInfo Hook', () => {
     const mockActivities = [
