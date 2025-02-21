@@ -58,7 +58,9 @@ describe('Routes Tests', () => {
         );
 
         // Check for something you know exists on your login page
-        expect(screen.getByText(/Please login to continue/i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Please login to continue/i)
+        ).toBeInTheDocument();
     });
 
     it('should render signup page at /signup', () => {
@@ -71,7 +73,9 @@ describe('Routes Tests', () => {
         );
 
         // Check for something you know exists on your signup page
-        expect(screen.getByText(/Create an account to get started/i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Create an account to get started/i)
+        ).toBeInTheDocument();
     });
 
     it('should handle 404 for unknown routes', () => {

@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './AuthForm.css'; // Assuming you're using the same CSS for both
 
 const AuthForm = ({ type }) => {
@@ -16,7 +18,11 @@ const AuthForm = ({ type }) => {
         }
 
         // Handle login/signup API calls here
-        console.log(`${type === 'signup' ? 'Signing Up' : 'Logging In'} with`, email, password);
+        console.log(
+            `${type === 'signup' ? 'Signing Up' : 'Logging In'} with`,
+            email,
+            password
+        );
 
         // If successful, handle redirection or any other logic
         if (type === 'signup') {
@@ -54,22 +60,29 @@ const AuthForm = ({ type }) => {
                     />
                 )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">{type === 'signup' ? 'Sign Up' : 'Login'}</button>
+                <button type="submit">
+                    {type === 'signup' ? 'Sign Up' : 'Login'}
+                </button>
             </form>
 
             <div>
                 {type === 'signup' ? (
                     <p>
-                        Already have an account? <a href="/login">Login</a>
+                        Already have an account? <Link to="/login">Login</Link>
                     </p>
                 ) : (
                     <p>
-                        Don't have an account? <a href="/signup">Sign Up</a>
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                        Don't have an account? <Link to="/signup">Sign Up</Link>
                     </p>
                 )}
             </div>
         </div>
     );
+};
+
+AuthForm.propTypes = {
+    type: PropTypes.oneOf(['login', 'signup']).isRequired,
 };
 
 export default AuthForm;
