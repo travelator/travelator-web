@@ -23,7 +23,7 @@ describe('Navbar Component Tests', () => {
         );
 
         expect(screen.getByText('Home')).toBeInTheDocument();
-        expect(screen.getByText('Sign up')).toBeInTheDocument();
+        expect(screen.getByText('Login')).toBeInTheDocument();
     });
 
     it('navigates to home page when home link is clicked', async () => {
@@ -49,7 +49,7 @@ describe('Navbar Component Tests', () => {
         );
 
         expect(screen.getByText('Home')).toBeInTheDocument();
-        expect(screen.getByText('Sign up')).toBeInTheDocument();
+        expect(screen.getByText('Login')).toBeInTheDocument();
     });
 
     it('keeps correct styling when active', () => {
