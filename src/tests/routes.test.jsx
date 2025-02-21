@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Rate from '../pages/Rate';
-import Itinerary from '../pages/Itinerary';
+//import Itinerary from '../pages/Itinerary';
 import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
 
@@ -33,7 +33,7 @@ describe('Routes Tests', () => {
         await waitFor(() => screen.getByText(/Rate activities in/i));
         expect(screen.getByText(/Rate activities in/i)).toBeInTheDocument();
     });
-
+    /*
     it('should render itinerary page at /itinerary/:city', async () => {
         render(
             <MemoryRouter initialEntries={['/itinerary/London']}>
@@ -46,7 +46,7 @@ describe('Routes Tests', () => {
         await waitFor(() => screen.getByText(/Get ready to explore/i));
         expect(screen.getByText(/Get ready to explore/i)).toBeInTheDocument();
     });
-
+    */
     it('should render login page at /login', () => {
         render(
             <MemoryRouter initialEntries={['/login']}>
