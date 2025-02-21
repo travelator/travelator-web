@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
 import Rate from './pages/Rate';
+import Login from './pages/Login';
 import FetchRateInfoTest from './pages/APITest'; //delete
 import Itinerary from './pages/Itinerary';
 import NotFound from './pages/NotFound';
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
+            },
+            {
+                path: 'login',
+                element: <Login />,
             },
             {
                 path: 'rate/:city',
