@@ -17,6 +17,7 @@ function Home() {
         e.preventDefault();
 
         const homePageData = {
+            //update with proper data
             city: selectedCity,
             timeOfDay: 'morning',
             group: 'family',
