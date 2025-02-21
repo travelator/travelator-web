@@ -3,8 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import Rate from '../pages/Rate';
-//import Itinerary from '../pages/Itinerary';
+import Itinerary from '../pages/Itinerary';
 import Login from '../pages/Login';
+import Signup from '../pages/Signup';
 import NotFound from '../pages/NotFound';
 
 describe('Routes Tests', () => {
@@ -33,7 +34,7 @@ describe('Routes Tests', () => {
         await waitFor(() => screen.getByText(/Rate activities in/i));
         expect(screen.getByText(/Rate activities in/i)).toBeInTheDocument();
     });
-    /*
+
     it('should render itinerary page at /itinerary/:city', async () => {
         render(
             <MemoryRouter initialEntries={['/itinerary/London']}>
@@ -46,7 +47,7 @@ describe('Routes Tests', () => {
         await waitFor(() => screen.getByText(/Get ready to explore/i));
         expect(screen.getByText(/Get ready to explore/i)).toBeInTheDocument();
     });
-    */
+
     it('should render login page at /login', () => {
         render(
             <MemoryRouter initialEntries={['/login']}>
@@ -57,9 +58,20 @@ describe('Routes Tests', () => {
         );
 
         // Check for something you know exists on your login page
-        expect(
-            screen.getByText(/Please login to continue/i)
-        ).toBeInTheDocument();
+        expect(screen.getByText(/Please login to continue/i)).toBeInTheDocument();
+    });
+
+    it('should render signup page at /signup', () => {
+        render(
+            <MemoryRouter initialEntries={['/signup']}>
+                <Routes>
+                    <Route path="/signup" element={<Signup />} />
+                </Routes>
+            </MemoryRouter>
+        );
+
+        // Check for something you know exists on your signup page
+        expect(screen.getByText(/Create an account to get started/i)).toBeInTheDocument();
     });
 
     it('should handle 404 for unknown routes', () => {

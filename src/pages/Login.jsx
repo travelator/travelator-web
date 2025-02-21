@@ -1,4 +1,4 @@
-import LoginForm from '../components/LoginForm/LoginForm';
+import AuthForm from '../components/AuthForm/AuthForm';
 import '../styles/Login.css';
 
 const Login = () => {
@@ -7,7 +7,7 @@ const Login = () => {
             <h1 className="login-header">Welcome Back</h1>
             <p className="login-subheader">Please login to continue</p>
             <div className="login-form-wrapper">
-                <LoginForm />
+                <AuthForm type="login" />
             </div>
         </div>
     );

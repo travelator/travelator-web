@@ -1,9 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Home from './pages/Home';
-import Rate from './pages/Rate';
 import Login from './pages/Login';
-import FetchRateInfoTest from './pages/APITest'; //delete
+import Signup from './pages/Signup';
+import Rate from './pages/Rate';
 import Itinerary from './pages/Itinerary';
 import NotFound from './pages/NotFound';
 
@@ -22,16 +22,16 @@ const router = createBrowserRouter([
                 element: <Login />,
             },
             {
+                path: 'signup',
+                element: <Signup />,
+            },
+            {
                 path: 'rate/:city',
                 element: <Rate />,
             },
             {
                 path: 'itinerary/:city',
                 element: <Itinerary />,
-            },
-            {
-                path: 'test', //delete
-                element: <FetchRateInfoTest />, //delete
             },
         ],
     },
