@@ -37,8 +37,8 @@
 }
 
 .activity-card-time {
-    font-size: 14px;
-    color: #888;
+    font-size: 16px;
+    color: #555;
     margin-bottom: 8px;
 }
 
@@ -62,4 +62,20 @@
 .activity-card-price {
     font-weight: bold;
     color: #f0a500;
+}
+
+.tags {
+    display: flex;
+    gap: 16px;
+    margin-block: 8px;
+}
+
+.tag {
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 4px 8px;
+    font-size: 12px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-block: 4px;
 }

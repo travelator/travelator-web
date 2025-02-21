@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import './ActivityCard.css';
 
 function ActivityCard({ title, start, end, description, price, theme, image }) {
+    const priceTag = price > 0 ? `£${price}` : 'FREE';
+
     return (
         <div className="activity-card">
             {image && (
@@ -12,10 +14,12 @@ function ActivityCard({ title, start, end, description, price, theme, image }) {
                 <div className="activity-card-time">
                     <span>{start}</span> - <span>{end}</span>
                 </div>
+                <div className="tags">
+                    <p className="tag">{priceTag}</p>
+                    <p className="tag">{theme}</p>
+                </div>
                 <div className="activity-card-details">
                     <p className="activity-card-description">{description}</p>
-                    <p className="activity-card-theme">{theme}</p>
-                    <p className="activity-card-price">£{price}</p>
                 </div>
             </div>
         </div>
