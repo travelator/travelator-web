@@ -1,10 +1,15 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import AuthForm from '../../components/AuthForm/AuthForm';
 
 describe('AuthForm Component Tests', () => {
     it('should render login form', async () => {
-        render(<AuthForm type="login" />);
+        render(
+            <MemoryRouter>
+                <AuthForm type="login" />
+            </MemoryRouter>
+        );
 
         expect(
             await screen.getByRole('heading', { name: /Login/i })
@@ -15,7 +20,11 @@ describe('AuthForm Component Tests', () => {
     });
 
     it('should render signup form', async () => {
-        render(<AuthForm type="signup" />);
+        render(
+            <MemoryRouter>
+                <AuthForm type="signup" />
+            </MemoryRouter>
+        );
 
         expect(
             await screen.getByRole('heading', { name: /Sign Up/i })
@@ -26,7 +35,11 @@ describe('AuthForm Component Tests', () => {
     });
 
     it('should show error if passwords do not match on signup', () => {
-        render(<AuthForm type="signup" />);
+        render(
+            <MemoryRouter>
+                <AuthForm type="signup" />
+            </MemoryRouter>
+        );
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
             target: { value: 'test@example.com' },
