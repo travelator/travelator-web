@@ -1,8 +1,8 @@
-/*import { useState } from 'react';
-
+import { useState } from 'react';
+import './LoginForm.css';
 
 const LoginForm = () => {
-  /*const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = (e) => {
@@ -12,7 +12,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className="login-form-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input
@@ -33,7 +33,6 @@ const LoginForm = () => {
       </form>
     </div>
   );
-
 }
-export default LoginForm()
-*/
+
+export default LoginForm;
