@@ -118,10 +118,6 @@ function Rate() {
             <div className="content-wrapper">
                 <h1>{`Rate activities in ${city}`}</h1>
                 <div className="activity-main">
-                    {loading && <p>Loading...</p>}
-                    {error && (
-                        <p style={{ color: 'red' }}>Error: {error.message}</p>
-                    )}
                     <div
                         className="activity-cards"
                         ref={containerRef}
