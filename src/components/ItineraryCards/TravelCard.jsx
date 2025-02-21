@@ -32,7 +32,7 @@ function TravelCard({ start, end, title, description, price, theme, image }) {
                     {IconComponent && (
                         <span className="theme-icon">{IconComponent}</span>
                     )}
-                    <div className="trave-time">
+                    <div className="travel-card-time">
                         <span>{start}</span> - <span>{end}</span>
                     </div>
                     <p className="travel-card-price">Price: ${price}</p>

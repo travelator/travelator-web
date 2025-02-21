@@ -45,11 +45,8 @@
 }
 
 .travel-card-time {
-    font-size: 14px;
+    font-size: 16px;
     color: #888;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
 }
 
 .travel-card-price {

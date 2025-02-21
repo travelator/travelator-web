@@ -1,3 +1,9 @@
 .itinerary-main {
     margin-top: 32px;
 }
+
+.subactions {
+    display: flex;
+    margin-block: 8px;
+    justify-content: space-between;
+}
