@@ -30,17 +30,20 @@ function Home() {
         navigate(`/rate/${selectedCity}`);
     };
 
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
+
     return (
         <>
             <div className="content-wrapper">
                 <div className="home-content">
                     <h1 className="company-header">Voya</h1>
                     <p className="subheader">Your personal itinerary planner</p>
-
-                    {loading && <p>Loading...</p>}
-                    {error && (
-                        <p style={{ color: 'red' }}>Error: {error.message}</p>
-                    )}
 
                     <form onSubmit={handleSubmit}>
                         <div className="main">
