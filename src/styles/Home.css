@@ -57,3 +57,33 @@
         padding-top: 36px;
     }
 }
+
+/* Custom styles for the CustomToggle component */
+.custom-toggle-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.custom-toggle-button {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-toggle-button.Mui-selected {
+    background-color: #f0a500;
+    color: #fff;
+}
+
+.custom-toggle-button:not(.Mui-selected):hover {
+    background-color: #f0f0f0;
+}
