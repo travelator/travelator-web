@@ -4,9 +4,13 @@ import { Button } from '@mui/material';
 import CitySearchBar from '../components/CitySearchBar';
 import '../styles/Home.css';
 import useApi from '../hooks/FetchApi';
+import CustomToggle from '../components/Toggles/CustomToggle';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedTime, setSelectedTime] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState(null);
+
     const navigate = useNavigate();
 
     const { error, loading, postData } = useApi('home-data', false);
@@ -19,8 +23,8 @@ function Home() {
         const homePageData = {
             //update with proper data
             city: selectedCity,
-            timeOfDay: 'morning',
-            group: 'family',
+            timeOfDay: selectedTime,
+            group: selectedGroup,
         };
         try {
             const response = await postData(homePageData);
@@ -39,6 +43,19 @@ function Home() {
         return <p>Error: {error.message}</p>;
     }
 
+    const timeOfDayOptions = [
+        { label: 'Morning', value: 'morning' },
+        { label: 'Afternoon', value: 'afternoon' },
+        { label: 'Evening', value: 'evening' },
+    ];
+
+    const groupOptions = [
+        { label: 'Family', value: 'family' },
+        { label: 'Friends', value: 'friends' },
+        { label: 'Solo', value: 'solo' },
+        { label: 'Couples', value: 'couples' },
+    ];
+
     return (
         <>
             <div className="content-wrapper">
@@ -52,6 +69,22 @@ function Home() {
                             <CitySearchBar
                                 selectedCity={selectedOption}
                                 setSelectedCity={setSelectedOption}
+                            />
+                        </div>
+                        <div className="main">
+                            <CustomToggle
+                                options={timeOfDayOptions}
+                                multiple={true}
+                                selected={selectedTime}
+                                setSelected={setSelectedTime}
+                            />
+                        </div>
+                        <div className="main">
+                            <CustomToggle
+                                options={groupOptions}
+                                multiple={false}
+                                selected={selectedGroup}
+                                setSelected={setSelectedGroup}
                             />
                         </div>
                         <Button
