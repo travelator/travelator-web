@@ -6,7 +6,6 @@ import '../styles/Home.css';
 import useApi from '../hooks/FetchApi';
 import CustomToggle from '../components/Toggles/CustomToggle';
 
-
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
     const [selectedTime, setSelectedTime] = useState([]);
@@ -50,7 +49,7 @@ function Home() {
         { label: 'Evening', value: 'evening' },
     ];
 
-    const groupOptions = [ 
+    const groupOptions = [
         { label: 'Family', value: 'family' },
         { label: 'Friends', value: 'friends' },
         { label: 'Solo', value: 'solo' },

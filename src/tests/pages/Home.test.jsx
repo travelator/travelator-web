@@ -159,6 +159,14 @@ describe('Home Page Functionality', () => {
         const londonOption = await screen.findByText(/London/i);
         await user.click(londonOption);
 
+        // Select time of day
+        const morningButton = screen.getByText('Morning');
+        await user.click(morningButton);
+
+        // Select group
+        const familyButton = screen.getByText('Family');
+        await user.click(familyButton);
+
         // Submit the form
         const startButton = screen.getByRole('button', { name: /start/i });
         await act(async () => {
@@ -167,7 +175,7 @@ describe('Home Page Functionality', () => {
 
         expect(mockPostData).toHaveBeenCalledWith({
             city: 'London',
-            timeOfDay: 'morning',
+            timeOfDay: ['morning'],
             group: 'family',
         });
     });
