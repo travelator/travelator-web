@@ -1,59 +1,57 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useApi from '../hooks/FetchApi';
 import RateCard from '../components/RateCard/RateCard';
 import '../styles/Rate.css';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import localActivities from '../assets/activities'; //local data
+import Loading from '../components/Loading';
 
 function Rate() {
+    // get the city
     const { city } = useParams();
     const navigate = useNavigate();
-    const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
-    //GET request
-    const { activities, error, loading } = useApi('rate-info', true);
-    //POST request //TODO: implement error and post loading into HTML.
-    const {
-        postData,
-        error: postError,
-        loading: postLoading,
-    } = useApi('rate-info/preferences', false);
-
-    const containerRef = useRef(null);
+    // get loaded activities
+    const { state } = useLocation();
     const [remainingActivities, setRemainingActivities] = useState([]);
     const [visibleActivities, setVisibleActivities] = useState([]);
+
+    // initialise hook to send data
+    const { postData, error, loading } = useApi('itinerary', false);
+
+    // containerRef manages visible card space
+    const containerRef = useRef(null);
+
+    // handles activities to show
     const [preferences, setPreferences] = useState([]);
+
+    // set remaining activities once state loads
+    useEffect(() => {
+        if (state?.activities) {
+            setRemainingActivities(state.activities);
+        }
+    }, [state]);
 
     // handle going to next action if all swipes are complete
     const onNext = useCallback(async () => {
         try {
-            const response = await postData(preferences);
+            const response = await postData({
+                city: city,
+                preferences: preferences,
+            });
+            navigate(`/itinerary/${city}`, {
+                state: { itinerary: response.itinerary },
+            });
             console.log('POST success:', response);
         } catch (error) {
-            console.error('POST failed:', postError || error);
+            console.error('POST failed:', error || error);
         }
-        navigate(`/itinerary/${city}`);
-    }, [postData, preferences, navigate, postError]);
+    }, [city, navigate, postData, preferences]);
 
     useEffect(() => {
         if (visibleActivities.length > 0 && remainingActivities.length === 0) {
             onNext();
         }
     }, [visibleActivities, remainingActivities, onNext]);
-
-    // fetch activity data
-    useEffect(() => {
-        // Updates the state after data is fetched
-        if (useLocalData) {
-            setRemainingActivities(localActivities);
-            setVisibleActivities(localActivities);
-        } else {
-            if (activities) {
-                setRemainingActivities(activities);
-                setVisibleActivities(activities);
-            }
-        }
-    }, [activities, useLocalData]); // Re-run whenever `useLocalData` or `activities` change
 
     // set number of cards to show
     useEffect(() => {
@@ -81,28 +79,13 @@ function Rate() {
         return () => window.removeEventListener('resize', hideOverflowingCards);
     }, [remainingActivities]);
 
-    // handle loading screen for GET request
-    if (!useLocalData) {
-        if (loading) {
-            return <p>Loading...</p>;
-        }
-
-        if (error) {
-            return <p>A network error was encountered</p>;
-        }
-
-        if (!activities) {
-            return <p>No data available</p>;
-        }
-    }
-
     // handle loading state for POST request
-    if (postLoading) {
-        return <p>Saving preferences...</p>;
+    if (loading) {
+        return <Loading text={'Building itinerary...'} />;
     }
 
-    if (postError) {
-        return <p style={{ color: 'red' }}>Error: {postError.message}</p>;
+    if (error) {
+        return <p style={{ color: 'red' }}>Error: {error.message}</p>;
     }
 
     // create like and dislike handlers for rate card

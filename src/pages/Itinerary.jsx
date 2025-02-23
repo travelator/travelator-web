@@ -1,37 +1,26 @@
-import useApi from '../hooks/FetchApi';
 import { useParams } from 'react-router-dom';
-import { preset_itinerary } from '../assets/itinerary';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import ItineraryOverview from './ItineraryTabs/ItineraryOverview';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import '../styles/Itinerary.css';
 
-function App() {
-    const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
-    const { activities, error, loading } = useApi('itinerary', true);
+function Itinerary() {
+    // Get city and set state for current tab
     const { city } = useParams();
     const [tab, setTab] = useState('overview');
 
-    const [itinerary, setItinerary] = useState(preset_itinerary);
+    // Get itinerary data
+    const { state } = useLocation();
+    const [itinerary, setItinerary] = useState([]);
 
-    if (!useLocalData) {
-        // Handling loading, error, and data checks if using API.
-        if (loading) {
-            return <p>Loading...</p>;
-        }
+    // ensure itinerary is updated
+    useEffect(() => {
+        if (state?.itinerary) setItinerary(state?.itinerary);
+    }, [state]);
 
-        if (error) {
-            return <p>A network error was encountered</p>;
-        }
-
-        if (!activities) {
-            return <p>No data available</p>;
-        } else {
-            setItinerary(activities);
-        }
-    }
-
+    // tab logic
     const renderTab = () => {
         switch (tab) {
             case 'overview':
@@ -77,4 +66,4 @@ function App() {
     );
 }
 
-export default App;
+export default Itinerary;

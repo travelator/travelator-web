@@ -15,8 +15,7 @@ function ItineraryOverview({ itinerary }) {
                             title={i.title}
                             description={i.description}
                             price={i.price}
-                            theme={i.theme}
-                            image={i.image}
+                            theme={i.transportMode}
                             key={i.id}
                         />
                     ) : (
