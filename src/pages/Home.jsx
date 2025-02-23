@@ -5,20 +5,27 @@ import CitySearchBar from '../components/CitySearchBar';
 import '../styles/Home.css';
 import useApi from '../hooks/FetchApi';
 import CustomToggle from '../components/Toggles/CustomToggle';
+import Loading from '../components/Loading';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
-    const [selectedTime, setSelectedTime] = useState([]);
-    const [selectedGroup, setSelectedGroup] = useState(null);
+    const [selectedTime, setSelectedTime] = useState([
+        'morning',
+        'afternoon',
+        'evening',
+    ]);
+    const [selectedGroup, setSelectedGroup] = useState('solo');
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    const { error, loading, postData } = useApi('home-data', false);
+    const { error, loading, postData } = useApi('activities', false);
 
     const selectedCity = selectedOption ? selectedOption.city : null;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
 
         const homePageData = {
             //update with proper data
@@ -28,15 +35,18 @@ function Home() {
         };
         try {
             const response = await postData(homePageData);
+            navigate(`/rate/${selectedCity}`, {
+                state: { activities: response.activities },
+            });
             console.log('POST success:', response);
         } catch (error) {
             console.error('POST failed:', error);
+            setIsLoading(false);
         }
-        navigate(`/rate/${selectedCity}`);
     };
 
-    if (loading) {
-        return <p>Loading...</p>;
+    if (loading || isLoading) {
+        return <Loading text={'Fetching activities...'} />;
     }
 
     if (error) {
@@ -50,9 +60,9 @@ function Home() {
     ];
 
     const groupOptions = [
+        { label: 'Solo', value: 'solo' },
         { label: 'Family', value: 'family' },
         { label: 'Friends', value: 'friends' },
-        { label: 'Solo', value: 'solo' },
         { label: 'Couples', value: 'couples' },
     ];
 

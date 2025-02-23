@@ -18,14 +18,11 @@ const transportIcons = {
     Ferry: <DirectionsBoat />,
 };
 
-function TravelCard({ start, end, title, description, price, theme, image }) {
+function TravelCard({ start, end, title, description, price, theme }) {
     const IconComponent = transportIcons[theme] || null;
 
     return (
         <div className="travel-card">
-            {image && (
-                <img src={image} alt={theme} className="travel-card-image" />
-            )}
             <div className="travel-card-content">
                 <h3 className="travel-card-title">{title}</h3>
                 <div className="travel-subheader">
@@ -50,7 +47,6 @@ TravelCard.propTypes = {
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
-    image: PropTypes.string,
 };
 
 export default TravelCard;

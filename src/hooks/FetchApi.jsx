@@ -1,13 +1,20 @@
 // receiving all information in one api call
 import { useState, useEffect } from 'react';
+import localActivities from '../assets/activities'; //local data
+import { preset_itinerary } from '../assets/itinerary'; //local data
 
 const useApi = (apiRoute, shouldFetchData = true) => {
     const [activities, setActivities] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
+
     const baseURL = import.meta.env.VITE_APP_FETCH_GENERAL_API_URL;
     const url = `${baseURL}${apiRoute}`;
+
+    const delay = (t) =>
+        new Promise((resolve) => setTimeout(resolve, t * 1000));
 
     useEffect(() => {
         if (shouldFetchData) {
@@ -29,12 +36,27 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         } else {
             setLoading(false);
         }
-    }, [apiRoute, shouldFetchData]);
+    }, [apiRoute, shouldFetchData, url]);
 
     //Send data (POST request)
     const postData = async (data) => {
+        setLoading(true);
+
+        if (useLocalData) {
+            if (apiRoute == 'activities') {
+                await delay(2);
+                return { activities: localActivities };
+            } else if (apiRoute == 'itinerary') {
+                await delay(2);
+                return { itinerary: preset_itinerary };
+            } else {
+                setError('Route not found');
+            }
+            setLoading(false);
+            return;
+        }
+
         try {
-            setLoading(true);
             const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

@@ -32,7 +32,7 @@ RateCard.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
     onCardClick: PropTypes.func.isRequired,
 };
