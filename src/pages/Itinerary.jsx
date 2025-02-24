@@ -28,7 +28,7 @@ function Itinerary() {
             case 'map':
                 return (
                     <div className="itinerary-main">
-                        <p>Coming soon!</p>
+                        <p>Coming soon!!!</p>
                     </div>
                 );
             default:
