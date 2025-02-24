@@ -31,7 +31,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             VITE_USE_LOCAL_DATA: 'true'
-            VITE_APP_FETCH_GENERAL_API_URL: "http://travelator-simple-api.fpgwgqhqgzc9dqg4.uksouth.azurecontainer.io:5000/"
+            VITE_APP_FETCH_GENERAL_API_URL: 'http://travelator-simple-api.fpgwgqhqgzc9dqg4.uksouth.azurecontainer.io:5000/'
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -69,7 +69,7 @@ jobs:
                   ###### End of Repository/Build Configurations ######
               env:
                   VITE_USE_LOCAL_DATA: 'false'
-                  VITE_APP_FETCH_GENERAL_API_URL: "https://travelator-simple-api.calmpond-71ed9da2.uksouth.azurecontainerapps.io/"
+                  VITE_APP_FETCH_GENERAL_API_URL: 'https://travelator-simple-api.calmpond-71ed9da2.uksouth.azurecontainerapps.io/'
 
     close_pull_request_job:
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
