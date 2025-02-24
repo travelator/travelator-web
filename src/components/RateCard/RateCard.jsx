@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
-import { Favorite, Close } from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import CloseIcon from '@mui/icons-material/Close';
 import RingedIcon from '../RingedIcon';
 import './RateCard.css';
 
@@ -21,8 +22,8 @@ function RateCard({ title, description, price, theme, url, onCardClick }) {
                 <p className="rate-card-description">{description}</p>
             </div>
             <div className="rate-card-icons">
-                <RingedIcon Icon={Close} color="red" onClick={onDislike} />
-                <RingedIcon Icon={Favorite} color="green" onClick={onLike} />
+                <RingedIcon Icon={CloseIcon} color="red" onClick={onDislike} />
+                <RingedIcon Icon={FavoriteIcon} color="green" onClick={onLike} />
             </div>
         </div>
     );
