@@ -22,7 +22,8 @@ function Rate() {
     const containerRef = useRef(null);
 
     // handles activities to show
-    const [preferences, setPreferences] = useState([]);
+    const [likedActivities, setLikedActivities] = useState([]);
+    const [dislikedActivities, setDislikedActivities] = useState([]);
 
     // set remaining activities once state loads
     useEffect(() => {
@@ -36,7 +37,10 @@ function Rate() {
         try {
             const response = await postData({
                 city: city,
-                preferences: preferences,
+                preferences: {
+                    "liked": likedActivities,
+                    "disliked": dislikedActivities,
+                }
             });
             navigate(`/itinerary/${city}`, {
                 state: { itinerary: response.itinerary },
@@ -45,7 +49,7 @@ function Rate() {
         } catch (error) {
             console.error('POST failed:', error || error);
         }
-    }, [city, navigate, postData, preferences]);
+    }, [city, navigate, postData, dislikedActivities, likedActivities]);
 
     useEffect(() => {
         if (visibleActivities.length > 0 && remainingActivities.length === 0) {
@@ -90,7 +94,11 @@ function Rate() {
 
     // create like and dislike handlers for rate card
     const onCardClick = (title, isLike) => {
-        setPreferences([...preferences, { title: title, liked: isLike }]);
+        if (isLike) {
+            setLikedActivities([...likedActivities, title]);
+        } else {
+            setDislikedActivities([...dislikedActivities, title])
+        }
         setRemainingActivities(
             remainingActivities.filter((a) => a.title != title)
         );
