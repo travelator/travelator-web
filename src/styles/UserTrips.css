@@ -1,0 +1,36 @@
+.trips-content {
+    background-color: #f5f5f5;
+}
+
+.trips-content .MuiBox-root {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.trips-content .MuiTypography-h4 {
+    color: #333;
+    margin-bottom: 24px;
+}
+
+/* Add some hover effects to the cards */
+.trips-content .MuiCard-root {
+    transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
+}
+
+.trips-content .MuiCard-root:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the edit button */
+.trips-content .MuiIconButton-root {
+    color: #666;
+}
+
+.trips-content .MuiIconButton-root:hover {
+    color: #333;
+    background-color: rgba(0, 0, 0, 0.04);
+}

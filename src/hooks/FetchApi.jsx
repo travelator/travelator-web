@@ -47,7 +47,7 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 await delay(2);
                 return { activities: localActivities };
             } else if (apiRoute == 'itinerary') {
-                console.log(data)
+                console.log(data);
                 await delay(2);
                 return { itinerary: preset_itinerary };
             } else {
