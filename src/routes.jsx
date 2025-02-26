@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Rate from './pages/Rate';
 import Itinerary from './pages/Itinerary';
 import NotFound from './pages/NotFound';
+import UserTrips from './pages/UserTrips';
 
 const router = createBrowserRouter([
     {
@@ -33,8 +34,12 @@ const router = createBrowserRouter([
                 path: 'itinerary/:city',
                 element: <Itinerary />,
             },
+            {
+                path: 'user-trips',
+                element: <UserTrips />,
+            },
         ],
     },
 ]);
-
 export default router;
+
