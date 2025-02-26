@@ -1,5 +1,14 @@
 import PropTypes from 'prop-types';
-import { Card, CardContent, Typography, Button, Chip, Box, IconButton, TextField } from '@mui/material';
+import {
+    Card,
+    CardContent,
+    Typography,
+    Button,
+    Chip,
+    Box,
+    IconButton,
+    TextField,
+} from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupIcon from '@mui/icons-material/Group';
 import EditIcon from '@mui/icons-material/Edit';
@@ -13,7 +22,7 @@ function TripCard({ trip }) {
 
     const handleViewTrip = () => {
         navigate(`/itinerary/${trip.city}`, {
-            state: { itinerary: trip.itinerary }
+            state: { itinerary: trip.itinerary },
         });
     };
 
@@ -49,7 +58,11 @@ function TripCard({ trip }) {
                         />
                     ) : (
                         <>
-                            <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                            <Typography
+                                variant="h5"
+                                component="div"
+                                sx={{ flexGrow: 1 }}
+                            >
                                 {customName}
                             </Typography>
                             <IconButton onClick={handleEditClick} size="small">
@@ -58,34 +71,38 @@ function TripCard({ trip }) {
                         </>
                     )}
                 </Box>
-                
+
                 <Typography color="text.secondary" gutterBottom>
                     Created: {new Date(trip.dateCreated).toLocaleDateString()}
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Box
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                    >
                         <AccessTimeIcon fontSize="small" />
                         {trip.timeOfDay.map((time) => (
-                            <Chip 
-                                key={time} 
-                                label={time} 
-                                size="small" 
+                            <Chip
+                                key={time}
+                                label={time}
+                                size="small"
                                 variant="outlined"
                             />
                         ))}
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Box
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                    >
                         <GroupIcon fontSize="small" />
-                        <Chip label={trip.group} size="small" variant="outlined" />
+                        <Chip
+                            label={trip.group}
+                            size="small"
+                            variant="outlined"
+                        />
                     </Box>
                 </Box>
 
-                <Button 
-                    variant="contained" 
-                    onClick={handleViewTrip}
-                    fullWidth
-                >
+                <Button variant="contained" onClick={handleViewTrip} fullWidth>
                     View Trip
                 </Button>
             </CardContent>
@@ -101,8 +118,8 @@ TripCard.propTypes = {
         dateCreated: PropTypes.string.isRequired,
         timeOfDay: PropTypes.arrayOf(PropTypes.string).isRequired,
         group: PropTypes.string.isRequired,
-        itinerary: PropTypes.object.isRequired
-    }).isRequired
+        itinerary: PropTypes.object.isRequired,
+    }).isRequired,
 };
 
-export default TripCard; 
+export default TripCard;

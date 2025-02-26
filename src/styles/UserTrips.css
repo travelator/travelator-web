@@ -15,7 +15,9 @@
 
 /* Add some hover effects to the cards */
 .trips-content .MuiCard-root {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
 }
 
 .trips-content .MuiCard-root:hover {
@@ -31,4 +33,4 @@
 .trips-content .MuiIconButton-root:hover {
     color: #333;
     background-color: rgba(0, 0, 0, 0.04);
-} 
+}

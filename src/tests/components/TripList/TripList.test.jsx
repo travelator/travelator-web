@@ -6,22 +6,22 @@ import TripList from '../../../components/TripList/TripList';
 const mockTrips = [
     {
         id: 1,
-        city: "London",
-        customName: "Weekend in London",
-        dateCreated: "2024-03-20",
-        timeOfDay: ["morning", "afternoon"],
-        group: "family",
-        itinerary: { activities: [] }
+        city: 'London',
+        customName: 'Weekend in London',
+        dateCreated: '2024-03-20',
+        timeOfDay: ['morning', 'afternoon'],
+        group: 'family',
+        itinerary: { activities: [] },
     },
     {
         id: 2,
-        city: "Paris",
+        city: 'Paris',
         customName: null,
-        dateCreated: "2024-03-15",
-        timeOfDay: ["evening"],
-        group: "couples",
-        itinerary: { activities: [] }
-    }
+        dateCreated: '2024-03-15',
+        timeOfDay: ['evening'],
+        group: 'couples',
+        itinerary: { activities: [] },
+    },
 ];
 
 describe('TripList', () => {
@@ -75,7 +75,7 @@ describe('TripList', () => {
 
         const filterSelect = screen.getByLabelText('Filter by group');
         fireEvent.mouseDown(filterSelect);
-        
+
         // Use role to specifically select the menu item
         const allOption = screen.getByRole('option', { name: 'All Groups' });
         fireEvent.click(allOption);
@@ -83,4 +83,4 @@ describe('TripList', () => {
         expect(screen.getByText('Weekend in London')).toBeInTheDocument();
         expect(screen.getByText('Paris')).toBeInTheDocument();
     });
-}); 
+});

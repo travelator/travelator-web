@@ -7,8 +7,9 @@ function TripList({ trips }) {
     const [filterGroup, setFilterGroup] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const filteredTrips = trips.filter(trip => {
-        const matchesGroup = filterGroup === 'all' || trip.group === filterGroup;
+    const filteredTrips = trips.filter((trip) => {
+        const matchesGroup =
+            filterGroup === 'all' || trip.group === filterGroup;
         const matchesSearch = (trip.customName || trip.city)
             .toLowerCase()
             .includes(searchTerm.toLowerCase());
@@ -63,9 +64,9 @@ TripList.propTypes = {
             timeOfDay: PropTypes.arrayOf(PropTypes.string).isRequired,
             group: PropTypes.string.isRequired,
             tag: PropTypes.string,
-            itinerary: PropTypes.object.isRequired
+            itinerary: PropTypes.object.isRequired,
         })
-    ).isRequired
+    ).isRequired,
 };
 
-export default TripList; 
+export default TripList;

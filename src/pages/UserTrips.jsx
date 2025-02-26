@@ -3,7 +3,6 @@ import TripList from '../components/TripList/TripList';
 import { mockTrips } from '../assets/mockTrips';
 import '../styles/UserTrips.css';
 
-
 function UserTrips() {
     return (
         <div className="content-wrapper">
@@ -19,4 +18,4 @@ function UserTrips() {
     );
 }
 
-export default UserTrips; 
+export default UserTrips;
