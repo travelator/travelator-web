@@ -22,11 +22,13 @@ function RateCard({ title, description, price, theme, url, onCardClick }) {
 
     return (
         <div className="rate-card">
-            <img 
-                src={currentImageIndex < numImages ? url[currentImageIndex] : "#"}
+            <img
+                src={
+                    currentImageIndex < numImages ? url[currentImageIndex] : '#'
+                }
                 onError={handleImageError}
-                alt={title} 
-                className="rate-card-image" 
+                alt={title}
+                className="rate-card-image"
             />
             <div className="rate-card-content">
                 <h3 className="rate-card-title">{title}</h3>
@@ -38,7 +40,11 @@ function RateCard({ title, description, price, theme, url, onCardClick }) {
             </div>
             <div className="rate-card-icons">
                 <RingedIcon Icon={CloseIcon} color="red" onClick={onDislike} />
-                <RingedIcon Icon={FavoriteIcon} color="green" onClick={onLike} />
+                <RingedIcon
+                    Icon={FavoriteIcon}
+                    color="green"
+                    onClick={onLike}
+                />
             </div>
         </div>
     );
