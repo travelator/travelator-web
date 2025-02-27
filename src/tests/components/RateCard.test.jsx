@@ -6,9 +6,9 @@ describe('RateCard Component Tests', () => {
     const mockProps = {
         title: 'Test Activity',
         description: 'Test Description',
-        price: '10',
+        price: 10,
         theme: 'Adventure',
-        url: 'test-image.jpg',
+        url: ['test-image1.jpg', 'test-image2.jpg'],
         onCardClick: vi.fn(),
     };
 
@@ -21,7 +21,7 @@ describe('RateCard Component Tests', () => {
         expect(screen.getByText(mockProps.theme)).toBeInTheDocument();
         expect(screen.getByAltText(mockProps.title)).toHaveAttribute(
             'src',
-            mockProps.url
+            mockProps.url[0]
         );
     });
 
@@ -57,5 +57,14 @@ describe('RateCard Component Tests', () => {
             mockProps.title,
             false
         );
+    });
+
+    it('should try the next image in the list if the current image fails to load', () => {
+        render(<RateCard {...mockProps} />);
+
+        const image = screen.getByAltText(mockProps.title);
+        fireEvent.error(image);
+
+        expect(image).toHaveAttribute('src', mockProps.url[1]);
     });
 });
