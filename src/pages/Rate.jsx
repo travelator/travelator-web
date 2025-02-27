@@ -34,20 +34,26 @@ function Rate() {
 
     // handle going to next action if all swipes are complete
     const onNext = useCallback(async () => {
-        try {
-            const response = await postData({
-                city: city,
-                preferences: {
+        const responseData = {
+            city: city,
+            preferences: [
+                {
                     liked: likedActivities,
                     disliked: dislikedActivities,
                 },
-            });
+            ],
+        };
+        console.log('Sending to backend:', responseData);
+
+        try {
+            const response = await postData(responseData);
             navigate(`/itinerary/${city}`, {
                 state: { itinerary: response.itinerary },
             });
             console.log('POST success:', response);
         } catch (error) {
-            console.error('POST failed:', error || error);
+            console.error('POST failed:', error);
+            console.error('Request data was:', responseData);
         }
     }, [city, navigate, postData, dislikedActivities, likedActivities]);
 
@@ -94,13 +100,24 @@ function Rate() {
 
     // create like and dislike handlers for rate card
     const onCardClick = (title, isLike) => {
-        if (isLike) {
-            setLikedActivities([...likedActivities, title]);
-        } else {
-            setDislikedActivities([...dislikedActivities, title]);
-        }
-        setRemainingActivities(
-            remainingActivities.filter((a) => a.title != title)
+        setLikedActivities((prevLikedActivities) => {
+            if (isLike) {
+                return [...prevLikedActivities, title];
+            } else {
+                return prevLikedActivities;
+            }
+        });
+
+        setDislikedActivities((prevDislikedActivities) => {
+            if (!isLike) {
+                return [...prevDislikedActivities, title];
+            } else {
+                return prevDislikedActivities;
+            }
+        });
+
+        setRemainingActivities((prevRemainingActivities) =>
+            prevRemainingActivities.filter((a) => a.title !== title)
         );
     };
 
