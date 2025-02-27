@@ -23,7 +23,11 @@ function RateCard({ title, description, price, theme, url, onCardClick }) {
             </div>
             <div className="rate-card-icons">
                 <RingedIcon Icon={CloseIcon} color="red" onClick={onDislike} />
-                <RingedIcon Icon={FavoriteIcon} color="green" onClick={onLike} />
+                <RingedIcon
+                    Icon={FavoriteIcon}
+                    color="green"
+                    onClick={onLike}
+                />
             </div>
         </div>
     );

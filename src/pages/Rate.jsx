@@ -38,9 +38,9 @@ function Rate() {
             const response = await postData({
                 city: city,
                 preferences: {
-                    "liked": likedActivities,
-                    "disliked": dislikedActivities,
-                }
+                    liked: likedActivities,
+                    disliked: dislikedActivities,
+                },
             });
             navigate(`/itinerary/${city}`, {
                 state: { itinerary: response.itinerary },
@@ -97,7 +97,7 @@ function Rate() {
         if (isLike) {
             setLikedActivities([...likedActivities, title]);
         } else {
-            setDislikedActivities([...dislikedActivities, title])
+            setDislikedActivities([...dislikedActivities, title]);
         }
         setRemainingActivities(
             remainingActivities.filter((a) => a.title != title)
