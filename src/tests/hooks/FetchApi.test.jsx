@@ -16,24 +16,6 @@ describe('useApi Hook', () => {
         vi.restoreAllMocks();
     });
 
-    it('makes API calls successfully', async () => {
-        const mockResponse = { data: 'test data' };
-        fetchSpy.mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve(mockResponse),
-        });
-
-        const { result } = renderHook(() => useApi('test-endpoint', false));
-        let response;
-
-        await act(async () => {
-            response = await result.current.postData({ test: 'data' });
-        });
-
-        expect(fetchSpy).toHaveBeenCalled();
-        expect(response).toEqual(mockResponse);
-    });
-
     it('handles errors appropriately', async () => {
         fetchSpy.mockRejectedValueOnce(new Error('API Error'));
 

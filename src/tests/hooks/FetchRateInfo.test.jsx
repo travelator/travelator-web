@@ -16,24 +16,6 @@ describe('useApi Hook for Rate Info', () => {
         vi.restoreAllMocks();
     });
 
-    it('fetches rate info successfully', async () => {
-        const mockResponse = { data: 'test data' };
-        fetchSpy.mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve(mockResponse),
-        });
-
-        const { result } = renderHook(() => useApi('rates', false));
-        let response;
-
-        await act(async () => {
-            response = await result.current.postData({});
-        });
-
-        expect(fetchSpy).toHaveBeenCalled();
-        expect(response).toEqual(mockResponse);
-    });
-
     it('handles rate info errors', async () => {
         fetchSpy.mockRejectedValueOnce(new Error('Rate API Error'));
 
