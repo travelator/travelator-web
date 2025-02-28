@@ -63,6 +63,7 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
                 mode: 'cors',
+                credentials: 'include',
             });
 
             if (!response.ok) {

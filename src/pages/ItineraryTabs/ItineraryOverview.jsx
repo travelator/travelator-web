@@ -26,7 +26,7 @@ function ItineraryOverview({ itinerary }) {
                             description={i.description}
                             price={i.price}
                             theme={i.theme}
-                            image={i.image}
+                            url={i.image_link}
                             key={i.id}
                         />
                     )
