@@ -18,7 +18,7 @@ describe('useApi Hook for Rate Info', () => {
         const mockResponse = { data: 'test data' };
         global.fetch.mockResolvedValueOnce({
             ok: true,
-            json: () => Promise.resolve(mockResponse)
+            json: () => Promise.resolve(mockResponse),
         });
 
         const { result } = renderHook(() => useApi('rates', false));
@@ -32,10 +32,10 @@ describe('useApi Hook for Rate Info', () => {
         global.fetch.mockRejectedValueOnce(new Error('Rate API Error'));
 
         const { result } = renderHook(() => useApi('rates', false));
-        
+
         try {
             await result.current.postData({});
-            fail('Should have thrown an error');
+            expect().fail('Expected error to be thrown');
         } catch (error) {
             expect(error).toBeDefined();
             expect(result.current.error).toBeDefined();

@@ -18,7 +18,7 @@ describe('useApi Hook', () => {
         const mockResponse = { data: 'test data' };
         global.fetch.mockResolvedValueOnce({
             ok: true,
-            json: () => Promise.resolve(mockResponse)
+            json: () => Promise.resolve(mockResponse),
         });
 
         const { result } = renderHook(() => useApi('test-endpoint', false));
@@ -32,10 +32,10 @@ describe('useApi Hook', () => {
         global.fetch.mockRejectedValueOnce(new Error('API Error'));
 
         const { result } = renderHook(() => useApi('test-endpoint', false));
-        
+
         try {
             await result.current.postData({});
-            fail('Should have thrown an error');
+            expect().fail('Expected error to be thrown');
         } catch (error) {
             expect(error).toBeDefined();
             expect(result.current.error).toBeDefined();
@@ -44,20 +44,22 @@ describe('useApi Hook', () => {
 
     it('sets loading state correctly', async () => {
         const mockResponse = { data: 'test data' };
-        global.fetch.mockImplementation(() => 
-            new Promise(resolve => 
-                setTimeout(() => 
-                    resolve({
-                        ok: true,
-                        json: () => Promise.resolve(mockResponse)
-                    }), 
-                    100
+        global.fetch.mockImplementation(
+            () =>
+                new Promise((resolve) =>
+                    setTimeout(
+                        () =>
+                            resolve({
+                                ok: true,
+                                json: () => Promise.resolve(mockResponse),
+                            }),
+                        100
+                    )
                 )
-            )
         );
 
         const { result } = renderHook(() => useApi('test-endpoint', false));
-        
+
         // Initial state should be not loading
         expect(result.current.loading).toBe(false);
 
