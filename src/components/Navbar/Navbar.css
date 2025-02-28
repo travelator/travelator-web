@@ -16,9 +16,29 @@
 
 .navbar-signup {
     font-size: 18px;
-    cursor: pointer;
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
-.navbar-signup:hover {
+.navbar-signup a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-signup a:hover {
+    text-decoration: underline;
+}
+
+.navbar-signup button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    color: inherit;
+}
+
+.navbar-signup button:hover {
     text-decoration: underline;
 }
