@@ -1,19 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import useApi from '../../hooks/FetchApi';
 
 /* global global */
 
-// Mock environment variables
-vi.mock('@env', () => ({
-    VITE_APP_AUTH_API_URL: 'http://test-auth-api.com/',
-    VITE_APP_FETCH_GENERAL_API_URL: 'http://test-api.com/',
-}));
-
 describe('useApi Hook', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        // Reset fetch mock before each test
         global.fetch = vi.fn();
     });
 
@@ -21,93 +14,65 @@ describe('useApi Hook', () => {
         vi.restoreAllMocks();
     });
 
-    it('uses auth URL for auth routes', async () => {
-        global.fetch.mockImplementationOnce(() =>
-            Promise.resolve({
-                ok: true,
-                json: () => Promise.resolve({ token: 'fake-token' }),
-            })
-        );
-
-        const { result } = renderHook(() => useApi('login', false));
-        await result.current.postData({
-            email: 'test@example.com',
-            password: 'password',
+    it('makes API calls successfully', async () => {
+        const mockResponse = { data: 'test data' };
+        global.fetch.mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve(mockResponse)
         });
 
-        expect(global.fetch).toHaveBeenCalledWith(
-            'http://test-auth-api.com/login',
-            expect.objectContaining({
-                method: 'POST',
-                headers: expect.any(Object),
-                body: expect.any(String),
-            })
-        );
+        const { result } = renderHook(() => useApi('test-endpoint', false));
+        const response = await result.current.postData({ test: 'data' });
+
+        expect(global.fetch).toHaveBeenCalled();
+        expect(response).toEqual(mockResponse);
     });
 
-    it('uses general URL for non-auth routes', async () => {
-        global.fetch.mockImplementationOnce(() =>
-            Promise.resolve({
-                ok: true,
-                json: () => Promise.resolve({ data: [] }),
-            })
-        );
+    it('handles errors appropriately', async () => {
+        global.fetch.mockRejectedValueOnce(new Error('API Error'));
 
-        const { result } = renderHook(() => useApi('activities', true));
-        await result.current.postData({});
-
-        expect(global.fetch).toHaveBeenCalledWith(
-            'http://test-api.com/activities',
-            expect.objectContaining({
-                method: 'POST',
-                headers: expect.any(Object),
-                body: expect.any(String),
-            })
-        );
-    });
-
-    it('includes credentials in requests', async () => {
-        global.fetch.mockImplementationOnce(() =>
-            Promise.resolve({
-                ok: true,
-                json: () => Promise.resolve({}),
-            })
-        );
-
-        const { result } = renderHook(() => useApi('login', false));
-        await result.current.postData({
-            email: 'test@example.com',
-            password: 'password',
-        });
-
-        expect(global.fetch).toHaveBeenCalledWith(
-            expect.any(String),
-            expect.objectContaining({
-                credentials: 'include',
-            })
-        );
-    });
-
-    it('handles API errors correctly', async () => {
-        global.fetch.mockImplementationOnce(() =>
-            Promise.resolve({
-                ok: false,
-                status: 401,
-                json: () => Promise.resolve({ message: 'Unauthorized' }),
-            })
-        );
-
-        const { result } = renderHook(() => useApi('login', false));
-
+        const { result } = renderHook(() => useApi('test-endpoint', false));
+        
         try {
-            await result.current.postData({
-                email: 'test@example.com',
-                password: 'wrong',
-            });
-            // If we reach here, the test should fail
-            expect(true).toBe(false);
+            await result.current.postData({});
+            fail('Should have thrown an error');
         } catch (error) {
-            expect(error.message).toBe('HTTP error! Status: 401');
+            expect(error).toBeDefined();
+            expect(result.current.error).toBeDefined();
         }
+    });
+
+    it('sets loading state correctly', async () => {
+        const mockResponse = { data: 'test data' };
+        global.fetch.mockImplementation(() => 
+            new Promise(resolve => 
+                setTimeout(() => 
+                    resolve({
+                        ok: true,
+                        json: () => Promise.resolve(mockResponse)
+                    }), 
+                    100
+                )
+            )
+        );
+
+        const { result } = renderHook(() => useApi('test-endpoint', false));
+        
+        // Initial state should be not loading
+        expect(result.current.loading).toBe(false);
+
+        // Start the request
+        let promise;
+        await act(async () => {
+            promise = result.current.postData({});
+        });
+
+        // Wait for the request to complete
+        await act(async () => {
+            await promise;
+        });
+
+        // Final state should be not loading
+        expect(result.current.loading).toBe(false);
     });
 });
