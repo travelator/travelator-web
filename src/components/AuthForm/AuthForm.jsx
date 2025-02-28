@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './AuthForm.css'; // Assuming you're using the same CSS for both
 
-const AuthForm = ({ type }) => {
+const AuthForm = ({ type, onSubmit }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); // Only for signup
@@ -11,25 +11,15 @@ const AuthForm = ({ type }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError(null);
 
         if (type === 'signup' && password !== confirmPassword) {
             setError('Passwords do not match');
             return;
         }
 
-        // Handle login/signup API calls here
-        console.log(
-            `${type === 'signup' ? 'Signing Up' : 'Logging In'} with`,
-            email,
-            password
-        );
-
-        // If successful, handle redirection or any other logic
-        if (type === 'signup') {
-            console.log('Redirecting to login page...');
-        } else {
-            console.log('Redirecting to home page...');
-        }
+        // Pass the data up to the parent component
+        onSubmit({ email, password });
     };
 
     return (
@@ -83,6 +73,7 @@ const AuthForm = ({ type }) => {
 
 AuthForm.propTypes = {
     type: PropTypes.oneOf(['login', 'signup']).isRequired,
+    onSubmit: PropTypes.func.isRequired,
 };
 
 export default AuthForm;
