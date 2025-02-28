@@ -7,6 +7,7 @@ import Rate from './pages/Rate';
 import Itinerary from './pages/Itinerary';
 import NotFound from './pages/NotFound';
 import UserTrips from './pages/UserTrips';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const router = createBrowserRouter([
     {
@@ -28,15 +29,27 @@ const router = createBrowserRouter([
             },
             {
                 path: 'rate/:city',
-                element: <Rate />,
+                element: (
+                    <ProtectedRoute>
+                        <Rate />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: 'itinerary/:city',
-                element: <Itinerary />,
+                element: (
+                    <ProtectedRoute>
+                        <Itinerary />
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: 'user-trips',
-                element: <UserTrips />,
+                element: (
+                    <ProtectedRoute>
+                        <UserTrips />
+                    </ProtectedRoute>
+                ),
             },
         ],
     },

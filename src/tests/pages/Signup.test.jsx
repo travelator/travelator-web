@@ -1,10 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+/* global global, beforeEach, afterEach */
+
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Signup from '../../pages/Signup';
 import Login from '../../pages/Login';
 import * as FetchApi from '../../hooks/FetchApi';
+import { AuthProvider } from '../../context/AuthContext';
 
 // Mock useNavigate
 const mockNavigate = vi.fn();
@@ -20,9 +23,22 @@ describe('Signup Page Tests', () => {
     beforeEach(() => {
         mockNavigate.mockClear();
         vi.resetModules();
+        // Mock fetch for auth checks
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve({ message: 'No session' }),
+            })
+        );
     });
 
-    it('should render signup page', () => {
+    afterEach(() => {
+        vi.restoreAllMocks();
+        if (global.fetch) {
+            delete global.fetch;
+        }
+    });
+
+    it('should render signup page', async () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
             postData: vi
                 .fn()
@@ -33,9 +49,16 @@ describe('Signup Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Signup />
+                <AuthProvider>
+                    <Signup />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         expect(screen.getByText(/Join Us/i)).toBeInTheDocument();
         expect(
@@ -55,12 +78,19 @@ describe('Signup Page Tests', () => {
         const user = userEvent.setup();
         render(
             <MemoryRouter initialEntries={['/signup']}>
-                <Routes>
-                    <Route path="/signup" element={<Signup />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         // Find the "Login" link and click it
         const loginLink = screen.getByText(/Login/i);
@@ -91,9 +121,16 @@ describe('Signup Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Signup />
+                <AuthProvider>
+                    <Signup />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
             target: { value: 'newuser@example.com' },
@@ -123,9 +160,16 @@ describe('Signup Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Signup />
+                <AuthProvider>
+                    <Signup />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
             target: { value: 'existing@example.com' },
@@ -144,7 +188,7 @@ describe('Signup Page Tests', () => {
         });
     });
 
-    it('shows loading state while registering', () => {
+    it('shows loading state while registering', async () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
             postData: vi.fn(),
             loading: true,
@@ -153,9 +197,16 @@ describe('Signup Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Signup />
+                <AuthProvider>
+                    <Signup />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for auth loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         expect(
             screen.getByText(/Creating your account.../i)
