@@ -1,6 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { renderHook, waitFor } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import useApi from '../../hooks/FetchApi';
+
+/* global global */
 
 // Mock environment variables
 vi.mock('@env', () => ({
