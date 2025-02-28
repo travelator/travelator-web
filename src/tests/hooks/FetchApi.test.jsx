@@ -22,7 +22,11 @@ describe('useApi Hook', () => {
         });
 
         const { result } = renderHook(() => useApi('test-endpoint', false));
-        const response = await result.current.postData({ test: 'data' });
+        let response;
+        
+        await act(async () => {
+            response = await result.current.postData({ test: 'data' });
+        });
 
         expect(global.fetch).toHaveBeenCalled();
         expect(response).toEqual(mockResponse);
@@ -34,7 +38,9 @@ describe('useApi Hook', () => {
         const { result } = renderHook(() => useApi('test-endpoint', false));
 
         try {
-            await result.current.postData({});
+            await act(async () => {
+                await result.current.postData({});
+            });
             expect().fail('Expected error to be thrown');
         } catch (error) {
             expect(error).toBeDefined();

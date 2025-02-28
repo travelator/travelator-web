@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { renderHook } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import useApi from '../../hooks/FetchApi';
 
 /* global global */
@@ -22,7 +22,11 @@ describe('useApi Hook for Rate Info', () => {
         });
 
         const { result } = renderHook(() => useApi('rates', false));
-        const response = await result.current.postData({});
+        let response;
+        
+        await act(async () => {
+            response = await result.current.postData({});
+        });
 
         expect(global.fetch).toHaveBeenCalled();
         expect(response).toEqual(mockResponse);
@@ -34,7 +38,9 @@ describe('useApi Hook for Rate Info', () => {
         const { result } = renderHook(() => useApi('rates', false));
 
         try {
-            await result.current.postData({});
+            await act(async () => {
+                await result.current.postData({});
+            });
             expect().fail('Expected error to be thrown');
         } catch (error) {
             expect(error).toBeDefined();
