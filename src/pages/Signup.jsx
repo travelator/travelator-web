@@ -12,7 +12,7 @@ const Signup = () => {
     const handleSignup = async (formData) => {
         try {
             const response = await postData(formData);
-            if (response.message === "User registered successfully") {
+            if (response.message === 'User registered successfully') {
                 navigate('/login');
             }
         } catch (err) {

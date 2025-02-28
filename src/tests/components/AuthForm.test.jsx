@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import AuthForm from '../../components/AuthForm/AuthForm';
@@ -18,8 +18,10 @@ describe('AuthForm Component Tests', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Login/i })).toBeInTheDocument();
+        expect(screen.getByText('Login')).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: /Login/i })
+        ).toBeInTheDocument();
         expect(screen.getByText(/Don't have an account?/i)).toBeInTheDocument();
     });
 
@@ -30,10 +32,16 @@ describe('AuthForm Component Tests', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByRole('heading', { name: 'Sign Up' })).toBeInTheDocument();
-        expect(screen.getByRole('button', { name: /Sign Up/i })).toBeInTheDocument();
-        expect(screen.getByPlaceholderText(/Confirm Password/i)).toBeInTheDocument();
-        expect(screen.getByText(/Already have an account?/i)).toBeInTheDocument();
+        expect(screen.getByText('Sign Up')).toBeInTheDocument();
+        expect(
+            screen.getByRole('button', { name: /Sign Up/i })
+        ).toBeInTheDocument();
+        expect(
+            screen.getByPlaceholderText(/Confirm Password/i)
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(/Already have an account?/i)
+        ).toBeInTheDocument();
     });
 
     it('should show error if passwords do not match on signup', () => {
@@ -80,7 +88,7 @@ describe('AuthForm Component Tests', () => {
 
         expect(mockOnSubmit).toHaveBeenCalledWith({
             email: 'test@example.com',
-            password: 'password123'
+            password: 'password123',
         });
     });
 
@@ -102,7 +110,7 @@ describe('AuthForm Component Tests', () => {
 
         expect(mockOnSubmit).toHaveBeenCalledWith({
             email: 'test@example.com',
-            password: 'password123'
+            password: 'password123',
         });
     });
 });

@@ -66,7 +66,7 @@ describe('Login Page Tests', () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
             postData: mockPostData,
             loading: false,
-            error: null
+            error: null,
         }));
 
         render(
@@ -77,10 +77,10 @@ describe('Login Page Tests', () => {
 
         // Fill in the form
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
-            target: { value: 'test@example.com' }
+            target: { value: 'test@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' }
+            target: { value: 'password123' },
         });
 
         // Submit the form
@@ -89,17 +89,19 @@ describe('Login Page Tests', () => {
         await waitFor(() => {
             expect(mockPostData).toHaveBeenCalledWith({
                 email: 'test@example.com',
-                password: 'password123'
+                password: 'password123',
             });
         });
     });
 
     it('displays error message on login failure', async () => {
-        const mockPostData = vi.fn().mockRejectedValue(new Error('Failed to login'));
+        const mockPostData = vi
+            .fn()
+            .mockRejectedValue(new Error('Failed to login'));
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
             postData: mockPostData,
             loading: false,
-            error: null
+            error: null,
         }));
 
         render(
@@ -109,10 +111,10 @@ describe('Login Page Tests', () => {
         );
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
-            target: { value: 'test@example.com' }
+            target: { value: 'test@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'wrongpassword' }
+            target: { value: 'wrongpassword' },
         });
 
         fireEvent.click(screen.getByRole('button', { name: /Login/i }));
@@ -126,7 +128,7 @@ describe('Login Page Tests', () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
             postData: vi.fn(),
             loading: true,
-            error: null
+            error: null,
         }));
 
         render(

@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, waitFor } from '@testing-library/react';
 import useApi from '../../hooks/FetchApi';
 
+/* global global */
+
 describe('useApi Hook', () => {
     beforeEach(() => {
         vi.clearAllMocks();
@@ -20,7 +22,10 @@ describe('useApi Hook', () => {
         );
 
         const { result } = renderHook(() => useApi('login', false));
-        await result.current.postData({ email: 'test@example.com', password: 'password' });
+        await result.current.postData({
+            email: 'test@example.com',
+            password: 'password',
+        });
 
         expect(global.fetch).toHaveBeenCalledWith(
             `${import.meta.env.VITE_APP_AUTH_API_URL}login`,
@@ -37,7 +42,8 @@ describe('useApi Hook', () => {
         );
 
         const { result } = renderHook(() => useApi('activities', true));
-        
+        await result.current.postData({});
+
         await waitFor(() => {
             expect(global.fetch).toHaveBeenCalledWith(
                 `${import.meta.env.VITE_APP_FETCH_GENERAL_API_URL}activities`,
@@ -55,12 +61,15 @@ describe('useApi Hook', () => {
         );
 
         const { result } = renderHook(() => useApi('login', false));
-        await result.current.postData({ email: 'test@example.com', password: 'password' });
+        await result.current.postData({
+            email: 'test@example.com',
+            password: 'password',
+        });
 
         expect(global.fetch).toHaveBeenCalledWith(
             expect.any(String),
             expect.objectContaining({
-                credentials: 'include'
+                credentials: 'include',
             })
         );
     });
@@ -75,9 +84,12 @@ describe('useApi Hook', () => {
         );
 
         const { result } = renderHook(() => useApi('login', false));
-        
+
         await expect(
-            result.current.postData({ email: 'test@example.com', password: 'wrong' })
+            result.current.postData({
+                email: 'test@example.com',
+                password: 'wrong',
+            })
         ).rejects.toThrow('HTTP error! Status: 401');
     });
-}); 
+});

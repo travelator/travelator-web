@@ -8,13 +8,17 @@ const useApi = (apiRoute, shouldFetchData = true) => {
     const [loading, setLoading] = useState(true);
 
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
-    
+
     // Use auth API URL for auth routes
-    const isAuthRoute = apiRoute === 'register' || apiRoute === 'login' || apiRoute === 'validate' || apiRoute === 'logout';
-    const baseURL = isAuthRoute 
+    const isAuthRoute =
+        apiRoute === 'register' ||
+        apiRoute === 'login' ||
+        apiRoute === 'validate' ||
+        apiRoute === 'logout';
+    const baseURL = isAuthRoute
         ? import.meta.env.VITE_APP_AUTH_API_URL
         : import.meta.env.VITE_APP_FETCH_GENERAL_API_URL;
-    
+
     const url = `${baseURL}${apiRoute}`;
 
     const delay = (t) =>

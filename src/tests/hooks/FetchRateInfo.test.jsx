@@ -6,20 +6,23 @@ import useApi from '../../hooks/FetchApi';
 vi.mock('@env', () => ({
     VITE_APP_AUTH_API_URL: 'http://test-auth-api.com/',
     VITE_APP_FETCH_GENERAL_API_URL: 'http://test-api.com/',
-    VITE_USE_LOCAL_DATA: 'false'
+    VITE_USE_LOCAL_DATA: 'false',
 }));
 
 describe('useApi Hook', () => {
     const mockResponse = { data: 'test data' };
 
     beforeEach(() => {
-        vi.stubGlobal('fetch', vi.fn(() =>
-            Promise.resolve({
-                ok: true,
-                status: 200,
-                json: () => Promise.resolve(mockResponse),
-            })
-        ));
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(() =>
+                Promise.resolve({
+                    ok: true,
+                    status: 200,
+                    json: () => Promise.resolve(mockResponse),
+                })
+            )
+        );
     });
 
     afterEach(() => {
@@ -47,9 +50,10 @@ describe('useApi Hook', () => {
     });
 
     it('should handle errors', async () => {
-        vi.stubGlobal('fetch', vi.fn(() =>
-            Promise.reject(new Error('Network error'))
-        ));
+        vi.stubGlobal(
+            'fetch',
+            vi.fn(() => Promise.reject(new Error('Network error')))
+        );
 
         const { result } = renderHook(() => useApi('test-route', true));
 

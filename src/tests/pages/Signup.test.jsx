@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter, useNavigate, Routes, Route } from 'react-router-dom';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Signup from '../../pages/Signup';
 import Login from '../../pages/Login';
 import * as FetchApi from '../../hooks/FetchApi';
@@ -24,9 +24,11 @@ describe('Signup Page Tests', () => {
 
     it('should render signup page', () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi.fn().mockResolvedValue({ message: "User registered successfully" }),
+            postData: vi
+                .fn()
+                .mockResolvedValue({ message: 'User registered successfully' }),
             loading: false,
-            error: null
+            error: null,
         }));
 
         render(
@@ -36,14 +38,18 @@ describe('Signup Page Tests', () => {
         );
 
         expect(screen.getByText(/Join Us/i)).toBeInTheDocument();
-        expect(screen.getByText(/Create an account to get started/i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Create an account to get started/i)
+        ).toBeInTheDocument();
     });
 
     it('navigates to login page when "Login" link is clicked on signup page', async () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi.fn().mockResolvedValue({ message: "User registered successfully" }),
+            postData: vi
+                .fn()
+                .mockResolvedValue({ message: 'User registered successfully' }),
             loading: false,
-            error: null
+            error: null,
         }));
 
         const user = userEvent.setup();
@@ -76,9 +82,11 @@ describe('Signup Page Tests', () => {
 
     it('handles successful registration', async () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi.fn().mockResolvedValue({ message: "User registered successfully" }),
+            postData: vi
+                .fn()
+                .mockResolvedValue({ message: 'User registered successfully' }),
             loading: false,
-            error: null
+            error: null,
         }));
 
         render(
@@ -88,13 +96,13 @@ describe('Signup Page Tests', () => {
         );
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
-            target: { value: 'newuser@example.com' }
+            target: { value: 'newuser@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' }
+            target: { value: 'password123' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password123' }
+            target: { value: 'password123' },
         });
 
         fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
@@ -106,9 +114,11 @@ describe('Signup Page Tests', () => {
 
     it('displays error message on registration failure', async () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi.fn().mockRejectedValue(new Error('Failed to register')),
+            postData: vi
+                .fn()
+                .mockRejectedValue(new Error('Failed to register')),
             loading: false,
-            error: null
+            error: null,
         }));
 
         render(
@@ -118,13 +128,13 @@ describe('Signup Page Tests', () => {
         );
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
-            target: { value: 'existing@example.com' }
+            target: { value: 'existing@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' }
+            target: { value: 'password123' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password123' }
+            target: { value: 'password123' },
         });
 
         fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
@@ -138,7 +148,7 @@ describe('Signup Page Tests', () => {
         vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
             postData: vi.fn(),
             loading: true,
-            error: null
+            error: null,
         }));
 
         render(
@@ -147,6 +157,8 @@ describe('Signup Page Tests', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/Creating your account.../i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Creating your account.../i)
+        ).toBeInTheDocument();
     });
 });
