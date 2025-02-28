@@ -1,3 +1,5 @@
+/* global global, beforeEach, afterEach */
+
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -5,25 +7,51 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Login from '../../pages/Login';
 import Signup from '../../pages/Signup';
 import * as FetchApi from '../../hooks/FetchApi';
+import { AuthProvider } from '../../context/AuthContext';
 
 // Mock useNavigate
+const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async () => {
     const actual = await vi.importActual('react-router-dom');
     return {
         ...actual,
-        useNavigate: () => vi.fn(),
+        useNavigate: () => mockNavigate,
     };
 });
 
 describe('Login Page Tests', () => {
-    it('should render login page', () => {
+    beforeEach(() => {
+        vi.clearAllMocks();
+        // Mock fetch for auth checks
+        global.fetch = vi.fn(() =>
+            Promise.resolve({
+                json: () => Promise.resolve({ message: 'No session' }),
+            })
+        );
+    });
+
+    afterEach(() => {
+        vi.restoreAllMocks();
+        if (global.fetch) {
+            delete global.fetch;
+        }
+    });
+
+    it('should render login page', async () => {
         render(
             <MemoryRouter initialEntries={['/login']}>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                </Routes>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                    </Routes>
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         expect(screen.getByText(/Welcome Back/i)).toBeInTheDocument();
         expect(
@@ -38,12 +66,19 @@ describe('Login Page Tests', () => {
         const user = userEvent.setup();
         render(
             <MemoryRouter initialEntries={['/login']}>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/signup" element={<Signup />} />
-                </Routes>
+                <AuthProvider>
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                    </Routes>
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         // Find the "Sign Up" link and click it
         const signUpLink = screen.getByText(/Sign Up/i);
@@ -71,9 +106,16 @@ describe('Login Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Login />
+                <AuthProvider>
+                    <Login />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         // Fill in the form
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
@@ -106,9 +148,16 @@ describe('Login Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Login />
+                <AuthProvider>
+                    <Login />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
             target: { value: 'test@example.com' },
@@ -133,9 +182,16 @@ describe('Login Page Tests', () => {
 
         render(
             <MemoryRouter>
-                <Login />
+                <AuthProvider>
+                    <Login />
+                </AuthProvider>
             </MemoryRouter>
         );
+
+        // Wait for auth loading to finish
+        await waitFor(() => {
+            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+        });
 
         expect(screen.getByText(/Logging in.../i)).toBeInTheDocument();
     });

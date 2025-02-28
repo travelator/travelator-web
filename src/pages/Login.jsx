@@ -9,14 +9,14 @@ const Login = () => {
     const navigate = useNavigate();
     const [error, setError] = useState(null);
     const { postData, loading } = useApi('login', false);
-    const { setIsAuthenticated, checkAuthStatus } = useAuth();
+    const { checkAuthStatus } = useAuth();
 
     const handleLogin = async (formData) => {
         try {
             console.log('Attempting login...');
             const response = await postData(formData);
             console.log('Login response:', response);
-            
+
             if (response.token) {
                 console.log('Login successful, checking auth status...');
                 await checkAuthStatus();

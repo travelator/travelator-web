@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const Navbar = () => {
     const { isAuthenticated, checkAuthStatus } = useAuth();
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         console.log('Navbar auth state changed:', isAuthenticated);
     }, [isAuthenticated]);
@@ -34,7 +34,10 @@ const Navbar = () => {
                     <Link to="/">Home</Link>
                 </div>
                 <div className="navbar-signup">
-                    {console.log('Rendering navbar buttons, isAuthenticated:', isAuthenticated)}
+                    {console.log(
+                        'Rendering navbar buttons, isAuthenticated:',
+                        isAuthenticated
+                    )}
                     {isAuthenticated ? (
                         <>
                             <Link to="/user-trips">My Trips</Link>
