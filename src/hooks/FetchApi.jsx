@@ -1,4 +1,3 @@
-// receiving all information in one api call
 import { useState, useEffect } from 'react';
 import localActivities from '../assets/activities'; //local data
 import { preset_itinerary } from '../assets/itinerary'; //local data
@@ -10,7 +9,16 @@ const useApi = (apiRoute, shouldFetchData = true) => {
 
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
-    const baseURL = import.meta.env.VITE_APP_FETCH_GENERAL_API_URL;
+    // Use auth API URL for auth routes
+    const isAuthRoute =
+        apiRoute === 'register' ||
+        apiRoute === 'login' ||
+        apiRoute === 'validate' ||
+        apiRoute === 'logout';
+    const baseURL = isAuthRoute
+        ? import.meta.env.VITE_APP_AUTH_API_URL
+        : import.meta.env.VITE_APP_FETCH_GENERAL_API_URL;
+
     const url = `${baseURL}${apiRoute}`;
 
     const delay = (t) =>
@@ -21,7 +29,7 @@ const useApi = (apiRoute, shouldFetchData = true) => {
             console.log('Fetching data from:', url);
 
             // fetch data (GET request)
-            fetch(url, { mode: 'cors' }) //update the api address
+            fetch(url, { mode: 'cors', credentials: 'include' }) //update the api address
                 .then((response) => {
                     if (!response.ok) {
                         throw new Error(

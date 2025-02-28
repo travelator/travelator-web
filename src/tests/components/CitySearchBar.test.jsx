@@ -2,6 +2,40 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import CitySearchBar from '../../components/CitySearchBar';
 
+// Mock city data
+const mockCities = [
+    { city: 'London', country: 'United Kingdom', code: 'GB' },
+    { city: 'Paris', country: 'France', code: 'FR' },
+];
+
+// Mock the MUI Autocomplete component
+vi.mock('@mui/material/Autocomplete', () => ({
+    default: ({ options, value, onChange, renderInput }) => {
+        const displayValue = value ? `${value.city} (${value.country})` : '';
+        return (
+            <div>
+                {renderInput({
+                    inputProps: {
+                        'aria-label': 'search for a city',
+                        value: displayValue,
+                    },
+                })}
+                <ul>
+                    {options.map((option, index) => (
+                        <li
+                            key={index}
+                            onClick={() => onChange(null, option)}
+                            data-testid="city-option"
+                        >
+                            {`${option.city} (${option.country})`}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    },
+}));
+
 describe('CitySearchBar', () => {
     it('should render the CitySearchBar component', () => {
         render(
@@ -12,7 +46,7 @@ describe('CitySearchBar', () => {
         expect(inputElement).toBeInTheDocument();
     });
 
-    it('should call setSelectedCity when a city is selected', () => {
+    it('should call setSelectedCity when a city is selected', async () => {
         const mockSetSelectedCity = vi.fn();
 
         render(
@@ -25,24 +59,18 @@ describe('CitySearchBar', () => {
         const inputElement = screen.getByLabelText(/search for a city/i);
         fireEvent.change(inputElement, { target: { value: 'London' } });
 
-        // Simulate selecting a city
-        const londonOption = screen.getByText(/London \(United Kingdom\)/i);
+        // Wait for and click the London option
+        const londonOption = await screen.findByText(
+            /London \(United Kingdom\)/i
+        );
         fireEvent.click(londonOption);
 
         // Check if the mock function was called with the correct city
-        expect(mockSetSelectedCity).toHaveBeenCalledWith({
-            city: 'London',
-            country: 'United Kingdom',
-            code: 'GB',
-        });
+        expect(mockSetSelectedCity).toHaveBeenCalledWith(mockCities[0]);
     });
 
     it('should display the selected city', () => {
-        const selectedCity = {
-            city: 'London',
-            country: 'United Kingdom',
-            code: 'GB',
-        };
+        const selectedCity = mockCities[0];
 
         render(
             <CitySearchBar
@@ -55,9 +83,9 @@ describe('CitySearchBar', () => {
         expect(inputElement).toHaveValue('London (United Kingdom)');
     });
 
-    it('should update selectedCity when an option is selected', () => {
+    it('should update selectedCity when an option is selected', async () => {
         const mockSetSelectedCity = vi.fn();
-        const selectedCity = { city: 'London', country: 'UK', code: 'gb' };
+        const selectedCity = mockCities[0];
 
         render(
             <CitySearchBar
@@ -69,13 +97,10 @@ describe('CitySearchBar', () => {
         const inputElement = screen.getByLabelText(/search for a city/i);
         fireEvent.change(inputElement, { target: { value: 'Paris' } });
 
-        const parisOption = screen.getByText(/Paris \(France\)/i);
+        // Wait for and click the Paris option
+        const parisOption = await screen.findByText(/Paris \(France\)/i);
         fireEvent.click(parisOption);
 
-        expect(mockSetSelectedCity).toHaveBeenCalledWith({
-            city: 'Paris',
-            country: 'France',
-            code: 'FR',
-        });
+        expect(mockSetSelectedCity).toHaveBeenCalledWith(mockCities[1]);
     });
 });
