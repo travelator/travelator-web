@@ -5,9 +5,11 @@ import useApi from '../../hooks/FetchApi';
 /* global global */
 
 describe('useApi Hook for Rate Info', () => {
+    let fetchSpy;
+
     beforeEach(() => {
         vi.clearAllMocks();
-        global.fetch = vi.fn();
+        fetchSpy = vi.spyOn(global, 'fetch');
     });
 
     afterEach(() => {
@@ -16,24 +18,24 @@ describe('useApi Hook for Rate Info', () => {
 
     it('fetches rate info successfully', async () => {
         const mockResponse = { data: 'test data' };
-        global.fetch.mockResolvedValueOnce({
+        fetchSpy.mockResolvedValueOnce({
             ok: true,
             json: () => Promise.resolve(mockResponse),
         });
 
         const { result } = renderHook(() => useApi('rates', false));
         let response;
-        
+
         await act(async () => {
             response = await result.current.postData({});
         });
 
-        expect(global.fetch).toHaveBeenCalled();
+        expect(fetchSpy).toHaveBeenCalled();
         expect(response).toEqual(mockResponse);
     });
 
     it('handles rate info errors', async () => {
-        global.fetch.mockRejectedValueOnce(new Error('Rate API Error'));
+        fetchSpy.mockRejectedValueOnce(new Error('Rate API Error'));
 
         const { result } = renderHook(() => useApi('rates', false));
 

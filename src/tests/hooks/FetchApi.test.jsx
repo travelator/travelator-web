@@ -5,9 +5,11 @@ import useApi from '../../hooks/FetchApi';
 /* global global */
 
 describe('useApi Hook', () => {
+    let fetchSpy;
+
     beforeEach(() => {
         vi.clearAllMocks();
-        global.fetch = vi.fn();
+        fetchSpy = vi.spyOn(global, 'fetch');
     });
 
     afterEach(() => {
@@ -16,24 +18,24 @@ describe('useApi Hook', () => {
 
     it('makes API calls successfully', async () => {
         const mockResponse = { data: 'test data' };
-        global.fetch.mockResolvedValueOnce({
+        fetchSpy.mockResolvedValueOnce({
             ok: true,
             json: () => Promise.resolve(mockResponse),
         });
 
         const { result } = renderHook(() => useApi('test-endpoint', false));
         let response;
-        
+
         await act(async () => {
             response = await result.current.postData({ test: 'data' });
         });
 
-        expect(global.fetch).toHaveBeenCalled();
+        expect(fetchSpy).toHaveBeenCalled();
         expect(response).toEqual(mockResponse);
     });
 
     it('handles errors appropriately', async () => {
-        global.fetch.mockRejectedValueOnce(new Error('API Error'));
+        fetchSpy.mockRejectedValueOnce(new Error('API Error'));
 
         const { result } = renderHook(() => useApi('test-endpoint', false));
 
@@ -50,7 +52,7 @@ describe('useApi Hook', () => {
 
     it('sets loading state correctly', async () => {
         const mockResponse = { data: 'test data' };
-        global.fetch.mockImplementation(
+        fetchSpy.mockImplementation(
             () =>
                 new Promise((resolve) =>
                     setTimeout(
