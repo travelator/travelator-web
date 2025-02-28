@@ -4,9 +4,17 @@ import useApi from '../../hooks/FetchApi';
 
 /* global global */
 
+// Mock environment variables
+vi.mock('@env', () => ({
+    VITE_APP_AUTH_API_URL: 'http://test-auth-api.com/',
+    VITE_APP_FETCH_GENERAL_API_URL: 'http://test-api.com/',
+}));
+
 describe('useApi Hook', () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        // Reset fetch mock before each test
+        global.fetch = vi.fn();
     });
 
     afterEach(() => {
@@ -14,7 +22,7 @@ describe('useApi Hook', () => {
     });
 
     it('uses auth URL for auth routes', async () => {
-        global.fetch = vi.fn(() =>
+        global.fetch.mockImplementationOnce(() =>
             Promise.resolve({
                 ok: true,
                 json: () => Promise.resolve({ token: 'fake-token' }),
@@ -28,13 +36,17 @@ describe('useApi Hook', () => {
         });
 
         expect(global.fetch).toHaveBeenCalledWith(
-            `${import.meta.env.VITE_APP_AUTH_API_URL}login`,
-            expect.any(Object)
+            'http://test-auth-api.com/login',
+            expect.objectContaining({
+                method: 'POST',
+                headers: expect.any(Object),
+                body: expect.any(String),
+            })
         );
     });
 
     it('uses general URL for non-auth routes', async () => {
-        global.fetch = vi.fn(() =>
+        global.fetch.mockImplementationOnce(() =>
             Promise.resolve({
                 ok: true,
                 json: () => Promise.resolve({ data: [] }),
@@ -44,16 +56,18 @@ describe('useApi Hook', () => {
         const { result } = renderHook(() => useApi('activities', true));
         await result.current.postData({});
 
-        await waitFor(() => {
-            expect(global.fetch).toHaveBeenCalledWith(
-                `${import.meta.env.VITE_APP_FETCH_GENERAL_API_URL}activities`,
-                expect.any(Object)
-            );
-        });
+        expect(global.fetch).toHaveBeenCalledWith(
+            'http://test-api.com/activities',
+            expect.objectContaining({
+                method: 'POST',
+                headers: expect.any(Object),
+                body: expect.any(String),
+            })
+        );
     });
 
     it('includes credentials in requests', async () => {
-        global.fetch = vi.fn(() =>
+        global.fetch.mockImplementationOnce(() =>
             Promise.resolve({
                 ok: true,
                 json: () => Promise.resolve({}),
@@ -75,7 +89,7 @@ describe('useApi Hook', () => {
     });
 
     it('handles API errors correctly', async () => {
-        global.fetch = vi.fn(() =>
+        global.fetch.mockImplementationOnce(() =>
             Promise.resolve({
                 ok: false,
                 status: 401,
@@ -85,11 +99,15 @@ describe('useApi Hook', () => {
 
         const { result } = renderHook(() => useApi('login', false));
 
-        await expect(
-            result.current.postData({
+        try {
+            await result.current.postData({
                 email: 'test@example.com',
                 password: 'wrong',
-            })
-        ).rejects.toThrow('HTTP error! Status: 401');
+            });
+            // If we reach here, the test should fail
+            expect(true).toBe(false);
+        } catch (error) {
+            expect(error.message).toBe('HTTP error! Status: 401');
+        }
     });
 });

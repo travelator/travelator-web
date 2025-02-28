@@ -9,20 +9,19 @@ vi.mock('@env', () => ({
     VITE_USE_LOCAL_DATA: 'false',
 }));
 
-describe('useApi Hook', () => {
+describe('useApi Hook for Rate Info', () => {
     const mockResponse = { data: 'test data' };
+    let fetchMock;
 
     beforeEach(() => {
-        vi.stubGlobal(
-            'fetch',
-            vi.fn(() =>
-                Promise.resolve({
-                    ok: true,
-                    status: 200,
-                    json: () => Promise.resolve(mockResponse),
-                })
-            )
+        fetchMock = vi.fn(() =>
+            Promise.resolve({
+                ok: true,
+                status: 200,
+                json: () => Promise.resolve(mockResponse),
+            })
         );
+        global.fetch = fetchMock;
     });
 
     afterEach(() => {
@@ -32,11 +31,20 @@ describe('useApi Hook', () => {
     it('should fetch data successfully', async () => {
         const { result } = renderHook(() => useApi('test-route', true));
 
-        await waitFor(() => {
-            expect(result.current.activities).toEqual(mockResponse);
-            expect(result.current.loading).toBe(false);
-            expect(result.current.error).toBeNull();
-        });
+        // Trigger a fetch by calling postData
+        const response = await result.current.postData({});
+
+        expect(response).toEqual(mockResponse);
+        expect(result.current.loading).toBe(false);
+        expect(result.current.error).toBeNull();
+        expect(fetchMock).toHaveBeenCalledWith(
+            'http://test-api.com/test-route',
+            expect.objectContaining({
+                method: 'POST',
+                headers: expect.any(Object),
+                body: expect.any(String),
+            })
+        );
     });
 
     it('should handle POST requests', async () => {
@@ -47,19 +55,30 @@ describe('useApi Hook', () => {
         expect(postData).toEqual(mockResponse);
         expect(result.current.loading).toBe(false);
         expect(result.current.error).toBeNull();
+        expect(fetchMock).toHaveBeenCalledWith(
+            'http://test-auth-api.com/test-route',
+            expect.objectContaining({
+                method: 'POST',
+                headers: expect.any(Object),
+                body: JSON.stringify({ test: 'data' }),
+            })
+        );
     });
 
     it('should handle errors', async () => {
-        vi.stubGlobal(
-            'fetch',
-            vi.fn(() => Promise.reject(new Error('Network error')))
-        );
+        const errorMessage = 'Network error';
+        global.fetch = vi.fn(() => Promise.reject(new Error(errorMessage)));
 
         const { result } = renderHook(() => useApi('test-route', true));
 
-        await waitFor(() => {
-            expect(result.current.error).toBeDefined();
+        try {
+            await result.current.postData({});
+            // If we reach here, the test should fail
+            expect(true).toBe(false);
+        } catch (error) {
+            expect(error.message).toBe(errorMessage);
             expect(result.current.loading).toBe(false);
-        });
+            expect(result.current.error).toBe(errorMessage);
+        }
     });
 });

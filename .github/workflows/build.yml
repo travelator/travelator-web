@@ -31,7 +31,8 @@ jobs:
         runs-on: ubuntu-latest
         env:
             VITE_USE_LOCAL_DATA: 'true'
-            VITE_APP_FETCH_GENERAL_API_URL: 'http://travelator-simple-api.fpgwgqhqgzc9dqg4.uksouth.azurecontainer.io:5000/'
+            VITE_APP_AUTH_API_URL: 'http://test-auth-api.com/'
+            VITE_APP_FETCH_GENERAL_API_URL: 'http://test-api.com/'
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
