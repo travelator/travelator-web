@@ -18,7 +18,9 @@ describe('AuthForm Component Tests', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText('Login')).toBeInTheDocument();
+        expect(
+            screen.getByRole('heading', { name: 'Login' })
+        ).toBeInTheDocument();
         expect(
             screen.getByRole('button', { name: /Login/i })
         ).toBeInTheDocument();
@@ -32,7 +34,9 @@ describe('AuthForm Component Tests', () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText('Sign Up')).toBeInTheDocument();
+        expect(
+            screen.getByRole('heading', { name: 'Sign Up' })
+        ).toBeInTheDocument();
         expect(
             screen.getByRole('button', { name: /Sign Up/i })
         ).toBeInTheDocument();
