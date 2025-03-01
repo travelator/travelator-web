@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import CitySearchBar from '../components/CitySearchBar';
@@ -6,6 +6,7 @@ import '../styles/Home.css';
 import useApi from '../hooks/FetchApi';
 import CustomToggle from '../components/Toggles/CustomToggle';
 import Loading from '../components/Loading';
+import { FactsContext } from '../providers/FactsProvider';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -17,15 +18,19 @@ function Home() {
     const [selectedGroup, setSelectedGroup] = useState('solo');
     const [isLoading, setIsLoading] = useState(false);
 
+    const { setFacts } = useContext(FactsContext);
+
     const navigate = useNavigate();
 
     const { error, loading, postData } = useApi('activities', false);
+    const { getData } = useApi('facts', false);
 
     const selectedCity = selectedOption ? selectedOption.city : null;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsLoading(true);
+        setFacts([]);
 
         const homePageData = {
             //update with proper data
@@ -34,19 +39,21 @@ function Home() {
             group: selectedGroup,
         };
         try {
-            const response = await postData(homePageData);
+            const request = postData(homePageData);
+            const facts = await getData({ location: selectedCity, num: 2 });
+            setFacts(facts.facts);
+            const response = await request;
             navigate(`/rate/${selectedCity}`, {
                 state: { activities: response.activities },
             });
-            console.log('POST success:', response);
         } catch (error) {
-            console.error('POST failed:', error);
+            console.error('Failed to fetch acitivities:', error);
             setIsLoading(false);
         }
     };
 
     if (loading || isLoading) {
-        return <Loading text={'Fetching activities...'} />;
+        return <Loading text={'Fetching activities...'} factId={0} />;
     }
 
     const timeOfDayOptions = [

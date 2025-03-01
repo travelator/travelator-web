@@ -1,9 +1,8 @@
-/* global global, beforeEach, afterEach */
-
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from '../context/AuthContext';
+import { FactsProvider } from '../providers/FactsProvider';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
 import Signup from '../pages/Signup';
@@ -12,9 +11,11 @@ import Itinerary from '../pages/Itinerary';
 import NotFound from '../pages/NotFound';
 
 describe('Routes Tests', () => {
+    let fetchMock;
+
     beforeEach(() => {
         // Mock fetch for auth checks
-        global.fetch = vi.fn(() =>
+        fetchMock = vi.spyOn(globalThis, 'fetch').mockImplementation(() =>
             Promise.resolve({
                 json: () => Promise.resolve({ message: 'No session' }),
             })
@@ -22,27 +23,26 @@ describe('Routes Tests', () => {
     });
 
     afterEach(() => {
-        vi.restoreAllMocks();
-        if (global.fetch) {
-            delete global.fetch;
-        }
+        fetchMock.mockRestore();
     });
 
     const renderWithRouter = (initialEntry) => {
         render(
             <MemoryRouter initialEntries={[initialEntry]}>
                 <AuthProvider>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<Signup />} />
-                        <Route path="/rate/:city" element={<Rate />} />
-                        <Route
-                            path="/itinerary/:city"
-                            element={<Itinerary />}
-                        />
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
+                    <FactsProvider>
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/rate/:city" element={<Rate />} />
+                            <Route
+                                path="/itinerary/:city"
+                                element={<Itinerary />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </FactsProvider>
                 </AuthProvider>
             </MemoryRouter>
         );

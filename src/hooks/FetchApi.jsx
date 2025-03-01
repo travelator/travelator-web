@@ -46,15 +46,15 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         }
     }, [apiRoute, shouldFetchData, url]);
 
-    //Send data (POST request)
+    // Send data (POST request)
     const postData = async (data) => {
         setLoading(true);
 
         if (useLocalData) {
-            if (apiRoute == 'activities') {
+            if (apiRoute === 'activities') {
                 await delay(2);
                 return { activities: localActivities };
-            } else if (apiRoute == 'itinerary') {
+            } else if (apiRoute === 'itinerary') {
                 console.log(data);
                 await delay(2);
                 return { itinerary: preset_itinerary };
@@ -90,7 +90,50 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         }
     };
 
-    return { activities, error, loading, postData };
+    // Fetch data (GET request)
+    const getData = async (data) => {
+        setLoading(true);
+
+        // Construct query parameters from data
+        const queryParams = new URLSearchParams(data).toString();
+        const urlWithParams = `${url}?${queryParams}`;
+
+        if (useLocalData) {
+            if (apiRoute === 'facts') {
+                await delay(2);
+                return { facts: ['The UK has about 70M people'] };
+            } else {
+                setError('Route not found');
+            }
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await fetch(urlWithParams, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'cors',
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const responseData = await response.json();
+            console.log('Response Data:', responseData);
+            setActivities(responseData);
+            return responseData;
+        } catch (error) {
+            console.error('GET request error:', error);
+            setError(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { activities, error, loading, postData, getData };
 };
 
 export default useApi;
