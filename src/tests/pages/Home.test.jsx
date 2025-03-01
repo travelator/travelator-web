@@ -166,7 +166,9 @@ describe('Home Page Functionality', () => {
 
         // Adjust slider
         const slider = screen.getByRole('slider');
-        await userEvent.type(slider, '{arrowright}');
+        await act(async () => {
+            await userEvent.type(slider, '{arrowright}');
+        });
 
         // Submit the form
         const startButton = screen.getByRole('button', { name: /start/i });
@@ -178,7 +180,7 @@ describe('Home Page Functionality', () => {
             city: 'London',
             timeOfDay: ['afternoon', 'evening'],
             group: 'family',
-            uniqueness: 0,
+            uniqueness: 1, // Ensure the uniqueness value is updated correctly
         });
     });
 
@@ -190,15 +192,30 @@ describe('Home Page Functionality', () => {
             postData: vi.fn(),
         });
 
-        render(
-            <MemoryRouter>
-                <FactsProvider>
-                    <Home />
-                </FactsProvider>
-            </MemoryRouter>
-        );
+        renderHome();
 
         const slider = screen.getByRole('slider');
         expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value should be 0
+    });
+
+    it('should update slider value when changed', async () => {
+        useApi.mockReturnValue({
+            activities: null,
+            error: null,
+            loading: false,
+            postData: vi.fn(),
+        });
+
+        renderHome();
+
+        const slider = screen.getByRole('slider');
+        expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value should be 0
+
+        // Simulate slider change
+        await act(async () => {
+            await userEvent.type(slider, '{arrowright}');
+        });
+
+        expect(slider).toHaveAttribute('aria-valuenow', '1'); // Value should be 1 after one arrow right press
     });
 });
