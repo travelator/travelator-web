@@ -49,10 +49,6 @@ function Home() {
         return <Loading text={'Fetching activities...'} />;
     }
 
-    if (error) {
-        return <p>Error: {error.message}</p>;
-    }
-
     const timeOfDayOptions = [
         { label: 'Morning', value: 'morning' },
         { label: 'Afternoon', value: 'afternoon' },
@@ -108,6 +104,9 @@ function Home() {
                         </Button>
                     </form>
                 </div>
+                {error && (
+                    <p style={{ color: 'red' }}>Error: {error.message}</p>
+                )}
             </div>
         </>
     );

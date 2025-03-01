@@ -29,15 +29,11 @@ const router = createBrowserRouter([
             },
             {
                 path: 'rate/:city',
-                element: (
-                    <Rate />
-                ),
+                element: <Rate />,
             },
             {
                 path: 'itinerary/:city',
-                element: (
-                    <Itinerary />
-                ),
+                element: <Itinerary />,
             },
             {
                 path: 'user-trips',

@@ -9,6 +9,12 @@
     justify-content: flex-start;
 }
 
+@media (max-width: 900px) {
+    .activity-cards {
+        justify-content: center;
+    }
+}
+
 .bottom-buttons {
     margin-top: 32px;
     display: flex;

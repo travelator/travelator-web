@@ -70,6 +70,7 @@ export default function CitySearchBar({ selectedCity, setSelectedCity }) {
                     component="li"
                     sx={{ '& > img': { mr: 2, flexShrink: 0 } }}
                     {...props}
+                    key={`${option.city}-${option.country}`}
                 >
                     <img
                         loading="lazy"
