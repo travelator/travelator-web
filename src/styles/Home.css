@@ -87,3 +87,7 @@
 .custom-toggle-button:not(.Mui-selected):hover {
     background-color: #f0f0f0;
 }
+
+.unique-trip-slider {
+    margin-bottom: 20px;
+}
