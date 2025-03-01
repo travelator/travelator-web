@@ -36,12 +36,11 @@ function Rate() {
     const onNext = useCallback(async () => {
         const responseData = {
             city: city,
-            preferences: [
+            preferences:
                 {
                     liked: likedActivities,
                     disliked: dislikedActivities,
                 },
-            ],
         };
         console.log('Sending to backend:', responseData);
 

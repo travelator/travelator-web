@@ -30,17 +30,13 @@ const router = createBrowserRouter([
             {
                 path: 'rate/:city',
                 element: (
-                    <ProtectedRoute>
-                        <Rate />
-                    </ProtectedRoute>
+                    <Rate />
                 ),
             },
             {
                 path: 'itinerary/:city',
                 element: (
-                    <ProtectedRoute>
-                        <Itinerary />
-                    </ProtectedRoute>
+                    <Itinerary />
                 ),
             },
             {

@@ -6,7 +6,7 @@
     display: flex;
     gap: 24px;
     overflow: hidden;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .bottom-buttons {
