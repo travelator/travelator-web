@@ -7,6 +7,7 @@ import useApi from '../hooks/FetchApi';
 import CustomToggle from '../components/Toggles/CustomToggle';
 import Loading from '../components/Loading';
 import { FactsContext } from '../providers/FactsProvider';
+import UniqueTripSlider from '../components/Slider/Slider';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -16,6 +17,7 @@ function Home() {
         'evening',
     ]);
     const [selectedGroup, setSelectedGroup] = useState('solo');
+    const [selectedUniqueness, setSelectedUniqueness] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
 
     const { setFacts } = useContext(FactsContext);
@@ -37,6 +39,7 @@ function Home() {
             city: selectedCity,
             timeOfDay: selectedTime,
             group: selectedGroup,
+            uniqueness: selectedUniqueness,
         };
         try {
             const request = postData(homePageData);
@@ -82,6 +85,14 @@ function Home() {
                             <CitySearchBar
                                 selectedCity={selectedOption}
                                 setSelectedCity={setSelectedOption}
+                            />
+                        </div>
+                        <div className="main">
+                            <UniqueTripSlider
+                                value={selectedUniqueness}
+                                onChange={(e, newValue) =>
+                                    setSelectedUniqueness(newValue)
+                                }
                             />
                         </div>
                         <div className="main">

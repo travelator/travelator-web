@@ -164,6 +164,10 @@ describe('Home Page Functionality', () => {
         const familyButton = screen.getByText('Family');
         await user.click(familyButton);
 
+        // Adjust slider
+        const slider = screen.getByRole('slider');
+        await userEvent.type(slider, '{arrowright}');
+
         // Submit the form
         const startButton = screen.getByRole('button', { name: /start/i });
         await act(async () => {
@@ -174,6 +178,43 @@ describe('Home Page Functionality', () => {
             city: 'London',
             timeOfDay: ['afternoon', 'evening'],
             group: 'family',
+            uniqueness: 0,
         });
+    });
+
+    it('should render the slider with default value', () => {
+        useApi.mockReturnValue({
+            activities: null,
+            error: null,
+            loading: false,
+            postData: vi.fn(),
+        });
+
+        render(
+            <MemoryRouter>
+                <Home />
+            </MemoryRouter>
+        );
+
+        const slider = screen.getByRole('slider');
+        expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value should be 0
+    });
+
+    it('should update slider value when changed', () => {
+        useApi.mockReturnValue({
+            activities: null,
+            error: null,
+            loading: false,
+            postData: vi.fn(),
+        });
+
+        render(
+            <MemoryRouter>
+                <Home />
+            </MemoryRouter>
+        );
+
+        const slider = screen.getByRole('slider');
+        expect(slider).toHaveAttribute('aria-valuenow', '0'); // Value should be 1 after one arrow right press
     });
 });
