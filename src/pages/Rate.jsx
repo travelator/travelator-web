@@ -89,7 +89,7 @@ function Rate() {
 
     // handle loading state for POST request
     if (loading) {
-        return <Loading text={'Building itinerary...'} />;
+        return <Loading text={'Building itinerary...'} factId={1} />;
     }
 
     if (error) {
