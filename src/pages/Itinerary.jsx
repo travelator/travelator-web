@@ -4,12 +4,16 @@ import { useLocation } from 'react-router-dom';
 import ItineraryOverview from './ItineraryTabs/ItineraryOverview';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Button from '@mui/material/Button';
+import BoltIcon from '@mui/icons-material/Bolt';
+import RegenerateModal from './ItineraryTabs/RegenerateModal';
 import '../styles/Itinerary.css';
 
 function Itinerary() {
     // Get city and set state for current tab
     const { city } = useParams();
     const [tab, setTab] = useState('overview');
+    const [modalOpen, setModalOpen] = useState(false);
 
     // Get itinerary data
     const { state } = useLocation();
@@ -44,10 +48,27 @@ function Itinerary() {
         setTab(newValue);
     };
 
+    const handleRegenerate = (feedback) => {
+        // Add logic to regenerate the itinerary with feedback
+        console.log('Regenerate button clicked with feedback:', feedback);
+        setModalOpen(false);
+    };
+
     return (
         <>
             <div className="content-wrapper">
-                <h1>Get ready to explore {city && capitalize(city)}</h1>
+                <div className="header">
+                    <h1>Get ready to explore {city && capitalize(city)}</h1>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => setModalOpen(true)}
+                        startIcon={<BoltIcon />}
+                        sx={{ fontSize: '1.2rem' }} // Increase font size by 20%
+                    >
+                        Regenerate
+                    </Button>
+                </div>
                 <div className="subactions">
                     <div className="subactions-left">
                         <Tabs
@@ -62,6 +83,11 @@ function Itinerary() {
                 </div>
                 <div className="itinerary-main">{renderTab()}</div>
             </div>
+            <RegenerateModal
+                open={modalOpen}
+                handleClose={() => setModalOpen(false)}
+                handleRegenerate={handleRegenerate}
+            />
         </>
     );
 }
