@@ -192,29 +192,13 @@ describe('Home Page Functionality', () => {
 
         render(
             <MemoryRouter>
-                <Home />
+                <FactsProvider>
+                    <Home />
+                </FactsProvider>
             </MemoryRouter>
         );
 
         const slider = screen.getByRole('slider');
         expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value should be 0
-    });
-
-    it('should update slider value when changed', () => {
-        useApi.mockReturnValue({
-            activities: null,
-            error: null,
-            loading: false,
-            postData: vi.fn(),
-        });
-
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
-
-        const slider = screen.getByRole('slider');
-        expect(slider).toHaveAttribute('aria-valuenow', '0'); // Value should be 1 after one arrow right press
     });
 });
