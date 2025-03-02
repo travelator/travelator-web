@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import localActivities from '../assets/activities'; //local data
-import { preset_itinerary } from '../assets/itinerary'; //local data
+import { TransportItinerary } from '../assets/itineraryWithTransport'; //local data
 
 const useApi = (apiRoute, shouldFetchData = true) => {
     const [activities, setActivities] = useState(null);
@@ -57,7 +57,7 @@ const useApi = (apiRoute, shouldFetchData = true) => {
             } else if (apiRoute === 'itinerary') {
                 console.log(data);
                 await delay(2);
-                return { itinerary: preset_itinerary };
+                return { itinerary: TransportItinerary };
             } else {
                 setError('Route not found');
             }
