@@ -2,7 +2,15 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import './ActivityCard.css';
 
-function ActivityCard({ title, start, end, description, price, theme, url }) {
+function ActivityCard({
+    title,
+    start,
+    end,
+    description,
+    price,
+    theme,
+    url = [],
+}) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const numImages = url.length;
     const priceTag = price > 0 ? `£${price}` : 'FREE';
@@ -47,7 +55,11 @@ ActivityCard.propTypes = {
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
-    url: PropTypes.arrayOf(PropTypes.string).isRequired,
+    url: PropTypes.arrayOf(PropTypes.string),
+};
+
+ActivityCard.defaultProps = {
+    url: [],
 };
 
 export default ActivityCard;

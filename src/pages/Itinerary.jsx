@@ -5,6 +5,7 @@ import ItineraryOverview from './ItineraryTabs/ItineraryOverview';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import '../styles/Itinerary.css';
+import Map from '../components/Map/map';
 
 function Itinerary() {
     // Get city and set state for current tab
@@ -28,7 +29,8 @@ function Itinerary() {
             case 'map':
                 return (
                     <div className="itinerary-main">
-                        <p>Coming soon!!!</p>
+                        <Map itinerary={itinerary} />{' '}
+                        {/* Pass itinerary as prop */}
                     </div>
                 );
             default:
