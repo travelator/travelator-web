@@ -43,7 +43,7 @@ function Home() {
         };
         try {
             const request = postData(homePageData);
-            const facts = await getData({ location: selectedCity, num: 2 });
+            const facts = await getData({ location: selectedCity, num: 3 });
             setFacts(facts.facts);
             const response = await request;
             navigate(`/rate/${selectedCity}`, {

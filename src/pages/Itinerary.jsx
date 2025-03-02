@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import useApi from '../hooks/FetchApi';
 import ItineraryOverview from './ItineraryTabs/ItineraryOverview';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Button from '@mui/material/Button';
 import BoltIcon from '@mui/icons-material/Bolt';
 import RegenerateModal from './ItineraryTabs/RegenerateModal';
+import Loading from '../components/Loading';
 import '../styles/Itinerary.css';
 
 function Itinerary() {
@@ -14,6 +16,8 @@ function Itinerary() {
     const { city } = useParams();
     const [tab, setTab] = useState('overview');
     const [modalOpen, setModalOpen] = useState(false);
+
+    const { postData, error, loading } = useApi('itinerary', false);
 
     // Get itinerary data
     const { state } = useLocation();
@@ -48,11 +52,27 @@ function Itinerary() {
         setTab(newValue);
     };
 
-    const handleRegenerate = (feedback) => {
+    const handleRegenerate = async (feedback) => {
         // Add logic to regenerate the itinerary with feedback
-        console.log('Regenerate button clicked with feedback:', feedback);
+        const responseData = {
+            city: city,
+            itinerary: { itinerary: itinerary },
+            feedback: feedback,
+        };
         setModalOpen(false);
+        try {
+            const response = await postData(responseData);
+            setItinerary(response.itinerary);
+        } catch (error) {
+            console.error('POST failed:', error);
+            console.error('Request data was:', responseData);
+        }
     };
+
+    // handle loading state for POST request
+    if (loading) {
+        return <Loading text={'Building itinerary...'} factId={2} />;
+    }
 
     return (
         <>
@@ -82,6 +102,9 @@ function Itinerary() {
                     </div>
                 </div>
                 <div className="itinerary-main">{renderTab()}</div>
+                {error && (
+                    <p style={{ color: 'red' }}>Error: {error.message}</p>
+                )}
             </div>
             <RegenerateModal
                 open={modalOpen}
