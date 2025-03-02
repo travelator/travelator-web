@@ -8,6 +8,7 @@ import CustomToggle from '../components/Toggles/CustomToggle';
 import Loading from '../components/Loading';
 import { FactsContext } from '../providers/FactsProvider';
 import UniqueTripSlider from '../components/Slider/Slider';
+import DateRangeComponent from '../components/DatePicker/DateRangeComponent';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -16,6 +17,7 @@ function Home() {
         'afternoon',
         'evening',
     ]);
+    const [selectedDate, setSelectedDate] = useState(null);
     const [selectedGroup, setSelectedGroup] = useState('solo');
     const [selectedUniqueness, setSelectedUniqueness] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,8 +37,8 @@ function Home() {
         setFacts([]);
 
         const homePageData = {
-            //update with proper data
             city: selectedCity,
+            date: selectedDate ? new Date(selectedDate) : null,
             timeOfDay: selectedTime,
             group: selectedGroup,
             uniqueness: selectedUniqueness,
@@ -57,6 +59,10 @@ function Home() {
 
     if (loading || isLoading) {
         return <Loading text={'Fetching activities...'} factId={0} />;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
     }
 
     const timeOfDayOptions = [
@@ -88,6 +94,12 @@ function Home() {
                             />
                         </div>
                         <div className="main">
+                            <DateRangeComponent
+                                value={selectedDate}
+                                onChange={setSelectedDate}
+                            />
+                        </div>
+                        <div className="main">
                             <UniqueTripSlider
                                 value={selectedUniqueness}
                                 onChange={(e, newValue) =>
@@ -112,7 +124,7 @@ function Home() {
                             />
                         </div>
                         <Button
-                            disabled={!selectedCity}
+                            disabled={!selectedCity} // date is optional.
                             type="submit"
                             variant="contained"
                             color="primary"

@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     if (loading) {
-        return <div>Loading...</div>; // Or your loading component
+        return <div>Loading...</div>;
     }
 
     return (
