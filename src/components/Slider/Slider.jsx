@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
+import PropTypes from 'prop-types';
 
 function valuetext(value) {
     const labels = [
@@ -12,12 +13,13 @@ function valuetext(value) {
     return labels[value / 25];
 }
 
-export default function UniqueTripSlider() {
+export default function UniqueTripSlider({ value, onChange }) {
     return (
         <Box sx={{ width: 300 }}>
             <Slider
                 aria-label="Uniqueness of Trip"
-                defaultValue={0}
+                value={value}
+                onChange={onChange}
                 getAriaValueText={valuetext}
                 valueLabelDisplay="on"
                 step={25}
@@ -34,3 +36,8 @@ export default function UniqueTripSlider() {
         </Box>
     );
 }
+
+UniqueTripSlider.propTypes = {
+    value: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+};

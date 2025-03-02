@@ -53,6 +53,12 @@ describe('Login Page Tests', () => {
             expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
         });
 
+        await waitFor(() => {
+            expect(
+                screen.queryByText(/Logging in.../i)
+            ).not.toBeInTheDocument();
+        });
+
         expect(screen.getByText(/Welcome Back/i)).toBeInTheDocument();
         expect(
             screen.getByText(/Please login to continue/i)

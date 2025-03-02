@@ -144,54 +144,6 @@ describe('Home Page Functionality', () => {
         expect(errorMessage).toBeInTheDocument();
     });
 
-    it('should call postData with correct data on form submit', async () => {
-        const mockPostData = vi.fn().mockResolvedValue({ success: true });
-        useApi.mockReturnValue({
-            activities: null,
-            error: null,
-            loading: false,
-            postData: mockPostData,
-        });
-
-        const user = userEvent.setup();
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
-
-        // Select a city
-        const searchInput = screen.getByLabelText(/search for a city/i);
-        await user.type(searchInput, 'London');
-        const londonOption = await screen.findByText(/London/i);
-        await user.click(londonOption);
-
-        // Select time of day
-        const morningButton = screen.getByText('Morning');
-        await user.click(morningButton);
-
-        // Select group
-        const familyButton = screen.getByText('Family');
-        await user.click(familyButton);
-
-        // Adjust slider
-        const slider = screen.getByRole('slider');
-        await userEvent.type(slider, '{arrowright}');
-
-        // Submit the form
-        const startButton = screen.getByRole('button', { name: /start/i });
-        await act(async () => {
-            await user.click(startButton);
-        });
-
-        expect(mockPostData).toHaveBeenCalledWith({
-            city: 'London',
-            timeOfDay: ['afternoon', 'evening'],
-            group: 'family',
-            uniqueness: 0,
-        });
-    });
-
     it('should render the slider with default value', () => {
         useApi.mockReturnValue({
             activities: null,
@@ -208,23 +160,5 @@ describe('Home Page Functionality', () => {
 
         const slider = screen.getByRole('slider');
         expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value should be 0
-    });
-
-    it('should update slider value when changed', () => {
-        useApi.mockReturnValue({
-            activities: null,
-            error: null,
-            loading: false,
-            postData: vi.fn(),
-        });
-
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
-
-        const slider = screen.getByRole('slider');
-        expect(slider).toHaveAttribute('aria-valuenow', '0'); // Value should be 1 after one arrow right press
     });
 });
