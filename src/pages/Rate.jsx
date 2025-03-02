@@ -41,14 +41,12 @@ function Rate() {
                 disliked: dislikedActivities,
             },
         };
-        console.log('Sending to backend:', responseData);
 
         try {
             const response = await postData(responseData);
             navigate(`/itinerary/${city}`, {
                 state: { itinerary: response.itinerary },
             });
-            console.log('POST success:', response);
         } catch (error) {
             console.error('POST failed:', error);
             console.error('Request data was:', responseData);
