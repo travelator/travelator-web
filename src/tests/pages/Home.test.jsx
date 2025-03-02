@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import Home from '../../pages/Home';
 import useApi from '../../hooks/FetchApi';
+import { FactsProvider } from '../../providers/FactsProvider';
 
 // Mock the useNavigate hook
 const mockNavigate = vi.fn();
@@ -28,6 +29,16 @@ describe('Home Page Functionality', () => {
         vi.clearAllMocks();
     });
 
+    const renderHome = () => {
+        render(
+            <MemoryRouter>
+                <FactsProvider>
+                    <Home />
+                </FactsProvider>
+            </MemoryRouter>
+        );
+    };
+
     it('should have disabled start button when no city is selected', () => {
         useApi.mockReturnValue({
             activities: null,
@@ -36,11 +47,7 @@ describe('Home Page Functionality', () => {
             postData: vi.fn(),
         });
 
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
+        renderHome();
 
         const startButton = screen.getByRole('button', { name: /start/i });
         expect(startButton).toBeDisabled();
@@ -55,11 +62,7 @@ describe('Home Page Functionality', () => {
         });
 
         const user = userEvent.setup();
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
+        renderHome();
 
         const searchInput = screen.getByLabelText(/search for a city/i);
         await user.type(searchInput, 'London');
@@ -77,20 +80,19 @@ describe('Home Page Functionality', () => {
             .fn()
             .mockResolvedValue({ activities: ['Activity 1'] });
 
+        const mockGetData = vi.fn().mockResolvedValue({ facts: ['Fact'] });
+
         // Mock the useApi hook to return the mocked postData function
         useApi.mockReturnValue({
             activities: null,
             error: null,
             loading: false,
             postData: mockPostData, // Ensure postData is mocked here
+            getData: mockGetData,
         });
 
         const user = userEvent.setup();
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
+        renderHome();
 
         // Select a city
         const searchInput = screen.getByLabelText(/search for a city/i);
@@ -116,11 +118,7 @@ describe('Home Page Functionality', () => {
             postData: vi.fn(),
         });
 
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
+        renderHome();
 
         const startButton = screen.queryByRole('button', { name: /start/i });
         expect(startButton).not.toBeInTheDocument();
@@ -134,11 +132,7 @@ describe('Home Page Functionality', () => {
             postData: vi.fn(),
         });
 
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
+        renderHome();
 
         const errorMessage = screen.getByText(/Error: Something went wrong/i);
         expect(errorMessage).toBeInTheDocument();
@@ -152,11 +146,7 @@ describe('Home Page Functionality', () => {
             postData: vi.fn(),
         });
 
-        render(
-            <MemoryRouter>
-                <Home />
-            </MemoryRouter>
-        );
+        renderHome();
 
         const slider = screen.getByRole('slider');
         expect(slider).toHaveAttribute('aria-valuenow', '0'); // Default value should be 0

@@ -10,7 +10,7 @@
         "test:coverage": "vitest --coverage",
         "lint": "eslint .",
         "preview": "vite preview",
-        "format": "npx prettier --write . && npx eslint .",
+        "format": "npx prettier --write . && git add . && npx eslint .",
         "prepare": "husky"
     },
     "dependencies": {

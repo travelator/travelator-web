@@ -10,7 +10,7 @@ function valuetext(value) {
         'Hidden gems',
         'Living like a local',
     ];
-    return labels[value / 25];
+    return labels[value];
 }
 
 export default function UniqueTripSlider({ value, onChange }) {
@@ -22,10 +22,10 @@ export default function UniqueTripSlider({ value, onChange }) {
                 onChange={onChange}
                 getAriaValueText={valuetext}
                 valueLabelDisplay="on"
-                step={25}
+                step={1}
                 marks
                 min={0}
-                max={100}
+                max={4}
                 valueLabelFormat={valuetext}
                 sx={{
                     '& .MuiSlider-valueLabel': {
