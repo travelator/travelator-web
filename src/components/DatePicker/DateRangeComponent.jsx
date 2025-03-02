@@ -14,6 +14,10 @@ const DateRangeComponent = ({ value = null, onChange }) => {
         setIsOpen(false);
     };
 
+    const handleClickOutside = () => {
+        setIsOpen(false); // Close the calendar
+    };
+
     return (
         <div className="date-range-container">
             {/* Clickable Input */}
@@ -38,14 +42,14 @@ const DateRangeComponent = ({ value = null, onChange }) => {
 
             {/* Calendar appears only when isOpen is true */}
             {isOpen && (
-                <div className="calendar-popup">
-                    <DatePicker
-                        selected={selectedDate}
-                        onChange={handleDateChange}
-                        inline
-                        minDate={new Date()}
-                    />
-                </div>
+                <DatePicker
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    onClickOutside={handleClickOutside}
+                    minDate={new Date()}
+                    isClearable
+                    inline
+                />
             )}
         </div>
     );

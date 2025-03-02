@@ -61,10 +61,6 @@ function Home() {
         return <Loading text={'Fetching activities...'} factId={0} />;
     }
 
-    if (error) {
-        return <p>Error: {error.message}</p>;
-    }
-
     const timeOfDayOptions = [
         { label: 'Morning', value: 'morning' },
         { label: 'Afternoon', value: 'afternoon' },
@@ -80,63 +76,69 @@ function Home() {
 
     return (
         <>
-            <div className="content-wrapper">
-                <div className="home-content">
-                    <h1 className="company-header">Voya</h1>
-                    <p className="subheader">Your personal itinerary planner</p>
-
-                    <form onSubmit={handleSubmit}>
-                        <div className="main">
-                            <p>Where do you want to go?</p>
-                            <CitySearchBar
-                                selectedCity={selectedOption}
-                                setSelectedCity={setSelectedOption}
-                            />
-                        </div>
-                        <div className="main">
-                            <DateRangeComponent
-                                value={selectedDate}
-                                onChange={setSelectedDate}
-                            />
-                        </div>
-                        <div className="main">
-                            <UniqueTripSlider
-                                value={selectedUniqueness}
-                                onChange={(e, newValue) =>
-                                    setSelectedUniqueness(newValue)
-                                }
-                            />
-                        </div>
-                        <div className="main">
-                            <CustomToggle
-                                options={timeOfDayOptions}
-                                multiple={true}
-                                selected={selectedTime}
-                                setSelected={setSelectedTime}
-                            />
-                        </div>
-                        <div className="main">
-                            <CustomToggle
-                                options={groupOptions}
-                                multiple={false}
-                                selected={selectedGroup}
-                                setSelected={setSelectedGroup}
-                            />
-                        </div>
-                        <Button
-                            disabled={!selectedCity} // date is optional.
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            id="submit-city"
-                        >
-                            Start
-                        </Button>
-                    </form>
+            <div className="home-hero">
+                <div className="content-wrapper">
+                    <div className="home-content">
+                        <h1 className="company-header">Voya</h1>
+                        <p className="subheader">
+                            Your personal itinerary planner
+                        </p>
+                        <form onSubmit={handleSubmit}>
+                            <div className="main">
+                                <p>Where do you want to go?</p>
+                                <CitySearchBar
+                                    selectedCity={selectedOption}
+                                    setSelectedCity={setSelectedOption}
+                                />
+                            </div>
+                            <div className="main">
+                                <UniqueTripSlider
+                                    value={selectedUniqueness}
+                                    onChange={(e, newValue) =>
+                                        setSelectedUniqueness(newValue)
+                                    }
+                                />
+                            </div>
+                            <div className="main">
+                                <CustomToggle
+                                    options={timeOfDayOptions}
+                                    multiple={true}
+                                    selected={selectedTime}
+                                    setSelected={setSelectedTime}
+                                />
+                            </div>
+                            <div className="main">
+                                <CustomToggle
+                                    options={groupOptions}
+                                    multiple={false}
+                                    selected={selectedGroup}
+                                    setSelected={setSelectedGroup}
+                                />
+                            </div>
+                            <div className="main">
+                                <DateRangeComponent
+                                    value={selectedDate}
+                                    onChange={setSelectedDate}
+                                />
+                            </div>
+                            {error && (
+                                <p style={{ color: 'red' }}>
+                                    Error: {error.message}
+                                </p>
+                            )}
+                            <Button
+                                disabled={!selectedCity} // date is optional.
+                                type="submit"
+                                variant="contained"
+                                color="primary"
+                                id="submit-city"
+                                sx={{ fontSize: '1.2rem' }}
+                            >
+                                Start
+                            </Button>
+                        </form>
+                    </div>
                 </div>
-                {error && (
-                    <p style={{ color: 'red' }}>Error: {error.message}</p>
-                )}
             </div>
         </>
     );
