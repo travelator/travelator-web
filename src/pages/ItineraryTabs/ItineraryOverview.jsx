@@ -3,7 +3,7 @@ import CustomCarousel from '../../components/Carousel';
 import ActivityCard from '../../components/ItineraryCards/ActivityCard';
 import TravelCard from '../../components/ItineraryCards/TravelCard';
 
-function ItineraryOverview({ itinerary }) {
+function ItineraryOverview({ itinerary, handleSwapClick }) {
     return (
         <div className="itinerary-main">
             <CustomCarousel deviceType={'desktop'}>
@@ -28,6 +28,8 @@ function ItineraryOverview({ itinerary }) {
                             theme={i.theme}
                             url={i.image_link}
                             key={i.id}
+                            handleSwapClick={handleSwapClick}
+                            id={i.id}
                         />
                     )
                 )}
@@ -50,6 +52,7 @@ ItineraryOverview.propTypes = {
             image: PropTypes.string,
         })
     ).isRequired,
+    handleSwapClick: PropTypes.func.isRequired,
 };
 
 export default ItineraryOverview;

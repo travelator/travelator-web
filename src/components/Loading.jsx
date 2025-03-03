@@ -16,17 +16,19 @@ function Loading({ text, factId }) {
     }, [facts]);
 
     return (
-        <div className="loading-container">
-            <div className="spinner"></div>
-            <p className="loading-text">{text}</p>
-            {facts && facts.length > 0 && (
-                <div
-                    className={`facts-container ${showFacts ? 'visible' : ''}`}
-                >
-                    <h3>Did you know?</h3>
-                    <p className="fact">{facts[factIdx]}</p>
-                </div>
-            )}
+        <div className="loading-wrapper">
+            <div className="loading-container">
+                <div className="spinner"></div>
+                <p className="loading-text">{text}</p>
+                {facts && facts.length > 0 && (
+                    <div
+                        className={`facts-container ${showFacts ? 'visible' : ''}`}
+                    >
+                        <h3>Did you know?</h3>
+                        <p className="fact">{facts[factIdx]}</p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

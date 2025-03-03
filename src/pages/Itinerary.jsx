@@ -7,7 +7,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Button from '@mui/material/Button';
 import BoltIcon from '@mui/icons-material/Bolt';
-import RegenerateModal from './ItineraryTabs/RegenerateModal';
+import RegenerateModal from '../components/Modal/RegenerateModal';
 import Loading from '../components/Loading';
 import '../styles/Itinerary.css';
 import Map from '../components/Map/map';
@@ -16,9 +16,18 @@ function Itinerary() {
     // Get city and set state for current tab
     const { city } = useParams();
     const [tab, setTab] = useState('overview');
+
+    // regeneration modals
     const [modalOpen, setModalOpen] = useState(false);
+    const [swapId, setSwapId] = useState(0);
+    const [modalConfig, setModalConfig] = useState('');
 
     const { postData, error, loading } = useApi('itinerary', false);
+    const {
+        postData: postSwapData,
+        error: swapError,
+        loading: swapLoading,
+    } = useApi('swap', false);
 
     // Get itinerary data
     const { state } = useLocation();
@@ -33,7 +42,12 @@ function Itinerary() {
     const renderTab = () => {
         switch (tab) {
             case 'overview':
-                return <ItineraryOverview itinerary={itinerary} />;
+                return (
+                    <ItineraryOverview
+                        itinerary={itinerary}
+                        handleSwapClick={handleSwapClick}
+                    />
+                );
             case 'map':
                 return (
                     <div className="itinerary-main">
@@ -71,8 +85,37 @@ function Itinerary() {
         }
     };
 
+    const handleSwap = async (feedback) => {
+        // Add logic to regenerate the itinerary with feedback
+        const responseData = {
+            city: city,
+            activityId: swapId,
+            itinerary: { itinerary: itinerary },
+            feedback: feedback,
+        };
+        setModalOpen(false);
+        try {
+            const response = await postSwapData(responseData);
+            setItinerary(response.itinerary);
+        } catch (error) {
+            console.error('POST failed:', error);
+            console.error('Request data was:', responseData);
+        }
+    };
+
+    const handleRegenerateClick = () => {
+        setModalOpen(true);
+        setModalConfig('regenerate-all');
+    };
+
+    const handleSwapClick = (id) => {
+        setModalOpen(true);
+        setModalConfig('regenerate-one');
+        setSwapId(id);
+    };
+
     // handle loading state for POST request
-    if (loading) {
+    if (loading || swapLoading) {
         return <Loading text={'Building itinerary...'} factId={2} />;
     }
 
@@ -85,7 +128,7 @@ function Itinerary() {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => setModalOpen(true)}
+                            onClick={handleRegenerateClick}
                             startIcon={<BoltIcon />}
                             sx={{ fontSize: '1.2rem' }} // Increase font size by 20%
                         >
@@ -108,12 +151,22 @@ function Itinerary() {
                     {error && (
                         <p style={{ color: 'red' }}>Error: {error.message}</p>
                     )}
+                    {swapError && (
+                        <p style={{ color: 'red' }}>
+                            Error: {swapError.message}
+                        </p>
+                    )}
                 </div>
             </div>
             <RegenerateModal
                 open={modalOpen}
                 handleClose={() => setModalOpen(false)}
-                handleRegenerate={handleRegenerate}
+                handleRegenerate={
+                    modalConfig == 'regenerate-all'
+                        ? handleRegenerate
+                        : handleSwap
+                }
+                configKey={modalConfig}
             />
         </>
     );
