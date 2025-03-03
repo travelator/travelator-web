@@ -79,34 +79,36 @@ function Itinerary() {
     return (
         <>
             <div className="content-wrapper">
-                <div className="header">
-                    <h1>Get ready to explore {city && capitalize(city)}</h1>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => setModalOpen(true)}
-                        startIcon={<BoltIcon />}
-                        sx={{ fontSize: '1.2rem' }} // Increase font size by 20%
-                    >
-                        Regenerate
-                    </Button>
-                </div>
-                <div className="subactions">
-                    <div className="subactions-left">
-                        <Tabs
-                            value={tab}
-                            onChange={handleChange}
-                            aria-label="itinerary view tabs"
+                <div className="itinerary-page">
+                    <div className="header">
+                        <h1>Get ready to explore {city && capitalize(city)}</h1>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={() => setModalOpen(true)}
+                            startIcon={<BoltIcon />}
+                            sx={{ fontSize: '1.2rem' }} // Increase font size by 20%
                         >
-                            <Tab label="Overview" value={'overview'} />
-                            <Tab label="Map" value={'map'} />
-                        </Tabs>
+                            Regenerate
+                        </Button>
                     </div>
+                    <div className="subactions">
+                        <div className="subactions-left">
+                            <Tabs
+                                value={tab}
+                                onChange={handleChange}
+                                aria-label="itinerary view tabs"
+                            >
+                                <Tab label="Overview" value={'overview'} />
+                                <Tab label="Map" value={'map'} />
+                            </Tabs>
+                        </div>
+                    </div>
+                    <div className="itinerary-main">{renderTab()}</div>
+                    {error && (
+                        <p style={{ color: 'red' }}>Error: {error.message}</p>
+                    )}
                 </div>
-                <div className="itinerary-main">{renderTab()}</div>
-                {error && (
-                    <p style={{ color: 'red' }}>Error: {error.message}</p>
-                )}
             </div>
             <RegenerateModal
                 open={modalOpen}

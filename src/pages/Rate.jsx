@@ -72,9 +72,15 @@ function Rate() {
                 const cardWidth = 324;
                 totalWidth += cardWidth;
 
+                console.log(cardWidth);
+                console.log(totalWidth);
+                console.log(containerWidth);
+
                 if (totalWidth > containerWidth) break;
                 newVisibleActivities.push(remainingActivities[i]);
             }
+
+            console.log(newVisibleActivities);
 
             setVisibleActivities(newVisibleActivities);
         };
@@ -120,29 +126,31 @@ function Rate() {
     return (
         <>
             <div className="content-wrapper">
-                <h1>{`Rate activities in ${city}`}</h1>
-                <div className="activity-main">
-                    <div
-                        className="activity-cards"
-                        ref={containerRef}
-                        data-testid="activity-cards-container"
-                    >
-                        {Array.isArray(visibleActivities) &&
-                        visibleActivities.length > 0 ? ( //if the data can't be transformed into an array
-                            visibleActivities.map((a) => (
-                                <RateCard
-                                    title={a.title}
-                                    description={a.description}
-                                    url={a.image_link}
-                                    theme={a.theme}
-                                    price={a.price}
-                                    onCardClick={onCardClick}
-                                    key={a.id}
-                                />
-                            ))
-                        ) : (
-                            <p>No data available</p>
-                        )}
+                <div className="activity-page">
+                    <h1>{`Rate activities in ${city}`}</h1>
+                    <div className="activity-main">
+                        <div
+                            className="activity-cards"
+                            ref={containerRef}
+                            data-testid="activity-cards-container"
+                        >
+                            {Array.isArray(visibleActivities) &&
+                            visibleActivities.length > 0 ? ( //if the data can't be transformed into an array
+                                visibleActivities.map((a) => (
+                                    <RateCard
+                                        title={a.title}
+                                        description={a.description}
+                                        url={a.image_link}
+                                        theme={a.theme}
+                                        price={a.price}
+                                        onCardClick={onCardClick}
+                                        key={a.id}
+                                    />
+                                ))
+                            ) : (
+                                <p>No data available</p>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>

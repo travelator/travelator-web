@@ -1,5 +1,10 @@
 .activity-main {
     margin-top: 32px;
+    width: 100%;
+}
+
+.activity-page {
+    width: 100%;
 }
 
 .activity-cards {
