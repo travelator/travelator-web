@@ -3,6 +3,7 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 import './ActivityCard.css';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function ActivityCard({
     title,
@@ -13,6 +14,7 @@ function ActivityCard({
     theme,
     id,
     handleSwapClick,
+    link,
     url = [],
 }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -36,7 +38,19 @@ function ActivityCard({
                 className="activity-card-image"
             />
             <div className="activity-card-content">
-                <h3 className="activity-card-title">{title}</h3>
+                <div className="activity-card-header">
+                    <h3 className="activity-card-title">{title}</h3>
+                    {link && (
+                        <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Booking link"
+                        >
+                            <OpenInNewIcon />
+                        </a>
+                    )}
+                </div>
                 <div className="activity-card-time">
                     <span>{start}</span> - <span>{end}</span>
                 </div>
@@ -71,6 +85,7 @@ ActivityCard.propTypes = {
     theme: PropTypes.string.isRequired,
     url: PropTypes.arrayOf(PropTypes.string),
     id: PropTypes.number.isRequired,
+    link: PropTypes.string.isRequired,
     handleSwapClick: PropTypes.func.isRequired,
 };
 
