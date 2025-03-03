@@ -3,6 +3,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import RingedIcon from '../RingedIcon';
+import { getDefaultImage } from '../../hooks/GetDefaultImage';
 import './RateCard.css';
 
 function RateCard({ title, description, price, theme, url, onCardClick }) {
@@ -15,16 +16,16 @@ function RateCard({ title, description, price, theme, url, onCardClick }) {
     const priceTag = price > 0 ? `£${price}` : 'FREE';
 
     const handleImageError = () => {
-        if (currentImageIndex < url.length - 1) {
-            setCurrentImageIndex(currentImageIndex + 1);
-        }
+        setCurrentImageIndex(currentImageIndex + 1);
     };
 
     return (
         <div className="rate-card">
             <img
                 src={
-                    currentImageIndex < numImages ? url[currentImageIndex] : '#'
+                    currentImageIndex < numImages
+                        ? url[currentImageIndex]
+                        : getDefaultImage(theme)
                 }
                 onError={handleImageError}
                 alt={title}

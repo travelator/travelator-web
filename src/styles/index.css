@@ -11,12 +11,13 @@
     --theme-white: #f1f3f9;
     --theme-lightblue: #3d90e3;
     --theme-darkblue: #174e87;
+    --theme-background: #81b0a5;
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 .content-wrapper {

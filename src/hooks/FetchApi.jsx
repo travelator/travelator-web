@@ -80,6 +80,7 @@ const useApi = (apiRoute, shouldFetchData = true) => {
             const responseData = await response.json();
             console.log('Response Data:', responseData);
             setActivities(responseData);
+            setError('');
             return responseData;
         } catch (error) {
             console.error('POST request error:', error);
