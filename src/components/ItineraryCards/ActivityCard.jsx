@@ -4,6 +4,7 @@ import { useState } from 'react';
 import './ActivityCard.css';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { getDefaultImage } from '../../hooks/GetDefaultImage';
 
 function ActivityCard({
     title,
@@ -22,16 +23,16 @@ function ActivityCard({
     const priceTag = price > 0 ? `£${price}` : 'FREE';
 
     const handleImageError = () => {
-        if (currentImageIndex < url.length - 1) {
-            setCurrentImageIndex(currentImageIndex + 1);
-        }
+        setCurrentImageIndex(currentImageIndex + 1);
     };
 
     return (
         <div className="activity-card">
             <img
                 src={
-                    currentImageIndex < numImages ? url[currentImageIndex] : '#'
+                    currentImageIndex < numImages
+                        ? url[currentImageIndex]
+                        : getDefaultImage(theme)
                 }
                 onError={handleImageError}
                 alt={title}

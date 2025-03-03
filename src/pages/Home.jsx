@@ -87,7 +87,6 @@ function Home() {
                         </p>
                         <form onSubmit={handleSubmit}>
                             <div className="main">
-                                <p>Where do you want to go?</p>
                                 <CitySearchBar
                                     selectedCity={selectedOption}
                                     setSelectedCity={setSelectedOption}
