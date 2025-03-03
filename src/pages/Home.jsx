@@ -36,8 +36,10 @@ function Home() {
         setIsLoading(true);
         setFacts([]);
 
+        const trimmedCity = selectedCity ? selectedCity.trim() : null;
+
         const homePageData = {
-            city: selectedCity,
+            city: trimmedCity,
             date: selectedDate ? new Date(selectedDate) : null,
             timeOfDay: selectedTime,
             group: selectedGroup,
@@ -48,7 +50,7 @@ function Home() {
             const facts = await getData({ location: selectedCity, num: 3 });
             setFacts(facts.facts);
             const response = await request;
-            navigate(`/rate/${selectedCity}`, {
+            navigate(`/rate/${trimmedCity}`, {
                 state: { activities: response.activities },
             });
         } catch (error) {
