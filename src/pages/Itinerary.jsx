@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import useApi from '../hooks/FetchApi';
 import ItineraryOverview from './ItineraryTabs/ItineraryOverview';
 import Tabs from '@mui/material/Tabs';
@@ -11,6 +10,7 @@ import RegenerateModal from './ItineraryTabs/RegenerateModal';
 import Loading from '../components/Loading';
 import '../styles/Itinerary.css';
 import Map from '../components/Map/map';
+import SideBar from '../components/Map/SideBar';
 
 function Itinerary() {
     // Get city and set state for current tab
@@ -23,6 +23,7 @@ function Itinerary() {
     // Get itinerary data
     const { state } = useLocation();
     const [itinerary, setItinerary] = useState([]);
+    const [selectedItem, setSelectedItem] = useState(null);
 
     // ensure itinerary is updated
     useEffect(() => {
@@ -36,9 +37,19 @@ function Itinerary() {
                 return <ItineraryOverview itinerary={itinerary} />;
             case 'map':
                 return (
-                    <div className="itinerary-main">
-                        <Map itinerary={itinerary} />{' '}
-                        {/* Pass itinerary as prop */}
+                    <div
+                        className="itinerary-main"
+                        style={{ display: 'flex', height: '100vh' }}
+                    >
+                        <SideBar
+                            itinerary={itinerary}
+                            onSelectItem={setSelectedItem}
+                            selectedItem={selectedItem}
+                        />
+                        <Map
+                            itinerary={itinerary}
+                            selectedItem={selectedItem}
+                        />
                     </div>
                 );
             default:
