@@ -71,6 +71,7 @@ jobs:
               env:
                   VITE_USE_LOCAL_DATA: 'false'
                   VITE_APP_FETCH_GENERAL_API_URL: 'https://api.voya-trips.com/'
+                  VITE_APP_AUTH_API_URL: 'https://auth.voya-trips.com/'
 
     close_pull_request_job:
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
