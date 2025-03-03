@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import './ActivityCard.css';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 
 function ActivityCard({
     title,
@@ -9,6 +11,8 @@ function ActivityCard({
     description,
     price,
     theme,
+    id,
+    handleSwapClick,
     url = [],
 }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -43,6 +47,16 @@ function ActivityCard({
                 <div className="activity-card-details">
                     <p className="activity-card-description">{description}</p>
                 </div>
+                <div className="activity-card-buttons">
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        onClick={() => handleSwapClick(id)}
+                        startIcon={<SwapHorizIcon />}
+                    >
+                        Swap
+                    </Button>
+                </div>
             </div>
         </div>
     );
@@ -56,6 +70,8 @@ ActivityCard.propTypes = {
     price: PropTypes.number.isRequired,
     theme: PropTypes.string.isRequired,
     url: PropTypes.arrayOf(PropTypes.string),
+    id: PropTypes.number.isRequired,
+    handleSwapClick: PropTypes.func.isRequired,
 };
 
 ActivityCard.defaultProps = {

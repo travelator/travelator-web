@@ -1,12 +1,25 @@
+.loading-wrapper {
+    background-image: url('../assets/loading_wide.png');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+}
+
 .loading-container {
+    margin-block: 64px;
+    background-color: white;
+    width: min(90%, 600px);
+    opacity: 0.9;
+    border-radius: 24px;
+    padding: 32px 16px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    background-color: #f0f4f8;
-    padding: 200px 20px;
-    text-align: center;
 }
 
 @media (max-width: 1200px) {

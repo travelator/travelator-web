@@ -64,6 +64,12 @@
     color: #f0a500;
 }
 
+.activity-card-buttons {
+    margin-block: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .tags {
     display: flex;
     gap: 16px;
