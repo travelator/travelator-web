@@ -9,11 +9,18 @@ export default function CitySearchBar({ selectedCity, setSelectedCity }) {
     const [inputValue, setInputValue] = useState('');
 
     const handleInputChange = (event, newInputValue) => {
-        setInputValue(newInputValue);
+        console.log('Raw Input:', newInputValue);
+
+        // Allow only letters, spaces, hyphens, apostrophes, and periods
+        const validInput = newInputValue.replace(/[^a-zA-Z\s'-.]/g, '');
+        console.log('Filtered Input:', validInput);
+
+        setInputValue(validInput);
+
         // Update selectedCity state immediately when user types
-        if (newInputValue.trim() !== '') {
+        if (validInput !== '') {
             const customCity = {
-                city: newInputValue.trim(),
+                city: validInput,
                 country: 'Custom Location',
                 code: 'XX',
             };
@@ -34,9 +41,11 @@ export default function CitySearchBar({ selectedCity, setSelectedCity }) {
         }
         // If newValue is a string (custom input)
         else if (typeof newValue === 'string' && newValue.trim() !== '') {
+            // Allow only letters, spaces, hyphens, apostrophes, and periods
+            const validInput = newValue.replace(/[^a-zA-Z\s'-.]/g, '');
             // Create a custom city object with the same structure as cities from the list
             const customCity = {
-                city: newValue.trim(), // This is what will be extracted as selectedCity
+                city: validInput, // This is what will be extracted as selectedCity
                 country: 'Custom Location',
                 code: 'XX',
             };
@@ -88,7 +97,7 @@ export default function CitySearchBar({ selectedCity, setSelectedCity }) {
                     label="Search for a city"
                     InputProps={{
                         ...params.InputProps,
-                        autoComplete: 'new-password', // disable autocomplete and autofill
+                        autoComplete: 'new-password', // disable autocomplete
                     }}
                     helperText="Select a city or type your own"
                 />
