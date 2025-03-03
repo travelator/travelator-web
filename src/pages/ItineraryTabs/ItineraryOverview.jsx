@@ -27,6 +27,7 @@ function ItineraryOverview({ itinerary, handleSwapClick }) {
                             price={i.price}
                             theme={i.theme}
                             url={i.image_link}
+                            link={i.booking_url}
                             key={i.id}
                             handleSwapClick={handleSwapClick}
                             id={i.id}
