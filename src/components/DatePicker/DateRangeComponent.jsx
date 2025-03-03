@@ -1,63 +1,46 @@
-import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DateRangeComponent.css';
 import PropTypes from 'prop-types';
+import { CalendarTodayOutlined } from '@mui/icons-material';
 
-const DateRangeComponent = ({ value = null, onChange }) => {
-    const [selectedDate, setSelectedDate] = useState(value);
-    const [isOpen, setIsOpen] = useState(false);
-
+const CustomDatePicker = ({ selectedDate, setSelectedDate }) => {
     const handleDateChange = (date) => {
         setSelectedDate(date);
-        onChange(date);
-        setIsOpen(false);
     };
 
-    const handleClickOutside = () => {
-        setIsOpen(false); // Close the calendar
+    const isFutureDate = (date) => {
+        const today = new Date();
+        const normalizedToday = new Date(today.setHours(0, 0, 0, 0));
+        return date >= normalizedToday;
     };
 
     return (
-        <div className="date-range-container">
-            {/* Clickable Input */}
-            <div className="date-input-container">
-                <div className="date-box" onClick={() => setIsOpen(true)}>
-                    <label className="date-label" htmlFor="date-input">
-                        Select Date
-                    </label>
-                    <input
-                        id="date-input"
-                        type="text"
-                        className="date-input"
-                        value={
-                            selectedDate
-                                ? selectedDate.toLocaleDateString()
-                                : ''
-                        }
-                        readOnly
-                    />
-                </div>
-            </div>
-
-            {/* Calendar appears only when isOpen is true */}
-            {isOpen && (
+        <>
+            <label htmlFor="date-picker-input" className="date-label">
+                Select date (optional)
+            </label>
+            <div className="mui-style-date-picker">
                 <DatePicker
+                    id="date-picker-input"
                     selected={selectedDate}
                     onChange={handleDateChange}
-                    onClickOutside={handleClickOutside}
-                    minDate={new Date()}
-                    isClearable
-                    inline
+                    dateFormat="MM/dd/yyyy"
+                    className="custom-date-picker"
+                    popperPlacement="bottom"
+                    showPopperArrow={false}
+                    shouldCloseOnSelect={true}
+                    filterDate={isFutureDate}
                 />
-            )}
-        </div>
+                <CalendarTodayOutlined className="calendar-icon" />
+            </div>
+        </>
     );
 };
 
-DateRangeComponent.propTypes = {
-    value: PropTypes.instanceOf(Date),
-    onChange: PropTypes.func.isRequired,
+CustomDatePicker.propTypes = {
+    selectedDate: PropTypes.instanceOf(Date),
+    setSelectedDate: PropTypes.func.isRequired,
 };
 
-export default DateRangeComponent;
+export default CustomDatePicker;

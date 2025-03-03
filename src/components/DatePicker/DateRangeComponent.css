@@ -1,68 +1,39 @@
-/* Main container styles */
-.date-range-container {
-    display: flex;
-    flex-direction: column;
+/* Custom styles to make the DatePicker look like a MUI TextField */
+.mui-style-date-picker {
+    position: relative;
+    display: inline-flex;
     align-items: center;
-    position: relative;
 }
 
-/* Date input boxes */
-.date-input-container {
-    display: flex;
-    gap: 1rem;
-    margin-top: 10px;
+.custom-date-picker {
+    height: 40px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #c4c4c4;
+    box-sizing: border-box;
+    margin: auto;
+    padding-left: 45px;
 }
 
-.date-box {
-    position: relative;
-    width: 150px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: white;
+.custom-date-picker:focus {
+    outline: none;
+    border-color: #3f51b5; /* MUI primary color */
 }
 
-.date-box:hover {
-    border-color: #007bff;
+/* Position calendar icon to the left of the input field */
+.calendar-icon {
+    position: absolute;
+    left: 10px; /* Adjust to your preference */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #757575; /* MUI input icon color */
+    pointer-events: none;
 }
 
 .date-label {
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    background-color: white;
-    padding: 2px 5px;
-    font-size: 12px;
-}
-
-.date-input {
-    width: 100%;
-    padding: 6px;
-    font-size: 14px;
-    border: none;
-    outline: none;
-    background-color: transparent;
-}
-
-/* Calendar popup */
-.calendar-popup {
-    position: absolute;
-    z-index: 1000;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    gap: 2rem;
-}
-
-.react-datepicker {
-    position: absolute;
-    top: 50px;
-    z-index: 10;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #757575;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    display: block;
 }
