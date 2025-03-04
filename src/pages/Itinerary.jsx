@@ -22,7 +22,10 @@ function Itinerary() {
     const [swapId, setSwapId] = useState(0);
     const [modalConfig, setModalConfig] = useState('');
 
-    const { postData, error, loading } = useApi('itinerary', false);
+    const { postData, error, loading, saveTrip, editTrip } = useApi(
+        'save',
+        false
+    );
     const {
         postData: postSwapData,
         error: swapError,
@@ -34,10 +37,18 @@ function Itinerary() {
     const [itinerary, setItinerary] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false);
+    const [tripId, setTripId] = useState(null);
 
     // ensure itinerary is updated
     useEffect(() => {
-        if (state?.itinerary) setItinerary(state?.itinerary);
+        if (state?.itinerary) {
+            setItinerary(state?.itinerary);
+            if (state?.tripId) {
+                setIsEditMode(true);
+                setTripId(state.tripId);
+            }
+        }
     }, [state]);
 
     // tab logic
@@ -128,6 +139,32 @@ function Itinerary() {
         setSwapId(id);
     };
 
+    const handleSave = async () => {
+        const tripData = {
+            city: city,
+            //custom_name: 'Custom Trip Name',
+            //date_of_trip: '2025-03-04',
+            //time_of_day: 'morning',
+            //group: 'friends',
+            //uniqueness: 0,
+            //date_created: '2025-03-04'
+            itinerary: itinerary,
+        };
+
+        console.log('Saving trip data:', tripData);
+
+        try {
+            if (isEditMode) {
+                await editTrip(tripId, tripData);
+            } else {
+                await saveTrip(tripData);
+                setIsEditMode(true); // Set edit mode to true after saving
+            }
+        } catch (error) {
+            console.error('Error saving trip:', error);
+        }
+    };
+
     // handle loading state for POST request
     if (loading || swapLoading) {
         return <Loading text={'Building itinerary...'} factId={2} />;
@@ -147,6 +184,14 @@ function Itinerary() {
                             sx={{ fontSize: '1.2rem' }} // Increase font size by 20%
                         >
                             Regenerate
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleSave}
+                            sx={{ fontSize: '1.2rem', marginLeft: 2 }} // Increase font size by 20%
+                        >
+                            {isEditMode ? 'Save Changes' : 'Save Trip'}
                         </Button>
                     </div>
                     <div className="subactions">

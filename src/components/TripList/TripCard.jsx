@@ -12,17 +12,18 @@ import {
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupIcon from '@mui/icons-material/Group';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
-function TripCard({ trip }) {
+function TripCard({ trip, onDelete }) {
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
     const [customName, setCustomName] = useState(trip.customName || trip.city);
 
     const handleViewTrip = () => {
         navigate(`/itinerary/${trip.city}`, {
-            state: { itinerary: trip.itinerary },
+            state: { itinerary: trip.activities, tripId: trip.trip_id },
         });
     };
 
@@ -39,6 +40,10 @@ function TripCard({ trip }) {
             setIsEditing(false);
             // Here you would typically update the name in your backend
         }
+    };
+
+    const handleDeleteClick = () => {
+        onDelete(trip.trip_id);
     };
 
     return (
@@ -67,6 +72,12 @@ function TripCard({ trip }) {
                             </Typography>
                             <IconButton onClick={handleEditClick} size="small">
                                 <EditIcon />
+                            </IconButton>
+                            <IconButton
+                                onClick={handleDeleteClick}
+                                size="small"
+                            >
+                                <DeleteIcon />
                             </IconButton>
                         </>
                     )}
@@ -112,14 +123,15 @@ function TripCard({ trip }) {
 
 TripCard.propTypes = {
     trip: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        trip_id: PropTypes.string.isRequired,
         city: PropTypes.string.isRequired,
         customName: PropTypes.string,
         dateCreated: PropTypes.string.isRequired,
         timeOfDay: PropTypes.arrayOf(PropTypes.string).isRequired,
         group: PropTypes.string.isRequired,
-        itinerary: PropTypes.object.isRequired,
+        activities: PropTypes.array.isRequired,
     }).isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default TripCard;

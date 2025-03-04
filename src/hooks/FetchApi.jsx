@@ -134,7 +134,70 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         }
     };
 
-    return { activities, error, loading, postData, getData };
+    // Save trip (POST request)
+    const saveTrip = async (tripData) => {
+        return postData(tripData);
+    };
+
+    // Edit trip (PUT request)
+    const editTrip = async (tripId, tripData) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${baseURL}/trips/${tripId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(tripData),
+                mode: 'cors',
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const responseData = await response.json();
+            setError('');
+            return responseData;
+        } catch (error) {
+            setError(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Delete trip (DELETE request)
+    const deleteTrip = async (tripId) => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${baseURL}/trips/${tripId}`, {
+                method: 'DELETE',
+                mode: 'cors',
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            setError('');
+            return { success: true };
+        } catch (error) {
+            setError(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return {
+        activities,
+        error,
+        loading,
+        postData,
+        getData,
+        saveTrip,
+        editTrip,
+        deleteTrip,
+    };
 };
 
 export default useApi;

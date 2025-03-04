@@ -3,7 +3,7 @@ import { Grid, Box, TextField, MenuItem } from '@mui/material';
 import TripCard from './TripCard';
 import { useState } from 'react';
 
-function TripList({ trips }) {
+function TripList({ trips, onDelete }) {
     const [filterGroup, setFilterGroup] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -45,8 +45,8 @@ function TripList({ trips }) {
 
             <Grid container spacing={2}>
                 {filteredTrips.map((trip) => (
-                    <Grid item xs={12} sm={6} md={4} key={trip.id}>
-                        <TripCard trip={trip} />
+                    <Grid item xs={12} sm={6} md={4} key={trip.trip_id}>
+                        <TripCard trip={trip} onDelete={onDelete} />
                     </Grid>
                 ))}
             </Grid>
@@ -57,16 +57,16 @@ function TripList({ trips }) {
 TripList.propTypes = {
     trips: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.number.isRequired,
+            trip_id: PropTypes.string.isRequired,
             city: PropTypes.string.isRequired,
             customName: PropTypes.string,
             dateCreated: PropTypes.string.isRequired,
             timeOfDay: PropTypes.arrayOf(PropTypes.string).isRequired,
             group: PropTypes.string.isRequired,
-            tag: PropTypes.string,
-            itinerary: PropTypes.object.isRequired,
+            activities: PropTypes.array.isRequired,
         })
     ).isRequired,
+    onDelete: PropTypes.func.isRequired,
 };
 
 export default TripList;

@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
             console.log('Auth status response:', data);
 
             // If we get back an email, the user is authenticated
-            const newAuthState = !!data.email;
+            const newAuthState = !!data.user_id;
             console.log('Setting isAuthenticated to:', newAuthState);
             setIsAuthenticated((prevState) => {
                 console.log(
