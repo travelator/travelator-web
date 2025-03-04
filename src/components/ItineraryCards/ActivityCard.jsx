@@ -17,6 +17,8 @@ function ActivityCard({
     handleSwapClick,
     link,
     url = [],
+    temperature,
+    weather,
 }) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const numImages = url.length;
@@ -24,6 +26,23 @@ function ActivityCard({
 
     const handleImageError = () => {
         setCurrentImageIndex(currentImageIndex + 1);
+    };
+
+    const getWeatherIcon = (weather) => {
+        switch (weather.toLowerCase()) {
+            case 'sunny':
+                return '☀️';
+            case 'cloudy with sun':
+                return '⛅';
+            case 'cloudy':
+                return '☁️';
+            case 'rainy':
+                return '🌧️';
+            case 'snowy':
+                return '❄️';
+            default:
+                return '🌤️';
+        }
     };
 
     return (
@@ -58,6 +77,9 @@ function ActivityCard({
                 <div className="tags">
                     <p className="tag">{priceTag}</p>
                     <p className="tag">{theme}</p>
+                    <p className="tag">
+                        {temperature}°C {getWeatherIcon(weather)}
+                    </p>
                 </div>
                 <div className="activity-card-details">
                     <p className="activity-card-description">{description}</p>
@@ -88,6 +110,8 @@ ActivityCard.propTypes = {
     id: PropTypes.number.isRequired,
     link: PropTypes.string.isRequired,
     handleSwapClick: PropTypes.func.isRequired,
+    temperature: PropTypes.number,
+    weather: PropTypes.string,
 };
 
 ActivityCard.defaultProps = {

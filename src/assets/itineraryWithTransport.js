@@ -15,6 +15,8 @@ export const TransportItinerary = [
         image: 'https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=600',
         duration: 60,
         id: 1,
+        temperature: 10,
+        weather: 'sunny',
         url: [
             'https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=600',
         ], // Add url property
@@ -33,6 +35,8 @@ export const TransportItinerary = [
         booking_url: '',
         image: '',
         duration: 30,
+        temperature: '',
+        weather: '',
         id: 2,
         url: [], // Add url property
     },
@@ -51,6 +55,8 @@ export const TransportItinerary = [
         booking_url: '',
         image: 'https://images.pexels.com/photos/1059078/pexels-photo-1059078.jpeg?auto=compress&cs=tinysrgb&w=600',
         duration: 90,
+        temperature: 22,
+        weather: 'cloudy with sun',
         id: 3,
         url: [
             'https://images.pexels.com/photos/1059078/pexels-photo-1059078.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -86,6 +92,8 @@ export const TransportItinerary = [
         theme: 'Culture',
         requires_booking: false,
         booking_url: '',
+        temperature: 22,
+        weather: 'snowy',
         image: 'https://images.pexels.com/photos/69903/pexels-photo-69903.jpeg?auto=compress&cs=tinysrgb&w=600',
         duration: 105,
         id: 5,
@@ -108,6 +116,8 @@ export const TransportItinerary = [
         booking_url: '',
         image: 'https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=600',
         duration: 60,
+        temperature: 22,
+        weather: 'rainy',
         id: 6,
         url: [
             'https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -128,6 +138,8 @@ export const TransportItinerary = [
         booking_url: '',
         image: 'https://images.pexels.com/photos/2372978/pexels-photo-2372978.jpeg?auto=compress&cs=tinysrgb&w=600',
         duration: 105,
+        temperature: 22,
+        weather: 'rainy',
         id: 9,
         url: [
             'https://images.pexels.com/photos/2372978/pexels-photo-2372978.jpeg?auto=compress&cs=tinysrgb&w=600',
