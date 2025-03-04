@@ -27,3 +27,15 @@
 .sidebar-item:hover {
     background: #e9f5ff;
 }
+
+.sidebar-transport {
+    display: flex;
+    align-items: center;
+}
+
+.transport-line {
+    width: 10px;
+    height: 10px;
+    margin-right: 8px;
+    border-radius: 50%;
+}
