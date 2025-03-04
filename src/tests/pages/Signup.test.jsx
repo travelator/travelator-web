@@ -145,7 +145,7 @@ describe('Signup Page Tests', () => {
         fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
 
         await waitFor(() => {
-            expect(mockNavigate).toHaveBeenCalledWith('/login');
+            expect(mockNavigate).toHaveBeenCalledWith('/');
         });
     });
 

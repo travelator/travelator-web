@@ -21,7 +21,7 @@ const Login = () => {
                 console.log('Login successful, checking auth status...');
                 await checkAuthStatus();
                 console.log('Navigating to user-trips...');
-                navigate('/user-trips');
+                navigate('/');
             }
         } catch (err) {
             console.error('Login error:', err);

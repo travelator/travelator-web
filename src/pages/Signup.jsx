@@ -13,7 +13,7 @@ const Signup = () => {
         try {
             const response = await postData(formData);
             if (response.message === 'User registered successfully') {
-                navigate('/login');
+                navigate('/');
             }
         } catch (err) {
             setError(err.message || 'Failed to register');
