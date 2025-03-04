@@ -31,6 +31,8 @@ function ItineraryOverview({ itinerary, handleSwapClick }) {
                             key={i.id}
                             handleSwapClick={handleSwapClick}
                             id={i.id}
+                            temperature={i.temperature}
+                            weather={i.weather}
                         />
                     )
                 )}
@@ -51,6 +53,8 @@ ItineraryOverview.propTypes = {
             price: PropTypes.number.isRequired,
             theme: PropTypes.string.isRequired,
             image: PropTypes.string,
+            temperature: PropTypes.number,
+            weather: PropTypes.string,
         })
     ).isRequired,
     handleSwapClick: PropTypes.func.isRequired,
