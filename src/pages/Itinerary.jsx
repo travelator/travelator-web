@@ -33,6 +33,7 @@ function Itinerary() {
     const { state } = useLocation();
     const [itinerary, setItinerary] = useState([]);
     const [selectedItem, setSelectedItem] = useState(null);
+    const [selectedRoute, setSelectedRoute] = useState(null);
 
     // ensure itinerary is updated
     useEffect(() => {
@@ -59,10 +60,12 @@ function Itinerary() {
                             itinerary={itinerary}
                             onSelectItem={setSelectedItem}
                             selectedItem={selectedItem}
+                            selectedRoute={selectedRoute}
                         />
                         <Map
                             itinerary={itinerary}
                             selectedItem={selectedItem}
+                            setSelectedRoute={setSelectedRoute}
                         />
                     </div>
                 );

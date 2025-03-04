@@ -4,8 +4,23 @@ import PropTypes from 'prop-types';
 import 'leaflet/dist/leaflet.css';
 import './Map.css';
 import createCustomPin from './CustomPin';
+import DirectionsLayer from './DirectionsLayer';
 
-const MapPanner = ({ selectedItem }) => {
+const getColor = (index) => {
+    const colors = [
+        'red',
+        'blue',
+        'green',
+        'orange',
+        'purple',
+        'brown',
+        'pink',
+        'teal',
+    ];
+    return colors[index % colors.length]; // Rotate through colors
+};
+
+const MapPlanner = ({ selectedItem }) => {
     const map = useMap();
     useEffect(() => {
         if (selectedItem && selectedItem.latitude && selectedItem.longitude) {
@@ -18,30 +33,33 @@ const MapPanner = ({ selectedItem }) => {
     return null;
 };
 
-MapPanner.propTypes = {
+MapPlanner.propTypes = {
     selectedItem: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
     }),
 };
 
-const Map = ({ itinerary, selectedItem }) => {
+const Map = ({ itinerary, selectedItem, setSelectedRoute }) => {
     const [validItinerary, setValidItinerary] = useState([]);
 
     useEffect(() => {
-        const filteredItinerary = itinerary.filter(
-            (item) => item.latitude && item.longitude
-        );
-        setValidItinerary(filteredItinerary);
+        // Filter out items without latitude/longitude and those marked as transport
+        if (itinerary && itinerary.length > 0) {
+            setValidItinerary(
+                itinerary.filter(
+                    (item) =>
+                        item &&
+                        item.latitude &&
+                        item.longitude &&
+                        !item.transport
+                )
+            );
+        }
     }, [itinerary]);
 
-    if (!itinerary || itinerary.length === 0) {
-        return <p>No itinerary data available.</p>;
-    }
-
-    if (validItinerary.length === 0) {
-        return <p>No valid itinerary data available.</p>;
+    if (!itinerary || itinerary.length === 0 || validItinerary.length === 0) {
+        return <div>No itinerary data available.</div>;
     }
 
     const firstItem = validItinerary[0];
@@ -54,18 +72,17 @@ const Map = ({ itinerary, selectedItem }) => {
             className="map-container"
             style={{ height: '100vh', width: '100%' }}
         >
-            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
             {/* Pan to the selected marker */}
-            <MapPanner selectedItem={selectedItem} />
-            {validItinerary.map((item) => (
+            {selectedItem && <MapPlanner selectedItem={selectedItem} />}
+            {validItinerary.map((item, index) => (
                 <Marker
-                    key={item.id}
+                    key={`marker-${index}`}
                     position={[item.latitude, item.longitude]}
-                    icon={
-                        selectedItem && item.id === selectedItem.id
-                            ? createCustomPin(true)
-                            : createCustomPin(false)
-                    }
+                    icon={createCustomPin(getColor(index))}
                 >
                     <Popup>
                         <strong>{item.title}</strong>
@@ -79,6 +96,11 @@ const Map = ({ itinerary, selectedItem }) => {
                     </Popup>
                 </Marker>
             ))}
+            <DirectionsLayer
+                itinerary={itinerary}
+                setSelectedRoute={setSelectedRoute}
+                getColor={getColor}
+            />
         </MapContainer>
     );
 };
@@ -86,21 +108,23 @@ const Map = ({ itinerary, selectedItem }) => {
 Map.propTypes = {
     itinerary: PropTypes.arrayOf(
         PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-                .isRequired,
             latitude: PropTypes.number.isRequired,
             longitude: PropTypes.number.isRequired,
-            title: PropTypes.string.isRequired,
+            transport: PropTypes.bool,
+            title: PropTypes.string,
             description: PropTypes.string,
             price: PropTypes.number,
             duration: PropTypes.number,
+            transportMode: PropTypes.string,
+            start: PropTypes.string,
+            end: PropTypes.string,
         })
     ).isRequired,
     selectedItem: PropTypes.shape({
-        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        latitude: PropTypes.number,
-        longitude: PropTypes.number,
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
     }),
+    setSelectedRoute: PropTypes.func.isRequired,
 };
 
 export default Map;
