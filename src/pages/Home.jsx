@@ -118,8 +118,8 @@ function Home() {
                             </div>
                             <div className="main">
                                 <DateRangeComponent
-                                    value={selectedDate}
-                                    onChange={setSelectedDate}
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
                                 />
                             </div>
                             {error && (
