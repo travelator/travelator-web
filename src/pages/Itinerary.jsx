@@ -101,7 +101,11 @@ function Itinerary() {
         try {
             const response = await postData(responseData);
             if (tripId) {
-                await updateData(tripId, { itinerary: response.itinerary });
+                try {
+                    await updateData(tripId, { itinerary: response.itinerary });
+                } catch (error) {
+                    console.error('Failed to update trip:', error);
+                }
             }
             setItinerary(response.itinerary);
         } catch (error) {
@@ -123,7 +127,11 @@ function Itinerary() {
         try {
             const response = await postSwapData(responseData);
             if (tripId) {
-                await updateData(tripId, { itinerary: response.itinerary });
+                try {
+                    await updateData(tripId, { itinerary: response.itinerary });
+                } catch (error) {
+                    console.error('Failed to update trip:', error);
+                }
             }
             setItinerary(response.itinerary);
         } catch (error) {

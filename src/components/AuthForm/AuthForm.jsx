@@ -53,7 +53,8 @@ const AuthForm = ({ type, onSubmit }) => {
                         />
                         <label htmlFor="password" className="password-label">
                             Password must be at least 8 characters long and
-                            contain at least one number.
+                            contain at least one number and one special
+                            character.
                         </label>
                     </>
                 )}

@@ -26,8 +26,12 @@ const Signup = () => {
                 // save the trip
                 const savedItinerary = getItinerary();
                 if (savedItinerary) {
-                    await saveData({ itinerary: savedItinerary });
-                    clearItinerary();
+                    try {
+                        await saveData({ itinerary: savedItinerary });
+                        clearItinerary();
+                    } catch (err) {
+                        console.error('Failed to save itinerary:', err);
+                    }
                 }
                 await checkAuthStatus();
                 navigate('/');
