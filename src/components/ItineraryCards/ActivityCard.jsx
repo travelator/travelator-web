@@ -29,6 +29,7 @@ function ActivityCard({
     };
 
     const getWeatherIcon = (weather) => {
+        if (!weather) return null;
         switch (weather.toLowerCase()) {
             case 'sunny':
                 return '☀️';
@@ -77,9 +78,11 @@ function ActivityCard({
                 <div className="tags">
                     <p className="tag">{priceTag}</p>
                     <p className="tag">{theme}</p>
-                    <p className="tag">
-                        {temperature}°C {getWeatherIcon(weather)}
-                    </p>
+                    {weather && (
+                        <p className="tag">
+                            {temperature}°C {getWeatherIcon(weather)}
+                        </p>
+                    )}
                 </div>
                 <div className="activity-card-details">
                     <p className="activity-card-description">{description}</p>
