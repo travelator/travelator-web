@@ -9,6 +9,10 @@ export default defineConfig({
         environment: 'jsdom',
         setupFiles: './src/tests/setup.js',
         css: true,
+        coverage: {
+            reporter: ['text', 'html', 'lcov'],
+            reportsDirectory: './coverage',
+        },
     },
     preview: {
         port: 8080,
