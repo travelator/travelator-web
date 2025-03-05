@@ -8,7 +8,7 @@ import '../styles/Login.css'; // Reusing the same CSS for consistency
 
 const Signup = () => {
     const navigate = useNavigate();
-    const [error, setError] = useState(null);
+    const [serverError, setServerError] = useState(null); // Define serverError state
     const { postData, loading } = useApi('register', false);
     const { checkAuthStatus } = useAuth();
     const { postData: saveData, loading: saveLoading } = useApi('save', false);
@@ -41,7 +41,7 @@ const Signup = () => {
         } catch (err) {
             console.error('Signup error:', err);
             const errorMessage = mapErrorToMessage(err);
-            setError(errorMessage);
+            setServerError(errorMessage);
         }
     };
 
@@ -56,11 +56,13 @@ const Signup = () => {
         <div className="login-page">
             <h1 className="login-header">Join Us</h1>
             <p className="login-subheader">Create an account to get started</p>
-            {error && (
-                <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>
-            )}
             <div className="login-form-wrapper">
-                <AuthForm type="signup" onSubmit={handleSignup} />
+                {/* Pass serverError to AuthForm */}
+                <AuthForm
+                    type="signup"
+                    onSubmit={handleSignup}
+                    serverError={serverError} // Pass server-side error
+                />
             </div>
             {(loading || saveLoading) && (
                 <p style={{ marginTop: '20px' }}>Please wait...</p>

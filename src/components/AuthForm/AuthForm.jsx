@@ -8,18 +8,76 @@ const AuthForm = ({ type, onSubmit }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); // Only for signup
     const [error, setError] = useState(null);
+    const [passwordError, setPasswordError] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false); // Track if form was attempted to be submitted
+    const [showValidationError, setShowValidationError] = useState(false);
+
+    const validatePassword = (password) => {
+        const minLength = 8;
+        const hasNumber = /\d/;
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+        if (password.length < minLength) {
+            return 'Password must be at least 8 characters long.';
+        }
+        if (!hasNumber.test(password)) {
+            return 'Password must contain at least one number.';
+        }
+        if (!hasSpecialChar.test(password)) {
+            return 'Password must contain at least one special character.';
+        }
+        return null;
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setError(null);
+        setIsSubmitted(true); // Mark form as attempted to be submitted
 
-        if (type === 'signup' && password !== confirmPassword) {
-            setError('Passwords do not match');
-            return;
+        if (type === 'signup') {
+            const passwordValidationError = validatePassword(password);
+            if (passwordValidationError) {
+                setPasswordError(passwordValidationError);
+                setShowValidationError(true);
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                setError('Passwords do not match');
+                setShowValidationError(true);
+                return;
+            }
         }
 
-        // Pass the data up to the parent component
+        // If all validations pass, clear errors and submit the form
+        setError(null);
+        setPasswordError(null);
+        setShowValidationError(false);
         onSubmit({ email, password });
+    };
+
+    const isFormValid = () => {
+        if (type === 'signup') {
+            const passwordValidationError = validatePassword(password);
+            return (
+                email &&
+                password &&
+                confirmPassword &&
+                password === confirmPassword &&
+                !passwordValidationError
+            );
+        } else {
+            return email && password;
+        }
+    };
+
+    const handleButtonClick = () => {
+        if (!isFormValid()) {
+            const passwordValidationError = validatePassword(password);
+            if (passwordValidationError) {
+                setPasswordError(passwordValidationError); // Set password error
+            }
+            setShowValidationError(true); // Show validation error
+        }
     };
 
     return (
@@ -58,8 +116,17 @@ const AuthForm = ({ type, onSubmit }) => {
                         </label>
                     </>
                 )}
+                {/* Display client-side errors */}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                <button type="submit">
+                {(isSubmitted || showValidationError) && passwordError && (
+                    <p style={{ color: 'red' }}>{passwordError}</p>
+                )}
+                <button
+                    type="submit"
+                    disabled={!isFormValid()}
+                    className={!isFormValid() ? 'disabled-button' : ''}
+                    onClick={handleButtonClick}
+                >
                     {type === 'signup' ? 'Sign Up' : 'Login'}
                 </button>
             </form>
@@ -83,6 +150,7 @@ const AuthForm = ({ type, onSubmit }) => {
 AuthForm.propTypes = {
     type: PropTypes.oneOf(['login', 'signup']).isRequired,
     onSubmit: PropTypes.func.isRequired,
+    serverError: PropTypes.string,
 };
 
 export default AuthForm;

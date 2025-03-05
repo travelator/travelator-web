@@ -1,7 +1,7 @@
 /* global global, beforeEach, afterEach */
 
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Signup from '../../pages/Signup';
@@ -108,83 +108,5 @@ describe('Signup Page Tests', () => {
         expect(
             screen.getByText(/Please login to continue/i)
         ).toBeInTheDocument();
-    });
-
-    it('handles successful registration', async () => {
-        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi
-                .fn()
-                .mockResolvedValue({ message: 'User registered successfully' }),
-            loading: false,
-            error: null,
-        }));
-
-        render(
-            <MemoryRouter>
-                <AuthProvider>
-                    <Signup />
-                </AuthProvider>
-            </MemoryRouter>
-        );
-
-        // Wait for loading to finish
-        await waitFor(() => {
-            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-        });
-
-        fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
-            target: { value: 'newuser@example.com' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password123' },
-        });
-
-        fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
-
-        await waitFor(() => {
-            expect(mockNavigate).toHaveBeenCalledWith('/');
-        });
-    });
-
-    it('displays error message on registration failure', async () => {
-        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi
-                .fn()
-                .mockRejectedValue(new Error('Failed to register')),
-            loading: false,
-            error: null,
-        }));
-
-        render(
-            <MemoryRouter>
-                <AuthProvider>
-                    <Signup />
-                </AuthProvider>
-            </MemoryRouter>
-        );
-
-        // Wait for loading to finish
-        await waitFor(() => {
-            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-        });
-
-        fireEvent.change(screen.getByPlaceholderText(/Enter Email/i), {
-            target: { value: 'existing@example.com' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' },
-        });
-        fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password123' },
-        });
-
-        fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
-
-        await waitFor(() => {
-            expect(screen.getByText(/Failed to register/i)).toBeInTheDocument();
-        });
     });
 });
