@@ -72,7 +72,11 @@ const AuthForm = ({ type, onSubmit }) => {
 
     const handleButtonClick = () => {
         if (!isFormValid()) {
-            setShowValidationError(true); // Show validation error if button is clicked while disabled
+            const passwordValidationError = validatePassword(password);
+            if (passwordValidationError) {
+                setPasswordError(passwordValidationError); // Set password error
+            }
+            setShowValidationError(true); // Show validation error
         }
     };
 
@@ -112,6 +116,7 @@ const AuthForm = ({ type, onSubmit }) => {
                         </label>
                     </>
                 )}
+                {/* Display client-side errors */}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {(isSubmitted || showValidationError) && passwordError && (
                     <p style={{ color: 'red' }}>{passwordError}</p>
@@ -145,6 +150,7 @@ const AuthForm = ({ type, onSubmit }) => {
 AuthForm.propTypes = {
     type: PropTypes.oneOf(['login', 'signup']).isRequired,
     onSubmit: PropTypes.func.isRequired,
+    serverError: PropTypes.string,
 };
 
 export default AuthForm;

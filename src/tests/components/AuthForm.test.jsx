@@ -48,7 +48,7 @@ describe('AuthForm Component Tests', () => {
         ).toBeInTheDocument();
     });
 
-    it('should show error if passwords do not match on signup', () => {
+    it('should show error if password does not meet requirements on signup', () => {
         render(
             <MemoryRouter>
                 <AuthForm type="signup" onSubmit={mockOnSubmit} />
@@ -59,15 +59,17 @@ describe('AuthForm Component Tests', () => {
             target: { value: 'test@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' },
+            target: { value: 'pass' }, // Invalid password (too short)
         });
         fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password456' },
+            target: { value: 'pass' }, // Invalid password (too short)
         });
 
         fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
 
-        expect(screen.getByText(/Passwords do not match/i)).toBeInTheDocument();
+        expect(
+            screen.getByText(/Password must be at least 8 characters long/i)
+        ).toBeInTheDocument();
         expect(mockOnSubmit).not.toHaveBeenCalled();
     });
 
@@ -82,17 +84,17 @@ describe('AuthForm Component Tests', () => {
             target: { value: 'test@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123' },
+            target: { value: 'password123!' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password123' },
+            target: { value: 'password123!' },
         });
 
         fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
 
         expect(mockOnSubmit).toHaveBeenCalledWith({
             email: 'test@example.com',
-            password: 'password123',
+            password: 'password123!',
         });
     });
 
