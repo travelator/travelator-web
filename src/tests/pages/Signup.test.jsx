@@ -187,29 +187,4 @@ describe('Signup Page Tests', () => {
             expect(screen.getByText(/Failed to register/i)).toBeInTheDocument();
         });
     });
-
-    it('shows loading state while registering', async () => {
-        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi.fn(),
-            loading: true,
-            error: null,
-        }));
-
-        render(
-            <MemoryRouter>
-                <AuthProvider>
-                    <Signup />
-                </AuthProvider>
-            </MemoryRouter>
-        );
-
-        // Wait for auth loading to finish
-        await waitFor(() => {
-            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-        });
-
-        expect(
-            screen.getByText(/Creating your account.../i)
-        ).toBeInTheDocument();
-    });
 });

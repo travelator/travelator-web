@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import useApi from '../../hooks/FetchApi';
+import { AuthContext } from '../../context/AuthContext'; // Import the AuthContext
 
 /* global global */
 
@@ -16,10 +17,19 @@ describe('useApi Hook', () => {
         vi.restoreAllMocks();
     });
 
+    // Utility function to wrap hook in the AuthContext.Provider
+    const wrapper = ({ children }) => (
+        <AuthContext.Provider value={{ isAuthenticated: true }}>
+            {children}
+        </AuthContext.Provider>
+    );
+
     it('handles errors appropriately', async () => {
         fetchSpy.mockRejectedValueOnce(new Error('API Error'));
 
-        const { result } = renderHook(() => useApi('test-endpoint', false));
+        const { result } = renderHook(() => useApi('test-endpoint', false), {
+            wrapper,
+        });
 
         try {
             await act(async () => {
@@ -48,7 +58,9 @@ describe('useApi Hook', () => {
                 )
         );
 
-        const { result } = renderHook(() => useApi('test-endpoint', false));
+        const { result } = renderHook(() => useApi('test-endpoint', false), {
+            wrapper,
+        });
 
         // Initial state should be not loading
         expect(result.current.loading).toBe(false);

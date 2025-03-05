@@ -2,11 +2,13 @@ import { useState, useEffect } from 'react';
 import localActivities from '../assets/activities'; //local data
 import { TransportItinerary } from '../assets/itineraryWithTransport'; //local data
 import { saveItinerary } from './LocalStorage';
+import { useAuth } from '../context/AuthContext';
 
 const useApi = (apiRoute, shouldFetchData = true) => {
     const [activities, setActivities] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
+    const { isAuthenticated } = useAuth();
 
     const useLocalData = import.meta.env.VITE_USE_LOCAL_DATA === 'true';
 
@@ -81,9 +83,9 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            // save itinerary to local storage if it's in returned data
+            // save itinerary to local storage if it's in returned data and user not authenticated
             if (responseData) {
-                if (responseData.itinerary) {
+                if (responseData.itinerary && !isAuthenticated) {
                     saveItinerary(responseData.itinerary);
                 }
 
