@@ -1,0 +1,81 @@
+/* Updated TripCard styles for uniform sizing, responsiveness, and improved layout */
+.trip-card {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition:
+        transform 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
+    width: 280px; /* Slightly reduced width */
+    height: 380px; /* Slightly reduced height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.trip-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure uniform sizing and text auto-adjustment */
+.trip-card-title {
+    flex-grow: 1;
+    font-size: clamp(1rem, 4vw, 1.5rem); /* Adjust font size dynamically */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.trip-card .MuiCardContent-root {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.trip-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 8px;
+}
+
+.trip-card-details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Combine time of day and group type into a single row */
+.trip-card-detail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Improved spacing and layout */
+.chip-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Grid container to prevent overlapping on resize */
+.trip-list .MuiGrid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    align-items: start;
+}

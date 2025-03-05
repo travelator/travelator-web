@@ -1,0 +1,19 @@
+/* Ensure cards align properly in a grid */
+.trip-list {
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+/* Input fields spacing */
+.trip-list .MuiTextField-root {
+    margin-bottom: 20px;
+}
+
+/* Better grid layout */
+.trip-list .MuiGrid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-start;
+}

@@ -75,10 +75,11 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 credentials: 'include',
             });
 
+            const responseData = await response.json();
+
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            const responseData = await response.json();
 
             // save itinerary to local storage if it's in returned data
             if (responseData) {
