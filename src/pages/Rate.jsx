@@ -1,6 +1,7 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useApi from '../hooks/FetchApi';
 import RateCard from '../components/RateCard/RateCard';
+import { useAuth } from '../context/AuthContext';
 import '../styles/Rate.css';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import Loading from '../components/Loading';
@@ -9,14 +10,17 @@ function Rate() {
     // get the city
     const { city } = useParams();
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth();
 
     // get loaded activities
     const { state } = useLocation();
     const [remainingActivities, setRemainingActivities] = useState([]);
     const [visibleActivities, setVisibleActivities] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     // initialise hook to send data
     const { postData, error, loading } = useApi('itinerary', false);
+    const { postData: saveData } = useApi('save', false);
 
     // containerRef manages visible card space
     const containerRef = useRef(null);
@@ -34,6 +38,7 @@ function Rate() {
 
     // handle going to next action if all swipes are complete
     const onNext = useCallback(async () => {
+        setIsLoading(true);
         const responseData = {
             city: city,
             preferences: {
@@ -44,14 +49,34 @@ function Rate() {
 
         try {
             const response = await postData(responseData);
+            let tripId = null;
+            if (isAuthenticated) {
+                const saveResponse = await saveData({
+                    itinerary: response.itinerary,
+                });
+                tripId = saveResponse.trip_id;
+            }
+            setIsLoading(false);
             navigate(`/itinerary/${city}`, {
-                state: { itinerary: response.itinerary },
+                state: {
+                    itinerary: response.itinerary,
+                    tripId: tripId,
+                },
             });
         } catch (error) {
             console.error('POST failed:', error);
             console.error('Request data was:', responseData);
+            setIsLoading(false);
         }
-    }, [city, navigate, postData, dislikedActivities, likedActivities]);
+    }, [
+        city,
+        navigate,
+        postData,
+        dislikedActivities,
+        likedActivities,
+        isAuthenticated,
+        saveData,
+    ]);
 
     useEffect(() => {
         if (visibleActivities.length > 0 && remainingActivities.length === 0) {
@@ -86,12 +111,8 @@ function Rate() {
     }, [remainingActivities]);
 
     // handle loading state for POST request
-    if (loading) {
+    if (loading || isLoading) {
         return <Loading text={'Building itinerary...'} factId={1} />;
-    }
-
-    if (error) {
-        return <p style={{ color: 'red' }}>Error: {error.message}</p>;
     }
 
     // create like and dislike handlers for rate card
@@ -146,6 +167,9 @@ function Rate() {
                             )}
                         </div>
                     </div>
+                    {error && (
+                        <p style={{ color: 'red' }}>Error: {error.message}</p>
+                    )}
                 </div>
             </div>
         </>
