@@ -135,10 +135,15 @@ describe('Login Page Tests', () => {
         fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
         await waitFor(() => {
-            expect(mockPostData).toHaveBeenCalledWith({
-                email: 'test@example.com',
-                password: 'password123',
-            });
+            expect(mockPostData).toHaveBeenCalledWith(
+                {
+                    email: 'test@example.com',
+                    password: 'password123',
+                },
+                {
+                    credentials: 'include',
+                }
+            );
         });
     });
 

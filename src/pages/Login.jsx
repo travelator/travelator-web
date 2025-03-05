@@ -14,19 +14,31 @@ const Login = () => {
     const handleLogin = async (formData) => {
         try {
             console.log('Attempting login...');
-            const response = await postData(formData);
+            const response = await postData(formData, {
+                credentials: 'include',
+            });
             console.log('Login response:', response);
 
-            if (response.token) {
+            if (response && response.token) {
                 console.log('Login successful, checking auth status...');
                 await checkAuthStatus();
                 console.log('Navigating to user-trips...');
                 navigate('/');
+            } else {
+                throw new Error('Invalid login credentials');
             }
         } catch (err) {
             console.error('Login error:', err);
-            setError(err.message || 'Failed to login');
+            const errorMessage = mapErrorToMessage(err);
+            setError(errorMessage);
         }
+    };
+
+    const mapErrorToMessage = (err) => {
+        if (err.response && err.response.status === 401) {
+            return 'Incorrect username or password. Please try again.';
+        }
+        return 'Failed to login. Please try again later.';
     };
 
     if (loading) {

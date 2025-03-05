@@ -12,12 +12,29 @@ const Signup = () => {
     const handleSignup = async (formData) => {
         try {
             const response = await postData(formData);
-            if (response.message === 'User registered successfully') {
+            console.log('Signup response:', response);
+
+            if (
+                response.message === 'User registered successfully' ||
+                response.message ===
+                    'User registered and logged in successfully'
+            ) {
                 navigate('/');
+            } else {
+                throw new Error('Failed to register. Please try again later.');
             }
         } catch (err) {
-            setError(err.message || 'Failed to register');
+            console.error('Signup error:', err);
+            const errorMessage = mapErrorToMessage(err);
+            setError(errorMessage);
         }
+    };
+
+    const mapErrorToMessage = (err) => {
+        if (err.response && err.response.status === 400) {
+            return 'Failed to register, maybe an account with this email already exists? Please log in or try again.';
+        }
+        return 'Failed to register. Please try again later.';
     };
 
     if (loading) {
