@@ -56,13 +56,13 @@ function Rate() {
                 });
                 tripId = saveResponse.trip_id;
             }
-            setIsLoading(false);
             navigate(`/itinerary/${city}`, {
                 state: {
                     itinerary: response.itinerary,
                     tripId: tripId,
                 },
             });
+            setIsLoading(false);
         } catch (error) {
             console.error('POST failed:', error);
             console.error('Request data was:', responseData);
