@@ -72,15 +72,9 @@ function Rate() {
                 const cardWidth = 324;
                 totalWidth += cardWidth;
 
-                console.log(cardWidth);
-                console.log(totalWidth);
-                console.log(containerWidth);
-
                 if (totalWidth > containerWidth) break;
                 newVisibleActivities.push(remainingActivities[i]);
             }
-
-            console.log(newVisibleActivities);
 
             setVisibleActivities(newVisibleActivities);
         };

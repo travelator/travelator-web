@@ -1,5 +1,12 @@
-.trips-content {
-    background-color: #f5f5f5;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.trips-page {
+    width: 100%;
 }
 
 .trips-content .MuiBox-root {

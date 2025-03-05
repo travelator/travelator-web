@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import localActivities from '../assets/activities'; //local data
 import { TransportItinerary } from '../assets/itineraryWithTransport'; //local data
+import { saveItinerary } from './LocalStorage';
 
 const useApi = (apiRoute, shouldFetchData = true) => {
     const [activities, setActivities] = useState(null);
@@ -78,8 +79,16 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const responseData = await response.json();
-            console.log('Response Data:', responseData);
-            setActivities(responseData);
+
+            // save itinerary to local storage if it's in returned data
+            if (responseData) {
+                if (responseData.itinerary) {
+                    saveItinerary(responseData.itinerary);
+                }
+
+                console.log('Response Data:', responseData);
+                setActivities(responseData);
+            }
             setError('');
             return responseData;
         } catch (error) {
@@ -134,7 +143,36 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         }
     };
 
-    return { activities, error, loading, postData, getData };
+    const deleteData = async (id) => {
+        setLoading(true);
+
+        const deleteUrl = `${url}/${id}`;
+
+        try {
+            const response = await fetch(deleteUrl, {
+                method: 'DELETE',
+                mode: 'cors',
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            console.log('Trip deleted successfully:', responseData);
+            setError('');
+            return responseData;
+        } catch (error) {
+            console.error('DELETE request error:', error);
+            setError(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { activities, error, loading, postData, getData, deleteData };
 };
 
 export default useApi;

@@ -3,7 +3,7 @@ import { FactsContext } from '../providers/FactsProvider';
 import { useContext, useEffect, useState } from 'react';
 import './Loading.css';
 
-function Loading({ text, factId }) {
+function Loading({ text, factId = 99 }) {
     const { facts } = useContext(FactsContext);
     const [showFacts, setShowFacts] = useState(false);
 
@@ -20,7 +20,7 @@ function Loading({ text, factId }) {
             <div className="loading-container">
                 <div className="spinner"></div>
                 <p className="loading-text">{text}</p>
-                {facts && facts.length > 0 && (
+                {facts && facts.length > 0 && factId < facts.length && (
                     <div
                         className={`facts-container ${showFacts ? 'visible' : ''}`}
                     >

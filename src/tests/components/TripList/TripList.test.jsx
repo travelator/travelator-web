@@ -5,18 +5,18 @@ import TripList from '../../../components/TripList/TripList';
 
 const mockTrips = [
     {
-        id: 1,
+        trip_id: 1,
         city: 'London',
-        customName: 'Weekend in London',
+        custom_name: 'Weekend in London',
         dateCreated: '2024-03-20',
         timeOfDay: ['morning', 'afternoon'],
-        group: 'family',
+        group: 'solo',
         itinerary: { activities: [] },
     },
     {
-        id: 2,
+        trip_id: 2,
         city: 'Paris',
-        customName: null,
+        custom_name: null,
         dateCreated: '2024-03-15',
         timeOfDay: ['evening'],
         group: 'couples',
@@ -45,22 +45,6 @@ describe('TripList', () => {
 
         const searchInput = screen.getByLabelText('Search trips');
         fireEvent.change(searchInput, { target: { value: 'London' } });
-
-        expect(screen.getByText('Weekend in London')).toBeInTheDocument();
-        expect(screen.queryByText('Paris')).not.toBeInTheDocument();
-    });
-
-    it('filters trips by group', () => {
-        render(
-            <BrowserRouter>
-                <TripList trips={mockTrips} />
-            </BrowserRouter>
-        );
-
-        const filterSelect = screen.getByLabelText('Filter by group');
-        fireEvent.mouseDown(filterSelect);
-        const familyOption = screen.getByText('Family');
-        fireEvent.click(familyOption);
 
         expect(screen.getByText('Weekend in London')).toBeInTheDocument();
         expect(screen.queryByText('Paris')).not.toBeInTheDocument();

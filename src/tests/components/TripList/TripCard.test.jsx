@@ -1,12 +1,12 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import TripCard from '../../../components/TripList/TripCard';
 
 const mockTrip = {
-    id: 1,
+    trip_id: 1,
     city: 'London',
-    customName: 'Weekend in London',
+    custom_name: 'Weekend in London',
     dateCreated: '2024-03-20',
     timeOfDay: ['morning', 'afternoon'],
     group: 'family',
@@ -32,9 +32,11 @@ describe('TripCard', () => {
         );
 
         expect(screen.getByText('Weekend in London')).toBeInTheDocument();
-        expect(screen.getByText('family')).toBeInTheDocument();
+        expect(screen.getByText('Family')).toBeInTheDocument();
         mockTrip.timeOfDay.forEach((time) => {
-            expect(screen.getByText(time)).toBeInTheDocument();
+            expect(
+                screen.getByText(new RegExp(`^${time}$`, 'i'))
+            ).toBeInTheDocument();
         });
     });
 
@@ -46,53 +48,5 @@ describe('TripCard', () => {
         );
 
         expect(screen.getByText('Paris')).toBeInTheDocument();
-    });
-
-    it('allows editing the trip name', async () => {
-        render(
-            <BrowserRouter>
-                <TripCard trip={mockTrip} />
-            </BrowserRouter>
-        );
-
-        // Click edit button
-        const editButton = screen.getByTestId('EditIcon').parentElement;
-        fireEvent.click(editButton);
-
-        // Find input and change value
-        const input = screen.getByPlaceholderText('Enter custom name');
-        fireEvent.change(input, { target: { value: 'New Trip Name' } });
-
-        // Press Enter to save and wait for edit mode to end
-        fireEvent.keyPress(input, {
-            key: 'Enter',
-            code: 'Enter',
-            charCode: 13,
-        });
-
-        // Use findByText instead of getByText to wait for the update
-        expect(await screen.findByText('New Trip Name')).toBeInTheDocument();
-    });
-
-    it('cancels editing when clicking outside', () => {
-        render(
-            <BrowserRouter>
-                <TripCard trip={mockTrip} />
-            </BrowserRouter>
-        );
-
-        // Click edit button
-        const editButton = screen.getByTestId('EditIcon').parentElement;
-        fireEvent.click(editButton);
-
-        // Find input and change value
-        const input = screen.getByPlaceholderText('Enter custom name');
-        fireEvent.change(input, { target: { value: 'New Trip Name' } });
-
-        // Click outside (blur)
-        fireEvent.blur(input);
-
-        // Check if new name is displayed
-        expect(screen.getByText('New Trip Name')).toBeInTheDocument();
     });
 });

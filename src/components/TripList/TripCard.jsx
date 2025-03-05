@@ -11,14 +11,16 @@ import {
 } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import GroupIcon from '@mui/icons-material/Group';
-import EditIcon from '@mui/icons-material/Edit';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import DeleteIcon from '@mui/icons-material/Delete';
+import useApi from '../../hooks/FetchApi';
 
-function TripCard({ trip }) {
+function TripCard({ trip, updateTrips }) {
     const navigate = useNavigate();
     const [isEditing, setIsEditing] = useState(false);
-    const [customName, setCustomName] = useState(trip.customName || trip.city);
+    const [customName, setCustomName] = useState(trip.custom_name || trip.city);
+    const { deleteData } = useApi('trips', false);
 
     const handleViewTrip = () => {
         navigate(`/itinerary/${trip.city}`, {
@@ -26,8 +28,9 @@ function TripCard({ trip }) {
         });
     };
 
-    const handleEditClick = () => {
-        setIsEditing(true);
+    const handleDeleteClick = () => {
+        deleteData(trip.trip_id);
+        updateTrips(trip.trip_id);
     };
 
     const handleNameChange = (event) => {
@@ -39,6 +42,10 @@ function TripCard({ trip }) {
             setIsEditing(false);
             // Here you would typically update the name in your backend
         }
+    };
+
+    const capitalize = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
     return (
@@ -65,15 +72,18 @@ function TripCard({ trip }) {
                             >
                                 {customName}
                             </Typography>
-                            <IconButton onClick={handleEditClick} size="small">
-                                <EditIcon />
+                            <IconButton
+                                onClick={handleDeleteClick}
+                                size="small"
+                            >
+                                <DeleteIcon />
                             </IconButton>
                         </>
                     )}
                 </Box>
 
                 <Typography color="text.secondary" gutterBottom>
-                    Created: {new Date(trip.dateCreated).toLocaleDateString()}
+                    Created: {trip.date_created}
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
@@ -84,7 +94,7 @@ function TripCard({ trip }) {
                         {trip.timeOfDay.map((time) => (
                             <Chip
                                 key={time}
-                                label={time}
+                                label={capitalize(time)}
                                 size="small"
                                 variant="outlined"
                             />
@@ -95,7 +105,7 @@ function TripCard({ trip }) {
                     >
                         <GroupIcon fontSize="small" />
                         <Chip
-                            label={trip.group}
+                            label={capitalize(trip.group)}
                             size="small"
                             variant="outlined"
                         />
@@ -112,14 +122,15 @@ function TripCard({ trip }) {
 
 TripCard.propTypes = {
     trip: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        trip_id: PropTypes.string.isRequired,
         city: PropTypes.string.isRequired,
-        customName: PropTypes.string,
-        dateCreated: PropTypes.string.isRequired,
+        custom_name: PropTypes.string,
+        date_created: PropTypes.string.isRequired,
         timeOfDay: PropTypes.arrayOf(PropTypes.string).isRequired,
         group: PropTypes.string.isRequired,
         itinerary: PropTypes.object.isRequired,
     }).isRequired,
+    updateTrips: PropTypes.func.isRequired,
 };
 
 export default TripCard;

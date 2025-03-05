@@ -3,7 +3,7 @@ import { Grid, Box, TextField, MenuItem } from '@mui/material';
 import TripCard from './TripCard';
 import { useState } from 'react';
 
-function TripList({ trips }) {
+function TripList({ trips, setTrips }) {
     const [filterGroup, setFilterGroup] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -16,16 +16,29 @@ function TripList({ trips }) {
         return matchesGroup && matchesSearch;
     });
 
+    const updatePostDelete = (id) => {
+        setTrips((prevTrips) =>
+            prevTrips.filter((trip) => trip.trip_id !== id)
+        );
+    };
+
     return (
         <Box sx={{ width: '100%' }}>
-            <Box sx={{ mb: 3, display: 'flex', gap: 2 }}>
+            <Box
+                sx={{
+                    mb: 3,
+                    display: 'flex',
+                    gap: 2,
+                    justifyContent: 'flex-end',
+                }}
+            >
                 <TextField
                     label="Search trips"
                     variant="outlined"
                     size="small"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    sx={{ flexGrow: 1 }}
+                    sx={{ flexGrow: 1, maxWidth: 400 }}
                 />
                 <TextField
                     select
@@ -46,7 +59,7 @@ function TripList({ trips }) {
             <Grid container spacing={2}>
                 {filteredTrips.map((trip) => (
                     <Grid item xs={12} sm={6} md={4} key={trip.id}>
-                        <TripCard trip={trip} />
+                        <TripCard trip={trip} updateTrips={updatePostDelete} />
                     </Grid>
                 ))}
             </Grid>
@@ -67,6 +80,7 @@ TripList.propTypes = {
             itinerary: PropTypes.object.isRequired,
         })
     ).isRequired,
+    setTrips: PropTypes.func.isRequired,
 };
 
 export default TripList;
