@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import DirectionsLayer from '../../../components/Map/DirectionsLayer';
 import { describe, it, expect, vi } from 'vitest';
+import { AuthProvider } from '../../../context/AuthContext';
 
 const mockItinerary = [
     { latitude: 51.505, longitude: -0.09 },
@@ -14,11 +15,13 @@ const mockGetColor = vi.fn().mockReturnValue('blue');
 describe('DirectionsLayer Component', () => {
     it('renders without crashing', () => {
         render(
-            <DirectionsLayer
-                itinerary={mockItinerary}
-                setSelectedRoute={mockSetSelectedRoute}
-                getColor={mockGetColor}
-            />
+            <AuthProvider>
+                <DirectionsLayer
+                    itinerary={mockItinerary}
+                    setSelectedRoute={mockSetSelectedRoute}
+                    getColor={mockGetColor}
+                />
+            </AuthProvider>
         );
     });
 

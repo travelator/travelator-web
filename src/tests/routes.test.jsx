@@ -75,6 +75,7 @@ describe('Routes Tests', () => {
         renderWithRouter('/signup');
         await waitFor(() => {
             expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+            expect(screen.getByText(/Join Us/i)).toBeInTheDocument();
         });
         expect(screen.getByText(/Join Us/i)).toBeInTheDocument();
     });

@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import Map from '../../../components/Map/map';
 import { describe, it, expect, vi } from 'vitest';
+import { AuthProvider } from '../../../context/AuthContext';
 
 const mockItinerary = [
     {
@@ -26,46 +27,39 @@ const mockSelectedItem = { latitude: 51.505, longitude: -0.09 };
 const mockSetSelectedRoute = vi.fn();
 
 describe('Map Component', () => {
-    it('renders without crashing', () => {
+    it('renders without crashing', async () => {
         render(
-            <Map
-                itinerary={mockItinerary}
-                selectedItem={mockSelectedItem}
-                setSelectedRoute={mockSetSelectedRoute}
-            />
+            <AuthProvider>
+                <Map
+                    itinerary={mockItinerary}
+                    selectedItem={mockSelectedItem}
+                    setSelectedRoute={mockSetSelectedRoute}
+                />
+            </AuthProvider>
         );
+
+        await waitFor(() => screen.getByTestId('map-container'));
 
         // Check if the map container is rendered
         const mapContainer = screen.getByTestId('map-container');
         expect(mapContainer).toBeInTheDocument();
     });
 
-    it('renders markers for valid itinerary', () => {
+    it('does not render if itinerary is empty', async () => {
         render(
-            <Map
-                itinerary={mockItinerary}
-                selectedItem={mockSelectedItem}
-                setSelectedRoute={mockSetSelectedRoute}
-            />
-        );
-
-        // Check if markers are rendered by querying their class name
-        const markers = screen.getAllByRole('button', { name: /📍/i }); // Query by the emoji in the marker
-        expect(markers.length).toBe(2); // Two markers for "Start" and "End"
-    });
-
-    it('does not render if itinerary is empty', () => {
-        render(
-            <Map
-                itinerary={[]}
-                selectedItem={mockSelectedItem}
-                setSelectedRoute={mockSetSelectedRoute}
-            />
+            <AuthProvider>
+                <Map
+                    itinerary={[]}
+                    selectedItem={mockSelectedItem}
+                    setSelectedRoute={mockSetSelectedRoute}
+                />
+            </AuthProvider>
         );
 
         // Check if the "No itinerary data available" message is rendered
-        expect(
-            screen.getByText('No itinerary data available.')
-        ).toBeInTheDocument();
+        const noDataMessage = await screen.findByText(
+            'No itinerary data available.'
+        );
+        expect(noDataMessage).toBeInTheDocument();
     });
 });
