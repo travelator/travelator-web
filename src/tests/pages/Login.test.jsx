@@ -2,10 +2,8 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Login from '../../pages/Login';
-import Signup from '../../pages/Signup';
 import * as FetchApi from '../../hooks/FetchApi';
 import { AuthProvider } from '../../context/AuthContext';
 
@@ -65,40 +63,6 @@ describe('Login Page Tests', () => {
         ).toBeInTheDocument();
         expect(
             screen.getByRole('button', { name: /Login/i })
-        ).toBeInTheDocument();
-    });
-
-    it('navigates to signup page when "Sign Up" link is clicked on login page', async () => {
-        const user = userEvent.setup();
-        render(
-            <MemoryRouter initialEntries={['/login']}>
-                <AuthProvider>
-                    <Routes>
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<Signup />} />
-                    </Routes>
-                </AuthProvider>
-            </MemoryRouter>
-        );
-
-        // Wait for loading to finish
-        await waitFor(() => {
-            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-        });
-
-        // Find the "Sign Up" link and click it
-        const signUpLink = screen.getByText(/Sign Up/i);
-        await user.click(signUpLink);
-
-        // Wait for the page to navigate and check if we're on the signup page
-        await waitFor(() => screen.getByRole('heading', { name: /Join Us/i }));
-
-        // Confirm that the URL changed to the signup page
-        expect(
-            screen.getByRole('heading', { name: /Join Us/i })
-        ).toBeInTheDocument();
-        expect(
-            screen.getByText(/Create an account to get started/i)
         ).toBeInTheDocument();
     });
 

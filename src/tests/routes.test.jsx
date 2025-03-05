@@ -75,6 +75,7 @@ describe('Routes Tests', () => {
         renderWithRouter('/signup');
         await waitFor(() => {
             expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+            expect(screen.getByText(/Join Us/i)).toBeInTheDocument();
         });
         expect(screen.getByText(/Join Us/i)).toBeInTheDocument();
     });
@@ -85,7 +86,7 @@ describe('Routes Tests', () => {
             expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
         });
         expect(
-            screen.getByText(/Rate activities in london/i)
+            await waitFor(() => screen.getByText(/Rate activities in london/i))
         ).toBeInTheDocument();
     });
 
@@ -93,6 +94,9 @@ describe('Routes Tests', () => {
         renderWithRouter('/itinerary/london');
         await waitFor(() => {
             expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
+            expect(
+                screen.queryByText('Building itinerary...')
+            ).not.toBeInTheDocument();
         });
         // Check for the complete heading text
         expect(
