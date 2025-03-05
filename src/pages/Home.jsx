@@ -40,7 +40,9 @@ function Home() {
 
         const homePageData = {
             city: trimmedCity,
-            date: selectedDate ? new Date(selectedDate) : null,
+            date: selectedDate
+                ? selectedDate.toLocaleDateString('en-CA')
+                : null,
             timeOfDay: selectedTime,
             group: selectedGroup,
             uniqueness: selectedUniqueness,
