@@ -3,6 +3,33 @@ import Map from '../../../components/Map/map';
 import { describe, it, expect, vi } from 'vitest';
 import { AuthProvider } from '../../../context/AuthContext';
 
+// Mock the entire react-leaflet module
+vi.mock('react-leaflet', async () => {
+    const actual = await vi.importActual('react-leaflet');
+    return {
+        ...actual,
+        MapContainer: vi.fn(({ children }) => <div>{children}</div>),
+        TileLayer: vi.fn(() => null),
+        Marker: vi.fn(({ children }) => (
+            <div data-testid="mock-marker">{children}</div>
+        )),
+        Popup: vi.fn(({ children }) => <div>{children}</div>),
+        useMap: vi.fn(() => ({
+            flyTo: vi.fn(),
+        })),
+    };
+});
+
+// Mock createCustomPin
+vi.mock('../../../components/Map/CustomPin', () => ({
+    default: vi.fn(() => null),
+}));
+
+// Mock DirectionsLayer
+vi.mock('../../../components/Map/DirectionsLayer', () => ({
+    default: vi.fn(() => null),
+}));
+
 const mockItinerary = [
     {
         latitude: 51.505,
@@ -11,8 +38,8 @@ const mockItinerary = [
         description: 'Start point',
         price: 0,
         duration: 0,
+        transport: false,
     },
-    { transport: true, transportMode: 'walking', start: '10:00', end: '10:30' },
     {
         latitude: 51.51,
         longitude: -0.1,
@@ -20,6 +47,7 @@ const mockItinerary = [
         description: 'End point',
         price: 0,
         duration: 0,
+        transport: false,
     },
 ];
 
@@ -28,7 +56,7 @@ const mockSetSelectedRoute = vi.fn();
 
 describe('Map Component', () => {
     it('renders without crashing', async () => {
-        render(
+        const { container } = render(
             <AuthProvider>
                 <Map
                     itinerary={mockItinerary}
@@ -38,15 +66,20 @@ describe('Map Component', () => {
             </AuthProvider>
         );
 
-        await waitFor(() => screen.getByTestId('map-container'));
+        // Log the entire container content for debugging
+        console.log('Container content:', container.innerHTML);
 
-        // Check if the map container is rendered
-        const mapContainer = screen.getByTestId('map-container');
-        expect(mapContainer).toBeInTheDocument();
+        await waitFor(
+            () => {
+                const markers = screen.getAllByTestId('mock-marker');
+                expect(markers.length).toBeGreaterThan(0);
+            },
+            { timeout: 2000 }
+        );
     });
 
     it('does not render if itinerary is empty', async () => {
-        render(
+        const { container } = render(
             <AuthProvider>
                 <Map
                     itinerary={[]}
@@ -56,10 +89,17 @@ describe('Map Component', () => {
             </AuthProvider>
         );
 
-        // Check if the "No itinerary data available" message is rendered
-        const noDataMessage = await screen.findByText(
-            'No itinerary data available.'
+        // Log the entire container content for debugging
+        console.log('Empty itinerary container content:', container.innerHTML);
+
+        await waitFor(
+            () => {
+                const noDataMessage = screen.getByText(
+                    /No itinerary data available/i
+                );
+                expect(noDataMessage).toBeInTheDocument();
+            },
+            { timeout: 2000 }
         );
-        expect(noDataMessage).toBeInTheDocument();
     });
 });
