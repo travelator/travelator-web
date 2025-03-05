@@ -23,6 +23,7 @@ function Itinerary() {
     const [modalConfig, setModalConfig] = useState('');
 
     const { postData, error, loading } = useApi('itinerary', false);
+    const { updateData, loading: updateLoading } = useApi('trips', false);
     const {
         postData: postSwapData,
         error: swapError,
@@ -41,7 +42,8 @@ function Itinerary() {
         if (state?.itinerary) setItinerary(state?.itinerary);
         if (state?.tripId) {
             setTripId(state?.tripId);
-            console.log(`New trip ID! ${state.tripId}`);
+            console.log(state);
+            console.log(`trip id is ${state?.tripId}`);
         }
     }, [state]);
 
@@ -98,6 +100,9 @@ function Itinerary() {
         setModalOpen(false);
         try {
             const response = await postData(responseData);
+            if (tripId) {
+                await updateData(tripId, { itinerary: response.itinerary });
+            }
             setItinerary(response.itinerary);
         } catch (error) {
             console.error('POST failed:', error);
@@ -117,7 +122,9 @@ function Itinerary() {
         setModalOpen(false);
         try {
             const response = await postSwapData(responseData);
-            if (response.trip_id) setTripId(response.trip_id);
+            if (tripId) {
+                await updateData(tripId, { itinerary: response.itinerary });
+            }
             setItinerary(response.itinerary);
         } catch (error) {
             console.error('POST failed:', error);
@@ -137,7 +144,7 @@ function Itinerary() {
     };
 
     // handle loading state for POST request
-    if (loading || swapLoading) {
+    if (loading || swapLoading || updateLoading) {
         return <Loading text={'Building itinerary...'} factId={2} />;
     }
 
