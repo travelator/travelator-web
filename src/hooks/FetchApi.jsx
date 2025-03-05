@@ -172,7 +172,48 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         }
     };
 
-    return { activities, error, loading, postData, getData, deleteData };
+    const updateData = async (id, data) => {
+        setLoading(true);
+        console.log(`id is ${id}`);
+        const updateUrl = `${url}/${encodeURIComponent(id)}`;
+
+        try {
+            const response = await fetch(updateUrl, {
+                method: 'PUT', // Change to PUT request
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json', // Specify content type as JSON
+                },
+                body: JSON.stringify(data), // Include the payload as a JSON string
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            console.log('Trip updated successfully:', responseData);
+            setError('');
+            return responseData;
+        } catch (error) {
+            console.error('PUT request error:', error);
+            setError(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return {
+        activities,
+        error,
+        loading,
+        postData,
+        getData,
+        deleteData,
+        updateData,
+    };
 };
 
 export default useApi;

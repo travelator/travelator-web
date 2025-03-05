@@ -24,7 +24,7 @@ function TripCard({ trip, updateTrips }) {
 
     const handleViewTrip = () => {
         navigate(`/itinerary/${trip.city}`, {
-            state: { itinerary: trip.itinerary },
+            state: { itinerary: trip.itinerary, tripId: trip.trip_id },
         });
     };
 
