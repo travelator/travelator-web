@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import localActivities from '../assets/activities'; //local data
 import { TransportItinerary } from '../assets/itineraryWithTransport'; //local data
+import { saveItinerary } from './LocalStorage';
 
 const useApi = (apiRoute, shouldFetchData = true) => {
     const [activities, setActivities] = useState(null);
@@ -78,8 +79,16 @@ const useApi = (apiRoute, shouldFetchData = true) => {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const responseData = await response.json();
-            console.log('Response Data:', responseData);
-            setActivities(responseData);
+
+            // save itinerary to local storage if it's in returned data
+            if (responseData) {
+                if (responseData.itinerary) {
+                    saveItinerary(responseData.itinerary);
+                }
+
+                console.log('Response Data:', responseData);
+                setActivities(responseData);
+            }
             setError('');
             return responseData;
         } catch (error) {
