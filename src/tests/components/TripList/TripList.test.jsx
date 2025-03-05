@@ -2,6 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import TripList from '../../../components/TripList/TripList';
+import { AuthContext } from '../../../context/AuthContext'; // Import the AuthContext
 
 const mockTrips = [
     {
@@ -25,23 +26,22 @@ const mockTrips = [
 ];
 
 describe('TripList', () => {
+    // Utility function to wrap component in the AuthContext.Provider
+    const wrapper = ({ children }) => (
+        <AuthContext.Provider value={{ isAuthenticated: true }}>
+            <BrowserRouter>{children}</BrowserRouter>
+        </AuthContext.Provider>
+    );
+
     it('renders all trips', () => {
-        render(
-            <BrowserRouter>
-                <TripList trips={mockTrips} />
-            </BrowserRouter>
-        );
+        render(<TripList trips={mockTrips} />, { wrapper });
 
         expect(screen.getByText('Weekend in London')).toBeInTheDocument();
         expect(screen.getByText('Paris')).toBeInTheDocument();
     });
 
     it('filters trips by search term', () => {
-        render(
-            <BrowserRouter>
-                <TripList trips={mockTrips} />
-            </BrowserRouter>
-        );
+        render(<TripList trips={mockTrips} />, { wrapper });
 
         const searchInput = screen.getByLabelText('Search trips');
         fireEvent.change(searchInput, { target: { value: 'London' } });
@@ -51,11 +51,7 @@ describe('TripList', () => {
     });
 
     it('shows "All Groups" correctly', () => {
-        render(
-            <BrowserRouter>
-                <TripList trips={mockTrips} />
-            </BrowserRouter>
-        );
+        render(<TripList trips={mockTrips} />, { wrapper });
 
         const filterSelect = screen.getByLabelText('Filter by group');
         fireEvent.mouseDown(filterSelect);

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import AuthForm from '../components/AuthForm/AuthForm';
+import { clearItinerary, getItinerary } from '../hooks/LocalStorage';
 import useApi from '../hooks/FetchApi';
 import '../styles/Login.css';
 
@@ -10,6 +11,7 @@ const Login = () => {
     const [error, setError] = useState(null);
     const { postData, loading } = useApi('login', false);
     const { checkAuthStatus } = useAuth();
+    const { postData: saveData, loading: saveLoading } = useApi('save', false);
 
     const handleLogin = async (formData) => {
         try {
@@ -23,6 +25,12 @@ const Login = () => {
                 console.log('Login successful, checking auth status...');
                 await checkAuthStatus();
                 console.log('Navigating to user-trips...');
+                // save the trip
+                const savedItinerary = getItinerary();
+                if (savedItinerary) {
+                    await saveData({ itinerary: savedItinerary });
+                    clearItinerary();
+                }
                 navigate('/');
             } else {
                 throw new Error('Invalid login credentials');
@@ -38,21 +46,22 @@ const Login = () => {
         if (err.response && err.response.status === 401) {
             return 'Incorrect username or password. Please try again.';
         }
-        return 'Failed to login. Please try again later.';
+        return 'Incorrect username or password. Please try again.';
     };
-
-    if (loading) {
-        return <div>Logging in...</div>;
-    }
 
     return (
         <div className="login-page">
             <h1 className="login-header">Welcome Back</h1>
             <p className="login-subheader">Please login to continue</p>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && (
+                <p style={{ color: 'red', marginBottom: '20px' }}>{error}</p>
+            )}
             <div className="login-form-wrapper">
                 <AuthForm type="login" onSubmit={handleLogin} />
             </div>
+            {(loading || saveLoading) && (
+                <p style={{ marginTop: '20px' }}>Please wait...</p>
+            )}
         </div>
     );
 };

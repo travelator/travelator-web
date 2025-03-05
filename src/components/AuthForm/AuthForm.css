@@ -31,7 +31,22 @@
     font-size: 16px;
 }
 
+.password-container {
+    position: relative;
+}
+
+.password-container * {
+    width: 100%;
+}
+
+.password-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}
+
 .auth-form-container button {
+    margin-top: 16px;
     padding: 10px 20px;
     background-color: #f0a500;
     color: #fff;

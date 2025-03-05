@@ -6,6 +6,10 @@ export const getItinerary = () => {
     return getFromLocalStorage('itinerary');
 };
 
+export const clearItinerary = () => {
+    return localStorage.removeItem('itinerary');
+};
+
 export const saveToLocalStorage = (key, data) => {
     localStorage.setItem(key, JSON.stringify(data));
 };

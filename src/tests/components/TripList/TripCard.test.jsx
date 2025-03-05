@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import TripCard from '../../../components/TripList/TripCard';
+import { AuthContext } from '../../../context/AuthContext'; // Import the AuthContext
 
 const mockTrip = {
     trip_id: 1,
@@ -24,12 +25,15 @@ const mockTripNoCustomName = {
 };
 
 describe('TripCard', () => {
+    // Utility function to wrap component in the AuthContext.Provider
+    const wrapper = ({ children }) => (
+        <AuthContext.Provider value={{ isAuthenticated: true }}>
+            <BrowserRouter>{children}</BrowserRouter>
+        </AuthContext.Provider>
+    );
+
     it('renders trip details correctly', () => {
-        render(
-            <BrowserRouter>
-                <TripCard trip={mockTrip} />
-            </BrowserRouter>
-        );
+        render(<TripCard trip={mockTrip} />, { wrapper });
 
         expect(screen.getByText('Weekend in London')).toBeInTheDocument();
         expect(screen.getByText('Family')).toBeInTheDocument();
@@ -41,11 +45,7 @@ describe('TripCard', () => {
     });
 
     it('uses city name when no custom name is provided', () => {
-        render(
-            <BrowserRouter>
-                <TripCard trip={mockTripNoCustomName} />
-            </BrowserRouter>
-        );
+        render(<TripCard trip={mockTripNoCustomName} />, { wrapper });
 
         expect(screen.getByText('Paris')).toBeInTheDocument();
     });

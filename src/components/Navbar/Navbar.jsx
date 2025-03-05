@@ -41,7 +41,9 @@ const Navbar = () => {
                     {isAuthenticated ? (
                         <>
                             <Link to="/user-trips">My Trips</Link>
-                            <button onClick={handleLogout}>Sign Out</button>
+                            <Link to="/" onClick={handleLogout}>
+                                Sign Out
+                            </Link>
                         </>
                     ) : (
                         <>

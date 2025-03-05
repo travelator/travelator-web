@@ -180,30 +180,7 @@ describe('Login Page Tests', () => {
         fireEvent.click(screen.getByRole('button', { name: /Login/i }));
 
         await waitFor(() => {
-            expect(screen.getByText(/Failed to login/i)).toBeInTheDocument();
+            expect(screen.getByText(/try again/i)).toBeInTheDocument();
         });
-    });
-
-    it('shows loading state while logging in', async () => {
-        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
-            postData: vi.fn(),
-            loading: true,
-            error: null,
-        }));
-
-        render(
-            <MemoryRouter>
-                <AuthProvider>
-                    <Login />
-                </AuthProvider>
-            </MemoryRouter>
-        );
-
-        // Wait for auth loading to finish
-        await waitFor(() => {
-            expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
-        });
-
-        expect(screen.getByText(/Logging in.../i)).toBeInTheDocument();
     });
 });

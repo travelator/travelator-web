@@ -33,21 +33,29 @@ const AuthForm = ({ type, onSubmit }) => {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                 />
-                <input
-                    type="password"
-                    placeholder="Enter Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                {type === 'signup' && (
+                <div className="password-container">
                     <input
                         type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Enter Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                </div>
+                {type === 'signup' && (
+                    <>
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                        <label htmlFor="password" className="password-label">
+                            Password must be at least 8 characters long and
+                            contain at least one number.
+                        </label>
+                    </>
                 )}
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 <button type="submit">
