@@ -66,47 +66,42 @@ const Map = ({ itinerary, selectedItem, setSelectedRoute }) => {
     const center = [firstItem.latitude, firstItem.longitude];
 
     return (
-        <div data-testid="map-container">
-            {' '}
-            {/* Add this wrapper div */}
-            <MapContainer
-                center={center}
-                zoom={13}
-                className="map-container"
-                style={{ height: '100vh', width: '100%' }}
-            >
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                />
-                {/* Pan to the selected marker */}
-                {selectedItem && <MapPlanner selectedItem={selectedItem} />}
-                {validItinerary.map((item, index) => (
-                    <Marker
-                        key={`marker-${index}`}
-                        position={[item.latitude, item.longitude]}
-                        icon={createCustomPin(getColor(index))}
-                    >
-                        <Popup>
-                            <strong>{item.title}</strong>
-                            <p>{item.description}</p>
-                            <p>
-                                <strong>Price:</strong> £{item.price}
-                            </p>
-                            <p>
-                                <strong>Duration:</strong> {item.duration}{' '}
-                                minutes
-                            </p>
-                        </Popup>
-                    </Marker>
-                ))}
-                <DirectionsLayer
-                    itinerary={itinerary}
-                    setSelectedRoute={setSelectedRoute}
-                    getColor={getColor}
-                />
-            </MapContainer>
-        </div>
+        <MapContainer
+            center={center}
+            zoom={13}
+            className="map-container"
+            style={{ height: '100vh', width: '100%' }}
+        >
+            <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {/* Pan to the selected marker */}
+            {selectedItem && <MapPlanner selectedItem={selectedItem} />}
+            {validItinerary.map((item, index) => (
+                <Marker
+                    key={`marker-${index}`}
+                    position={[item.latitude, item.longitude]}
+                    icon={createCustomPin(getColor(index))}
+                >
+                    <Popup>
+                        <strong>{item.title}</strong>
+                        <p>{item.description}</p>
+                        <p>
+                            <strong>Price:</strong> £{item.price}
+                        </p>
+                        <p>
+                            <strong>Duration:</strong> {item.duration} minutes
+                        </p>
+                    </Popup>
+                </Marker>
+            ))}
+            <DirectionsLayer
+                itinerary={itinerary}
+                setSelectedRoute={setSelectedRoute}
+                getColor={getColor}
+            />
+        </MapContainer>
     );
 };
 
