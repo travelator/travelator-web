@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, waitFor /*fireEvent*/ } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import Rate from '../../pages/Rate';
+import { AuthContext } from '../../context/AuthContext';
 //import Itinerary from '../../pages/Itinerary';
 import useApi from '../../hooks/FetchApi';
 
@@ -35,9 +36,11 @@ describe('Rate Page Component', () => {
 
         render(
             <MemoryRouter initialEntries={['/rate/London']}>
-                <Routes>
-                    <Route path="/rate/:city" element={<Rate />} />
-                </Routes>
+                <AuthContext.Provider value={{ isAuthenticated: true }}>
+                    <Routes>
+                        <Route path="/rate/:city" element={<Rate />} />
+                    </Routes>
+                </AuthContext.Provider>
             </MemoryRouter>
         );
 
@@ -59,9 +62,11 @@ describe('Rate Page Component', () => {
 
         render(
             <MemoryRouter initialEntries={['/rate/London']}>
-                <Routes>
-                    <Route path="/rate/:city" element={<Rate />} />
-                </Routes>
+                <AuthContext.Provider value={{ isAuthenticated: true }}>
+                    <Routes>
+                        <Route path="/rate/:city" element={<Rate />} />
+                    </Routes>
+                </AuthContext.Provider>
             </MemoryRouter>
         );
 

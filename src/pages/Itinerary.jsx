@@ -32,12 +32,17 @@ function Itinerary() {
     // Get itinerary data
     const { state } = useLocation();
     const [itinerary, setItinerary] = useState([]);
+    const [tripId, setTripId] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedRoute, setSelectedRoute] = useState(null);
 
     // ensure itinerary is updated
     useEffect(() => {
         if (state?.itinerary) setItinerary(state?.itinerary);
+        if (state?.tripId) {
+            setTripId(state?.tripId);
+            console.log(`New trip ID! ${state.tripId}`);
+        }
     }, [state]);
 
     // tab logic
@@ -88,6 +93,7 @@ function Itinerary() {
             city: city,
             itinerary: { itinerary: itinerary },
             feedback: feedback,
+            trip_id: tripId,
         };
         setModalOpen(false);
         try {
@@ -106,10 +112,12 @@ function Itinerary() {
             activityId: swapId,
             itinerary: { itinerary: itinerary },
             feedback: feedback,
+            trip_id: tripId,
         };
         setModalOpen(false);
         try {
             const response = await postSwapData(responseData);
+            if (response.trip_id) setTripId(response.trip_id);
             setItinerary(response.itinerary);
         } catch (error) {
             console.error('POST failed:', error);
