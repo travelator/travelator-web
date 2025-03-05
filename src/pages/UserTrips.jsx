@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import TripList from '../components/TripList/TripList';
 //import { mockTrips } from '../assets/mockTrips';
 import '../styles/UserTrips.css';
@@ -39,20 +39,20 @@ function UserTrips() {
 
     return (
         <div className="content-wrapper">
-            <div className="trips-content">
-                <Box sx={{ maxWidth: 1200, margin: '0 auto', padding: 3 }}>
-                    <Typography variant="h4" component="h1" gutterBottom>
-                        Your Trips
-                    </Typography>
+            <div className="trips-page">
+                <div className="header">
+                    <h1>Your trips</h1>
                     <Button
                         onClick={onSave}
                         variant="contained"
                         color="primary"
                     >
-                        Save trip
+                        Save
                     </Button>
+                </div>
+                <Box sx={{ maxWidth: 1200, margin: '0 auto', padding: 3 }}>
                     {trips.length > 0 ? (
-                        <TripList trips={trips} />
+                        <TripList trips={trips} setTrips={setTrips} />
                     ) : (
                         <p>No trips found!</p>
                     )}

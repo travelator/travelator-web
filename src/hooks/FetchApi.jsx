@@ -143,7 +143,36 @@ const useApi = (apiRoute, shouldFetchData = true) => {
         }
     };
 
-    return { activities, error, loading, postData, getData };
+    const deleteData = async (id) => {
+        setLoading(true);
+
+        const deleteUrl = `${url}/${id}`;
+
+        try {
+            const response = await fetch(deleteUrl, {
+                method: 'DELETE',
+                mode: 'cors',
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const responseData = await response.json();
+            console.log('Trip deleted successfully:', responseData);
+            setError('');
+            return responseData;
+        } catch (error) {
+            console.error('DELETE request error:', error);
+            setError(error);
+            throw error;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { activities, error, loading, postData, getData, deleteData };
 };
 
 export default useApi;
