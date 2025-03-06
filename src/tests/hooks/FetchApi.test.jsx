@@ -131,6 +131,17 @@ describe('useApi Hook', () => {
 
     // Test POST request
     it('sends data using POST request', async () => {
+        // Explicitly set VITE_USE_LOCAL_DATA to 'false' for this test
+        vi.stubGlobal('import', {
+            meta: {
+                env: {
+                    VITE_APP_AUTH_API_URL: 'http://test-auth-api.com/',
+                    VITE_APP_FETCH_GENERAL_API_URL: 'http://test-api.com/',
+                    VITE_USE_LOCAL_DATA: 'false',
+                },
+            },
+        });
+
         const mockData = { destination: 'Paris', days: 3 };
         const mockResponse = { itinerary: { id: 'test', days: [] } };
 
@@ -148,6 +159,7 @@ describe('useApi Hook', () => {
             response = await result.current.postData(mockData);
         });
 
+        // Verify fetch was called
         expect(fetchSpy).toHaveBeenCalledWith('http://test-api.com/itinerary', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
