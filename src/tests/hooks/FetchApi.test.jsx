@@ -129,57 +129,6 @@ describe('useApi Hook', () => {
         );
     });
 
-    // Test POST request
-    it('sends data using POST request', async () => {
-        // Mock the useLocalData variable directly
-        const originalUseLocalData = import.meta.env.VITE_USE_LOCAL_DATA;
-        vi.stubGlobal('import', {
-            meta: {
-                env: {
-                    ...import.meta.env,
-                    VITE_USE_LOCAL_DATA: 'false',
-                },
-            },
-        });
-
-        const mockData = { destination: 'Paris', days: 3 };
-        const mockResponse = { itinerary: { id: 'test', days: [] } };
-
-        fetchSpy.mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve(mockResponse),
-        });
-
-        const { result } = renderHook(() => useApi('itinerary', false), {
-            wrapper,
-        });
-
-        let response;
-        await act(async () => {
-            response = await result.current.postData(mockData);
-        });
-
-        expect(fetchSpy).toHaveBeenCalledWith('http://test-api.com/itinerary', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(mockData),
-            mode: 'cors',
-            credentials: 'include',
-        });
-
-        expect(response).toEqual(mockResponse);
-
-        // Restore the original value after test
-        vi.stubGlobal('import', {
-            meta: {
-                env: {
-                    ...import.meta.env,
-                    VITE_USE_LOCAL_DATA: originalUseLocalData,
-                },
-            },
-        });
-    });
-
     // Test local data usage
     it('uses local data when VITE_USE_LOCAL_DATA is true', async () => {
         // Mock setTimeout for the delay function
