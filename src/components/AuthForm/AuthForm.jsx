@@ -1,16 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './AuthForm.css'; // Assuming you're using the same CSS for both
 
-const AuthForm = ({ type, onSubmit }) => {
+const AuthForm = ({ type, onSubmit, serverError }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState(''); // Only for signup
     const [error, setError] = useState(null);
     const [passwordError, setPasswordError] = useState(null);
-    const [isSubmitted, setIsSubmitted] = useState(false); // Track if form was attempted to be submitted
     const [showValidationError, setShowValidationError] = useState(false);
+
+    useEffect(() => {
+        if (password) {
+            const validationError = validatePassword(password);
+            setPasswordError(validationError);
+        }
+    }, [password]);
+
+    // Check if passwords match whenever either changes
+    useEffect(() => {
+        if (type === 'signup' && password && confirmPassword) {
+            if (password !== confirmPassword) {
+                setError('Passwords do not match');
+            } else {
+                setError(null);
+            }
+        }
+    }, [password, confirmPassword, type]);
 
     const validatePassword = (password) => {
         const minLength = 8;
@@ -31,52 +48,47 @@ const AuthForm = ({ type, onSubmit }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setIsSubmitted(true); // Mark form as attempted to be submitted
+        setShowValidationError(true);
 
         if (type === 'signup') {
-            const passwordValidationError = validatePassword(password);
-            if (passwordValidationError) {
-                setPasswordError(passwordValidationError);
-                setShowValidationError(true);
+            if (passwordError) {
                 return;
             }
 
             if (password !== confirmPassword) {
                 setError('Passwords do not match');
-                setShowValidationError(true);
                 return;
             }
         }
 
         // If all validations pass, clear errors and submit the form
         setError(null);
-        setPasswordError(null);
-        setShowValidationError(false);
         onSubmit({ email, password });
     };
 
     const isFormValid = () => {
         if (type === 'signup') {
-            const passwordValidationError = validatePassword(password);
             return (
                 email &&
                 password &&
                 confirmPassword &&
                 password === confirmPassword &&
-                !passwordValidationError
+                !passwordError
             );
         } else {
             return email && password;
         }
     };
 
-    const handleButtonClick = () => {
-        if (!isFormValid()) {
-            const passwordValidationError = validatePassword(password);
-            if (passwordValidationError) {
-                setPasswordError(passwordValidationError); // Set password error
-            }
-            setShowValidationError(true); // Show validation error
+    const handlePasswordBlur = () => {
+        if (password) {
+            setShowValidationError(true);
+        }
+    };
+
+    const handleConfirmPasswordBlur = () => {
+        if (confirmPassword) {
+            setShowValidationError(true);
         }
     };
 
@@ -97,6 +109,7 @@ const AuthForm = ({ type, onSubmit }) => {
                         placeholder="Enter Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        onBlur={handlePasswordBlur}
                         required
                     />
                 </div>
@@ -107,6 +120,7 @@ const AuthForm = ({ type, onSubmit }) => {
                             placeholder="Confirm Password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            onBlur={handleConfirmPasswordBlur}
                             required
                         />
                         <label htmlFor="password" className="password-label">
@@ -117,15 +131,19 @@ const AuthForm = ({ type, onSubmit }) => {
                     </>
                 )}
                 {/* Display client-side errors */}
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {(isSubmitted || showValidationError) && passwordError && (
-                    <p style={{ color: 'red' }}>{passwordError}</p>
+                {showValidationError && error && (
+                    <p className="error-message">{error}</p>
                 )}
+                {showValidationError && passwordError && (
+                    <p className="error-message">{passwordError}</p>
+                )}
+
+                {/* Display server-side errors */}
+                {serverError && <p className="error-message">{serverError}</p>}
                 <button
                     type="submit"
                     disabled={!isFormValid()}
                     className={!isFormValid() ? 'disabled-button' : ''}
-                    onClick={handleButtonClick}
                 >
                     {type === 'signup' ? 'Sign Up' : 'Login'}
                 </button>
