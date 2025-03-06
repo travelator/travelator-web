@@ -13,6 +13,16 @@ export default defineConfig({
         coverage: {
             reporter: ['text', 'html', 'lcov'],
             reportsDirectory: './coverage',
+            exclude: [
+                '**/src/main.jsx',
+                '**/src/routes.jsx',
+                '**/src/assets/activities.js',
+                '**/src/assets/cities.js',
+                '**/src/assets/itinerary.js',
+                '**/src/assets/itineraryWithTransport.js',
+                '**/src/assets/mockTrips.js',
+                '**/src/assets/**',
+            ],
         },
     },
     preview: {
