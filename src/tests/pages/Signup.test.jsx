@@ -23,6 +23,16 @@ describe('Signup Page Tests', () => {
     beforeEach(() => {
         mockNavigate.mockClear();
         vi.resetModules();
+
+        // Mock useApi to return loading: false by default
+        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
+            postData: vi
+                .fn()
+                .mockResolvedValue({ message: 'User registered successfully' }),
+            loading: false, // Ensure loading is false
+            error: null,
+        }));
+
         // Mock fetch for auth checks
         global.fetch = vi.fn(() =>
             Promise.resolve({
@@ -108,5 +118,105 @@ describe('Signup Page Tests', () => {
         expect(
             screen.getByText(/Please login to continue/i)
         ).toBeInTheDocument();
+    });
+
+    it('displays error message when postData throws an error', async () => {
+        // Mock useApi to return loading: false
+        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
+            postData: vi
+                .fn()
+                .mockRejectedValue(new Error('Failed to register')),
+            loading: false, // Ensure loading is false
+            error: null,
+        }));
+
+        const user = userEvent.setup();
+        render(
+            <MemoryRouter>
+                <AuthProvider>
+                    <Signup />
+                </AuthProvider>
+            </MemoryRouter>
+        );
+
+        // Wait for the form to render
+        await waitFor(() => {
+            expect(
+                screen.getByPlaceholderText('Enter Email')
+            ).toBeInTheDocument();
+        });
+
+        // Fill out the form
+        await user.type(
+            screen.getByPlaceholderText('Enter Email'),
+            'test@example.com'
+        );
+        await user.type(
+            screen.getByPlaceholderText('Enter Password'),
+            'Password1!'
+        );
+        await user.type(
+            screen.getByPlaceholderText('Confirm Password'),
+            'Password1!'
+        );
+
+        // Submit the form
+        await user.click(screen.getByRole('button', { name: 'Sign Up' }));
+
+        // Wait for error message
+        await waitFor(() => {
+            expect(
+                screen.getByText('Failed to register. Please try again.')
+            ).toBeInTheDocument();
+        });
+    });
+
+    it('navigates to home page after successful signup', async () => {
+        // Mock useApi to return loading: false and successful response
+        vi.spyOn(FetchApi, 'default').mockImplementation(() => ({
+            postData: vi
+                .fn()
+                .mockResolvedValue({ message: 'User registered successfully' }),
+            loading: false,
+            error: null,
+        }));
+
+        const user = userEvent.setup();
+        render(
+            <MemoryRouter>
+                <AuthProvider>
+                    <Signup />
+                </AuthProvider>
+            </MemoryRouter>
+        );
+
+        // Wait for the form to render
+        await waitFor(() => {
+            expect(
+                screen.getByPlaceholderText('Enter Email')
+            ).toBeInTheDocument();
+        });
+
+        // Fill out the form
+        await user.type(
+            screen.getByPlaceholderText('Enter Email'),
+            'test@example.com'
+        );
+        await user.type(
+            screen.getByPlaceholderText('Enter Password'),
+            'Password1!'
+        );
+        await user.type(
+            screen.getByPlaceholderText('Confirm Password'),
+            'Password1!'
+        );
+
+        // Submit the form
+        await user.click(screen.getByRole('button', { name: 'Sign Up' }));
+
+        // Wait for navigation to home page
+        await waitFor(() => {
+            expect(mockNavigate).toHaveBeenCalledWith('/');
+        });
     });
 });

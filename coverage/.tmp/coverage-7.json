@@ -1,0 +1,218 @@
+{
+    "result": [
+        {
+            "scriptId": "1043",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/setup.js",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 679, "endOffset": 725, "count": 4 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1414",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/components/CitySearchBar.test.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 13636, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 13636, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 391, "endOffset": 1708, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "default",
+                    "ranges": [
+                        { "startOffset": 411, "endOffset": 1705, "count": 4 },
+                        { "startOffset": 491, "endOffset": 527, "count": 2 },
+                        { "startOffset": 528, "endOffset": 532, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 817, "endOffset": 1300, "count": 344 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "onClick",
+                    "ranges": [
+                        { "startOffset": 919, "endOffset": 947, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2209, "endOffset": 5658, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2289, "endOffset": 2815, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "setSelectedCity",
+                    "ranges": [
+                        { "startOffset": 2434, "endOffset": 2449, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2900, "endOffset": 3858, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3924, "endOffset": 4599, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "setSelectedCity",
+                    "ranges": [
+                        { "startOffset": 4140, "endOffset": 4159, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 4686, "endOffset": 5654, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1418",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/CitySearchBar.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 15097, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 15097, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "CitySearchBar",
+                    "ranges": [
+                        { "startOffset": 1378, "endOffset": 5718, "count": 4 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "handleInputChange",
+                    "ranges": [
+                        { "startOffset": 1540, "endOffset": 1994, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "handleChange",
+                    "ranges": [
+                        { "startOffset": 2019, "endOffset": 2538, "count": 2 },
+                        { "startOffset": 2069, "endOffset": 2105, "count": 0 },
+                        { "startOffset": 2185, "endOffset": 2534, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "getOptionLabel",
+                    "ranges": [
+                        { "startOffset": 2918, "endOffset": 3177, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "renderOption",
+                    "ranges": [
+                        { "startOffset": 3324, "endOffset": 4329, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "renderInput",
+                    "ranges": [
+                        { "startOffset": 4352, "endOffset": 4947, "count": 4 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1859",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/cities.js",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 32088, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 32088, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        }
+    ]
+}

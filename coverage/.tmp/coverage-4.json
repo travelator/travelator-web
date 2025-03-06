@@ -1,0 +1,262 @@
+{
+    "result": [
+        {
+            "scriptId": "1044",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/setup.js",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 679, "endOffset": 725, "count": 5 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1414",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/components/AuthForm.test.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 17378, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 17378, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 969, "endOffset": 7960, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1066, "endOffset": 1107, "count": 5 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1165, "endOffset": 2217, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2276, "endOffset": 3485, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3585, "endOffset": 5137, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 5227, "endOffset": 6636, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 6715, "endOffset": 7956, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1428",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/AuthForm/AuthForm.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 22715, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 22715, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "AuthForm",
+                    "ranges": [
+                        { "startOffset": 836, "endOffset": 9635, "count": 20 },
+                        { "startOffset": 3282, "endOffset": 3293, "count": 14 },
+                        { "startOffset": 3294, "endOffset": 3303, "count": 6 },
+                        { "startOffset": 4941, "endOffset": 6274, "count": 14 },
+                        { "startOffset": 6302, "endOffset": 6310, "count": 2 },
+                        { "startOffset": 6311, "endOffset": 6604, "count": 0 },
+                        { "startOffset": 6632, "endOffset": 6648, "count": 2 },
+                        { "startOffset": 6649, "endOffset": 6950, "count": 1 },
+                        { "startOffset": 6970, "endOffset": 7269, "count": 0 },
+                        { "startOffset": 7449, "endOffset": 7468, "count": 14 },
+                        { "startOffset": 7469, "endOffset": 7473, "count": 6 },
+                        { "startOffset": 7513, "endOffset": 7524, "count": 14 },
+                        { "startOffset": 7525, "endOffset": 7534, "count": 6 },
+                        { "startOffset": 8063, "endOffset": 8663, "count": 14 },
+                        { "startOffset": 8664, "endOffset": 9265, "count": 6 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1370, "endOffset": 1506, "count": 8 },
+                        { "startOffset": 1396, "endOffset": 1502, "count": 3 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1555, "endOffset": 1765, "count": 10 },
+                        { "startOffset": 1589, "endOffset": 1600, "count": 7 },
+                        { "startOffset": 1601, "endOffset": 1619, "count": 4 },
+                        { "startOffset": 1621, "endOffset": 1761, "count": 2 },
+                        { "startOffset": 1663, "endOffset": 1716, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "validatePassword",
+                    "ranges": [
+                        { "startOffset": 1830, "endOffset": 2302, "count": 3 },
+                        { "startOffset": 1991, "endOffset": 2059, "count": 1 },
+                        { "startOffset": 2059, "endOffset": 2096, "count": 2 },
+                        { "startOffset": 2096, "endOffset": 2162, "count": 0 },
+                        { "startOffset": 2162, "endOffset": 2204, "count": 2 },
+                        { "startOffset": 2204, "endOffset": 2301, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "handleSubmit",
+                    "ranges": [
+                        { "startOffset": 2327, "endOffset": 2648, "count": 2 },
+                        { "startOffset": 2421, "endOffset": 2589, "count": 1 },
+                        { "startOffset": 2448, "endOffset": 2473, "count": 0 },
+                        { "startOffset": 2514, "endOffset": 2583, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "isFormValid",
+                    "ranges": [
+                        { "startOffset": 2672, "endOffset": 2864, "count": 40 },
+                        { "startOffset": 2707, "endOffset": 2815, "count": 28 },
+                        { "startOffset": 2728, "endOffset": 2739, "count": 22 },
+                        { "startOffset": 2740, "endOffset": 2758, "count": 18 },
+                        { "startOffset": 2759, "endOffset": 2790, "count": 10 },
+                        { "startOffset": 2791, "endOffset": 2808, "count": 10 },
+                        { "startOffset": 2815, "endOffset": 2860, "count": 12 },
+                        { "startOffset": 2842, "endOffset": 2853, "count": 8 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "handlePasswordBlur",
+                    "ranges": [
+                        { "startOffset": 2895, "endOffset": 2968, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "handleConfirmPasswordBlur",
+                    "ranges": [
+                        { "startOffset": 3006, "endOffset": 3086, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "onChange",
+                    "ranges": [
+                        { "startOffset": 3772, "endOffset": 3803, "count": 3 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "onChange",
+                    "ranges": [
+                        { "startOffset": 4372, "endOffset": 4406, "count": 3 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "onChange",
+                    "ranges": [
+                        { "startOffset": 5253, "endOffset": 5294, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1439",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/AuthForm/AuthForm.css",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 13530, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 13530, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2662, "endOffset": 2713, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        }
+    ]
+}

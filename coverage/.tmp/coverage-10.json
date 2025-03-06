@@ -1,0 +1,339 @@
+{
+    "result": [
+        {
+            "scriptId": "1043",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/setup.js",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 679, "endOffset": 725, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1414",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/components/MapTests/Map.test.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 12410, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 12410, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 378, "endOffset": 1621, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 543, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 855, "endOffset": 865, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 908, "endOffset": 1204, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1246, "endOffset": 1512, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1555, "endOffset": 1613, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1691, "endOffset": 1753, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1739, "endOffset": 1749, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1829, "endOffset": 1891, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1877, "endOffset": 1887, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2801, "endOffset": 5232, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2864, "endOffset": 3989, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "__vi_import_1__.waitFor.timeout",
+                    "ranges": [
+                        { "startOffset": 3788, "endOffset": 3954, "count": 5 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 4060, "endOffset": 5228, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "__vi_import_1__.waitFor.timeout",
+                    "ranges": [
+                        { "startOffset": 4989, "endOffset": 5193, "count": 4 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1418",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/Map/map.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 18036, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 18036, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "getColor",
+                    "ranges": [
+                        { "startOffset": 1215, "endOffset": 1393, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "MapPlanner",
+                    "ranges": [
+                        { "startOffset": 1414, "endOffset": 1753, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1518, "endOffset": 1713, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "Map",
+                    "ranges": [
+                        { "startOffset": 1980, "endOffset": 7426, "count": 3 },
+                        { "startOffset": 2419, "endOffset": 2449, "count": 2 },
+                        { "startOffset": 2451, "endOffset": 2739, "count": 2 },
+                        { "startOffset": 2739, "endOffset": 3908, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2149, "endOffset": 2360, "count": 2 },
+                        { "startOffset": 2200, "endOffset": 2356, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2263, "endOffset": 2331, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3937, "endOffset": 6776, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1475",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/Map/Map.css",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 5938, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 5938, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1362, "endOffset": 1413, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1477",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/context/AuthContext.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 8251, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 8251, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 762, "endOffset": 789, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "AuthProvider",
+                    "ranges": [
+                        { "startOffset": 814, "endOffset": 2740, "count": 4 },
+                        { "startOffset": 2064, "endOffset": 2739, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1025, "endOffset": 1125, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "checkAuthStatus",
+                    "ranges": [
+                        { "startOffset": 1158, "endOffset": 2047, "count": 2 },
+                        { "startOffset": 1472, "endOffset": 1898, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1697, "endOffset": 1889, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 2842, "endOffset": 2870, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "useAuth",
+                    "ranges": [
+                        { "startOffset": 2978, "endOffset": 3160, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 3257, "endOffset": 3280, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        }
+    ]
+}

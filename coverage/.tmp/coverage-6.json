@@ -1,0 +1,735 @@
+{
+    "result": [
+        {
+            "scriptId": "1043",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/setup.js",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 1631, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 679, "endOffset": 725, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1414",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/tests/pages/Rate.test.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 13038, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 13038, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 381, "endOffset": 545, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "useNavigate",
+                    "ranges": [
+                        { "startOffset": 520, "endOffset": 538, "count": 4 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 602, "endOffset": 674, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1370, "endOffset": 5232, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1452, "endOffset": 3261, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3064, "endOffset": 3125, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3347, "endOffset": 5228, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 5003, "endOffset": 5071, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1428",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/pages/Rate.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 21083, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 21083, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "Rate",
+                    "ranges": [
+                        { "startOffset": 1219, "endOffset": 8078, "count": 4 },
+                        { "startOffset": 4173, "endOffset": 4478, "count": 0 },
+                        { "startOffset": 5950, "endOffset": 6626, "count": 0 },
+                        { "startOffset": 7288, "endOffset": 7590, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2158, "endOffset": 2252, "count": 2 },
+                        { "startOffset": 2179, "endOffset": 2191, "count": 0 },
+                        { "startOffset": 2193, "endOffset": 2248, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2315, "endOffset": 3080, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3241, "endOffset": 3350, "count": 4 },
+                        { "startOffset": 3286, "endOffset": 3321, "count": 0 },
+                        { "startOffset": 3323, "endOffset": 3346, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 3437, "endOffset": 4119, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "hideOverflowingCards",
+                    "ranges": [
+                        { "startOffset": 3478, "endOffset": 3948, "count": 2 },
+                        { "startOffset": 3519, "endOffset": 3526, "count": 0 },
+                        { "startOffset": 3712, "endOffset": 3892, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 4050, "endOffset": 4114, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "onCardClick",
+                    "ranges": [
+                        { "startOffset": 4501, "endOffset": 5035, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 6045, "endOffset": 6615, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1429",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/RateCard/RateCard.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 11016, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 11016, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "RateCard",
+                    "ranges": [
+                        { "startOffset": 1196, "endOffset": 5307, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "1768",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/RingedIcon.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 3981, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 3981, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "RingedIcon",
+                    "ranges": [
+                        { "startOffset": 590, "endOffset": 1567, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2845",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/hooks/GetDefaultImage.js",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 6494, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 6494, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "getDefaultImage",
+                    "ranges": [
+                        { "startOffset": 2436, "endOffset": 2539, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 2644, "endOffset": 2675, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2846",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/AdventureImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 820, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 820, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2847",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/CultureImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 810, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 810, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2848",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/EntertainmentImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 836, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 836, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2849",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/FamilyImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2850",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/FoodAndDrinkImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 831, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 831, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2851",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/NatureImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2852",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/NightlifeImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 820, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 820, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2853",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/RelaxationImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 821, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 821, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2854",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/ShoppingImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 815, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 815, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2855",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/SportsImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2856",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/assets/static_backup_images/UniqueImage.jpg",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 809, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2857",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/RateCard/RateCard.css",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 11322, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 11322, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2226, "endOffset": 2277, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2860",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/context/AuthContext.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 8251, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 8251, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 762, "endOffset": 789, "count": 2 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "AuthProvider",
+                    "ranges": [
+                        { "startOffset": 814, "endOffset": 2740, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 2842, "endOffset": 2870, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "useAuth",
+                    "ranges": [
+                        { "startOffset": 2978, "endOffset": 3160, "count": 4 },
+                        { "startOffset": 3067, "endOffset": 3140, "count": 0 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 3257, "endOffset": 3280, "count": 4 }
+                    ],
+                    "isBlockCoverage": true
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2861",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/styles/Rate.css",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 4914, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 4914, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 1182, "endOffset": 1233, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2863",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/Loading.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 6761, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 6761, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "Loading",
+                    "ranges": [
+                        { "startOffset": 807, "endOffset": 3316, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2864",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/providers/FactsProvider.jsx",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 2687, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 2687, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 739, "endOffset": 767, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "FactsProvider",
+                    "ranges": [
+                        { "startOffset": 793, "endOffset": 1167, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                },
+                {
+                    "functionName": "get",
+                    "ranges": [
+                        { "startOffset": 1270, "endOffset": 1299, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        },
+        {
+            "scriptId": "2865",
+            "url": "file:///home/t1mjones/uni_work/sse/project2/travelator-web/src/components/Loading.css",
+            "functions": [
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 0, "endOffset": 12046, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 13, "endOffset": 12046, "count": 1 }
+                    ],
+                    "isBlockCoverage": true
+                },
+                {
+                    "functionName": "",
+                    "ranges": [
+                        { "startOffset": 2366, "endOffset": 2417, "count": 0 }
+                    ],
+                    "isBlockCoverage": false
+                }
+            ],
+            "startOffset": 185
+        }
+    ]
+}
