@@ -53,7 +53,7 @@ describe('Home Page Functionality', () => {
         expect(startButton).toBeDisabled();
     });
 
-    it('should enable start button when city is selected', async () => {
+    it('should enable start button when city and time of day is selected', async () => {
         useApi.mockReturnValue({
             activities: null,
             error: null,
@@ -71,11 +71,14 @@ describe('Home Page Functionality', () => {
         const londonOption = await screen.findByText(/London/i);
         await user.click(londonOption);
 
+        const morningToggle = screen.getByRole('button', { name: /morning/i });
+        await user.click(morningToggle);
+
         const startButton = screen.getByRole('button', { name: /start/i });
         expect(startButton).toBeEnabled();
     });
 
-    it('should navigate to rate page with selected city', async () => {
+    it('should navigate to rate page with selected city and time of dady', async () => {
         const mockPostData = vi
             .fn()
             .mockResolvedValue({ activities: ['Activity 1'] });
@@ -99,6 +102,10 @@ describe('Home Page Functionality', () => {
         await user.type(searchInput, 'London');
         const londonOption = await screen.findByText(/London/i);
         await user.click(londonOption);
+
+        // Select a time of day (e.g., "Morning")
+        const morningToggle = screen.getByRole('button', { name: /morning/i });
+        await user.click(morningToggle);
 
         // Submit the form
         const startButton = screen.getByRole('button', { name: /start/i });

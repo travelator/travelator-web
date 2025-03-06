@@ -9,14 +9,11 @@ import Loading from '../components/Loading';
 import { FactsContext } from '../providers/FactsProvider';
 import UniqueTripSlider from '../components/Slider/Slider';
 import DateRangeComponent from '../components/DatePicker/DateRangeComponent';
+import Typography from '@mui/material/Typography';
 
 function Home() {
     const [selectedOption, setSelectedOption] = useState(null);
-    const [selectedTime, setSelectedTime] = useState([
-        'morning',
-        'afternoon',
-        'evening',
-    ]);
+    const [selectedTime, setSelectedTime] = useState([]);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedGroup, setSelectedGroup] = useState('solo');
     const [selectedUniqueness, setSelectedUniqueness] = useState(0);
@@ -109,6 +106,14 @@ function Home() {
                                     selected={selectedTime}
                                     setSelected={setSelectedTime}
                                 />
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    sx={{ mt: 1 }}
+                                >
+                                    Select one or more times of day for your
+                                    itinerary.
+                                </Typography>
                             </div>
                             <div className="main">
                                 <CustomToggle
@@ -130,7 +135,9 @@ function Home() {
                                 </p>
                             )}
                             <Button
-                                disabled={!selectedCity} // date is optional.
+                                disabled={
+                                    !selectedCity || selectedTime.length === 0
+                                } // date is optional.
                                 type="submit"
                                 variant="contained"
                                 color="primary"
