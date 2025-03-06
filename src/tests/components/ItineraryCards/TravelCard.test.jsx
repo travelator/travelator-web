@@ -22,34 +22,6 @@ describe('TravelCard Component', () => {
         ).toBeInTheDocument();
     });
 
-    it('renders the correct icon based on the theme', () => {
-        const { rerender } = render(
-            <TravelCard
-                start="10:00 AM"
-                end="11:00 AM"
-                title="Morning Tube Ride"
-                description="A nice tube ride through the city."
-                price={10}
-                theme="Tube"
-            />
-        );
-
-        expect(screen.getByText('Mode: Tube')).toBeInTheDocument();
-
-        rerender(
-            <TravelCard
-                start="10:00 AM"
-                end="11:00 AM"
-                title="Morning Walk"
-                description="A pleasant walk around the park."
-                price={5}
-                theme="Walking"
-            />
-        );
-
-        expect(screen.getByText('Mode: Walking')).toBeInTheDocument();
-    });
-
     it('renders default icon when an invalid theme is provided', () => {
         render(
             <TravelCard

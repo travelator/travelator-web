@@ -83,7 +83,7 @@ function TripCard({ trip, updateTrips }) {
                 </Box>
 
                 <Typography color="text.secondary" gutterBottom>
-                    Created: {trip.date_created}
+                    Created: {trip.date_of_trip}
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
@@ -126,6 +126,7 @@ TripCard.propTypes = {
         city: PropTypes.string.isRequired,
         custom_name: PropTypes.string,
         date_created: PropTypes.string.isRequired,
+        date_of_trip: PropTypes.string.isRequired,
         timeOfDay: PropTypes.arrayOf(PropTypes.string).isRequired,
         group: PropTypes.string.isRequired,
         itinerary: PropTypes.object.isRequired,
