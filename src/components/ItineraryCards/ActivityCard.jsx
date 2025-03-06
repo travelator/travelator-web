@@ -30,20 +30,23 @@ function ActivityCard({
 
     const getWeatherIcon = (weather) => {
         if (!weather) return null;
-        switch (weather.toLowerCase()) {
-            case 'sunny':
-                return '☀️';
-            case 'cloudy with sun':
-                return '⛅';
-            case 'cloudy':
-                return '☁️';
-            case 'rainy':
-                return '🌧️';
-            case 'snowy':
-                return '❄️';
-            default:
-                return '🌤️';
-        }
+
+        const icons = {
+            sunny: 'https://openweathermap.org/img/wn/01d@2x.png',
+            'cloudy with sun': 'https://openweathermap.org/img/wn/02d@2x.png',
+            cloudy: 'https://openweathermap.org/img/wn/03d@2x.png',
+            rainy: 'https://openweathermap.org/img/wn/09d@2x.png',
+            snowy: 'https://openweathermap.org/img/wn/13d@2x.png',
+            default: 'https://openweathermap.org/img/wn/02d@2x.png', // Fallback
+        };
+
+        return (
+            <img
+                src={icons[weather.toLowerCase()] || icons.default}
+                alt={weather}
+                width="50"
+            />
+        );
     };
 
     return (
