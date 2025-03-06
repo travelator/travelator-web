@@ -83,7 +83,10 @@ function TripCard({ trip, updateTrips }) {
                 </Box>
 
                 <Typography color="text.secondary" gutterBottom>
-                    Created: {trip.date_of_trip}
+                    {trip.date_created && `Created: ${trip.date_created}`}
+                </Typography>
+                <Typography color="text.secondary" gutterBottom>
+                    {trip.date_of_trip && `Trip date: ${trip.date_of_trip}`}
                 </Typography>
 
                 <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
