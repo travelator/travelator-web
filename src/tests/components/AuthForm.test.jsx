@@ -84,17 +84,17 @@ describe('AuthForm Component Tests', () => {
             target: { value: 'test@example.com' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Enter Password/i), {
-            target: { value: 'password123!' },
+            target: { value: 'Password123!' },
         });
         fireEvent.change(screen.getByPlaceholderText(/Confirm Password/i), {
-            target: { value: 'password123!' },
+            target: { value: 'Password123!' },
         });
 
         fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
 
         expect(mockOnSubmit).toHaveBeenCalledWith({
             email: 'test@example.com',
-            password: 'password123!',
+            password: 'Password123!',
         });
     });
 
