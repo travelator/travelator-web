@@ -28,8 +28,8 @@ function TripCard({ trip, updateTrips }) {
         });
     };
 
-    const handleDeleteClick = () => {
-        deleteData(trip.trip_id);
+    const handleDeleteClick = async () => {
+        await deleteData(trip.trip_id);
         updateTrips();
     };
 
