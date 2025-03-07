@@ -3,7 +3,7 @@ import { Grid, Box, TextField, MenuItem } from '@mui/material';
 import TripCard from './TripCard';
 import { useState } from 'react';
 
-function TripList({ trips, setTrips }) {
+function TripList({ trips, triggerRefresh }) {
     const [filterGroup, setFilterGroup] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -15,12 +15,6 @@ function TripList({ trips, setTrips }) {
             .includes(searchTerm.toLowerCase());
         return matchesGroup && matchesSearch;
     });
-
-    const updatePostDelete = (id) => {
-        setTrips((prevTrips) =>
-            prevTrips.filter((trip) => trip.trip_id !== id)
-        );
-    };
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -59,7 +53,7 @@ function TripList({ trips, setTrips }) {
             <Grid container spacing={2}>
                 {filteredTrips.map((trip) => (
                     <Grid item xs={12} sm={6} md={4} key={trip.id}>
-                        <TripCard trip={trip} updateTrips={updatePostDelete} />
+                        <TripCard trip={trip} updateTrips={triggerRefresh} />
                     </Grid>
                 ))}
             </Grid>
@@ -80,7 +74,7 @@ TripList.propTypes = {
             itinerary: PropTypes.object.isRequired,
         })
     ).isRequired,
-    setTrips: PropTypes.func.isRequired,
+    triggerRefresh: PropTypes.func.isRequired,
 };
 
 export default TripList;
