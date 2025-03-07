@@ -39,7 +39,12 @@ function Itinerary() {
 
     // ensure itinerary is updated
     useEffect(() => {
-        if (state?.itinerary) setItinerary(state?.itinerary);
+        if (state?.itinerary) {
+            let sortedItinerary = [...state.itinerary].sort(
+                (a, b) => a.id - b.id
+            );
+            setItinerary(sortedItinerary);
+        }
         if (state?.tripId) {
             setTripId(state?.tripId);
             console.log(state);
