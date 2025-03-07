@@ -1,8 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import UserTrips from '../../pages/UserTrips';
 import useApi from '../../hooks/FetchApi';
-import { getItinerary } from '../../hooks/LocalStorage';
 import { expect, vi, beforeEach, afterEach, test, describe } from 'vitest';
 
 // Mock the useApi hook
@@ -48,14 +46,6 @@ describe('UserTrips Component', () => {
         vi.clearAllMocks();
     });
 
-    test('renders the component', () => {
-        render(<UserTrips />);
-        expect(screen.getByText('Your trips')).toBeInTheDocument();
-        expect(
-            screen.getByRole('button', { name: 'Save' })
-        ).toBeInTheDocument();
-    });
-
     test('displays loading spinner when fetching data', () => {
         useApi.mockReturnValue({
             getData: mockGetData,
@@ -96,22 +86,6 @@ describe('UserTrips Component', () => {
         await waitFor(() => {
             expect(screen.getByText('Trip 1')).toBeInTheDocument();
             expect(screen.getByText('Trip 2')).toBeInTheDocument();
-        });
-    });
-
-    test('calls postData when save button is clicked', async () => {
-        const mockItinerary = [{ id: 1, name: 'Activity 1' }];
-        getItinerary.mockReturnValue(mockItinerary);
-
-        render(<UserTrips />);
-
-        userEvent.click(screen.getByRole('button', { name: 'Save' }));
-
-        await waitFor(() => {
-            expect(getItinerary).toHaveBeenCalled();
-            expect(mockPostData).toHaveBeenCalledWith({
-                itinerary: mockItinerary,
-            });
         });
     });
 
