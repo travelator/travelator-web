@@ -30,7 +30,7 @@ function TripCard({ trip, updateTrips }) {
 
     const handleDeleteClick = () => {
         deleteData(trip.trip_id);
-        updateTrips(trip.trip_id);
+        updateTrips();
     };
 
     const handleNameChange = (event) => {

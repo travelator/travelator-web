@@ -9,6 +9,11 @@ import Loading from '../components/Loading';
 function UserTrips() {
     const { getData, loading, error } = useApi('trips', false);
     const [trips, setTrips] = useState([]);
+    const [refreshCount, setRefreshCount] = useState(0);
+
+    const triggerRefresh = () => {
+        setRefreshCount(refreshCount + 1);
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -24,7 +29,7 @@ function UserTrips() {
             }
         }
         fetchData();
-    }, []);
+    }, [refreshCount]);
 
     if (loading) {
         return <Loading text="Fetching activities" />;
@@ -38,7 +43,10 @@ function UserTrips() {
                 </div>
                 <Box sx={{ maxWidth: 1200, margin: '0 auto', padding: 3 }}>
                     {trips.length > 0 ? (
-                        <TripList trips={trips} setTrips={setTrips} />
+                        <TripList
+                            trips={trips}
+                            triggerRefresh={triggerRefresh}
+                        />
                     ) : (
                         <p>No trips found!</p>
                     )}
