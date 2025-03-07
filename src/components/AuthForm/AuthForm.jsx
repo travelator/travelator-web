@@ -33,6 +33,7 @@ const AuthForm = ({ type, onSubmit, serverError }) => {
         const minLength = 8;
         const hasNumber = /\d/;
         const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+        const hasCapitalLetter = /[A-Z]/;
 
         if (password.length < minLength) {
             return 'Password must be at least 8 characters long.';
@@ -42,6 +43,9 @@ const AuthForm = ({ type, onSubmit, serverError }) => {
         }
         if (!hasSpecialChar.test(password)) {
             return 'Password must contain at least one special character.';
+        }
+        if (!hasCapitalLetter.test(password)) {
+            return 'Password must contain at least one capital letter.';
         }
         return null;
     };
@@ -124,9 +128,9 @@ const AuthForm = ({ type, onSubmit, serverError }) => {
                             required
                         />
                         <label htmlFor="password" className="password-label">
-                            Password must be at least 8 characters long and
-                            contain at least one number and one special
-                            character.
+                            Password must be at least 8 characters long, contain
+                            a capital letter, have at least one number and one
+                            special character.
                         </label>
                     </>
                 )}
